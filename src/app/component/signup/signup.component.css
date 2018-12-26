@@ -1,0 +1,12 @@
+/* @media (min-width: 768px) */
+.col-md-10 {
+  margin: 5% auto;
+}
+.mat-primary-bg {
+  background: #673ab7;
+  color: #fff;
+}
+
+mat-spinner {
+  margin: auto;
+}

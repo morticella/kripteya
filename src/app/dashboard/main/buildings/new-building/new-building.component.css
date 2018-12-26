@@ -1,0 +1,14 @@
+.col-12-md {
+  /* display:block; */
+  padding: 3%;
+}
+.mat-primary-bg {
+  background: #673ab7;
+  color: #fff;
+}
+section {
+  padding:2% 0;
+}
+mat-spinner {
+  margin: auto;
+}
