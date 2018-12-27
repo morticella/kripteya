@@ -13,6 +13,7 @@ export class NewBuildingComponent implements OnInit {
   errorHeadersStatus: Subscription;
   errorClass: boolean;
   nameInvalid: string;
+  // view: any;
 
   newBuilding = new FormGroup({
     nameBuilding: new FormControl(null, [Validators.required]),
@@ -25,7 +26,7 @@ export class NewBuildingComponent implements OnInit {
 
 
   ngOnInit() {
-
+    // this.view = 0;
     // this.errorHeadersStatus = this.storageData.errorHeadersStatus;
     this.errorHeadersStatus = this.storageData.checkHeadersError()
     .subscribe((status: any) => {
@@ -38,7 +39,9 @@ export class NewBuildingComponent implements OnInit {
       }
 
       if (status === 200) {
-          this.router.navigate(['/dashboard/buildings']);
+          // this.router.navigate(['/dashboard/buildings']);
+          this.storageData.changeView(1);
+          console.log('this view', this.storageData.view);
       }
 
     });

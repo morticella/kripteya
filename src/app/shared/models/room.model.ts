@@ -1,4 +1,4 @@
-import { Customer } from './customer.model';
+// import { Customer } from './customer.model';
 
 export interface Room {
   building: string;
@@ -8,5 +8,5 @@ export interface Room {
   rent: number;
   notice: Date;
   booked: Date;
-  customers: Customer;
+  customers: string;
 }

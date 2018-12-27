@@ -1,0 +1,29 @@
+
+        <mat-card>
+            <!-- <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit a Property</span></div> -->
+              <form [formGroup]="editBuilding" (ngSubmit)="onSubmit()">
+                  <section>
+                      <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
+                          <input matInput type="text" placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" [value]="building.nameBuilding">
+
+                      </mat-form-field>
+                      <div *ngIf="errorClass && editBuilding.value.nameBuilding === nameInvalid" class="alert alert-danger alert-dismissible text-center" color="primary" >
+                          <strong>Error!</strong> This name is already in use, please select a new building name
+                      </div>
+                  </section>
+                  <section>
+                    <mat-form-field class="container-fluid">
+                        <input type="text" matInput placeholder="Address" name="address" formControlName="address" [value]="building.address">
+                    </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <textarea matInput placeholder="Additional Info" name="info" rows="8" formControlName="info" [value]="building.info"></textarea>
+                      </mat-form-field>
+                    </section>
+                  <section class="text-right">
+                      <button mat-raised-button class="text-right" type="submit" color="primary">Edit Building</button>
+                  </section>
+                </form>
+        </mat-card>
+

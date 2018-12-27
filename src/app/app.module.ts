@@ -12,7 +12,7 @@ import {
   MatButtonModule,
   MatTabsModule,
   MatProgressSpinnerModule,
-  MatExpansionModule,
+  MatExpansionModule
 } from '@angular/material';
 
 const appRoutes: Routes = [
@@ -36,6 +36,7 @@ import { PaymentsComponent } from './dashboard/main/payments/payments.component'
 import { ReportsComponent } from './dashboard/main/reports/reports.component';
 import { NewBuildingComponent } from './dashboard/main/buildings/new-building/new-building.component';
 import { ListBuildingComponent } from './dashboard/main/buildings/list-building/list-building.component';
+import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/edit-building.component';
 
 
 
@@ -54,6 +55,8 @@ import { ListBuildingComponent } from './dashboard/main/buildings/list-building/
     ReportsComponent,
     NewBuildingComponent,
     ListBuildingComponent,
+    EditBuildingComponent,
+
   ],
   exports: [
 

@@ -33,4 +33,14 @@ router.post("/api/new-building",checkAuth, function (req, res) {
       });
   });
 
+  router.delete("/api/new-building/:id", checkAuth, (req, res, next) => {
+
+    console.log(req.params.id);
+    Building.deleteOne({ _id: req.params.id }).then(result => {
+      console.log(result);
+      res.status(200).json({ message: "Post deleted!" });
+    });
+  });
+
+
   module.exports = router;

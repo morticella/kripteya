@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
 
+
 @Component({
   selector: 'app-list-building',
   templateUrl: './list-building.component.html',
@@ -13,9 +14,10 @@ export class ListBuildingComponent implements OnInit {
   constructor(private storageData: StorageDataService) { }
   buildingsUpadate: Subscription;
   buildings: any;
+  editView = 0;
 
   ngOnInit() {
-    console.log('aoao');
+    // console.log('aoao');
     this.buildings = this.storageData.loadBuildings();
     console.log(this.buildings);
     this.buildingsUpadate = this.storageData.checkBuildingUpdate()
@@ -23,5 +25,14 @@ export class ListBuildingComponent implements OnInit {
       this.buildings = buildings;
       // console.log('mannaggia' + this.buildings);
     });
- }
+  }
+  onDelete(id: string) {
+    // console.log('id');
+    this.storageData.deleteBuilding(id);
+  }
+
+  onEdit(id: string) {
+    this.editView = 1;
+  }
+
 }
