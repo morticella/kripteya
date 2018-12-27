@@ -11,12 +11,15 @@ import {
   MatInputModule,
   MatButtonModule,
   MatTabsModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatExpansionModule,
 } from '@angular/material';
 
 const appRoutes: Routes = [
   { path: '' , component: SignupComponent },
   { path: 'dashboard' , component: MainComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/buildings' , component: ListBuildingComponent, canActivate: [AuthGuard] },
+
 ];
 
 import { AppComponent } from './app.component';
@@ -32,6 +35,7 @@ import { CustomersComponent } from './dashboard/main/customers/customers.compone
 import { PaymentsComponent } from './dashboard/main/payments/payments.component';
 import { ReportsComponent } from './dashboard/main/reports/reports.component';
 import { NewBuildingComponent } from './dashboard/main/buildings/new-building/new-building.component';
+import { ListBuildingComponent } from './dashboard/main/buildings/list-building/list-building.component';
 
 
 
@@ -49,6 +53,7 @@ import { NewBuildingComponent } from './dashboard/main/buildings/new-building/ne
     PaymentsComponent,
     ReportsComponent,
     NewBuildingComponent,
+    ListBuildingComponent,
   ],
   exports: [
 
@@ -66,7 +71,8 @@ import { NewBuildingComponent } from './dashboard/main/buildings/new-building/ne
     MatInputModule,
     MatButtonModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatExpansionModule
 
   ],
   providers: [

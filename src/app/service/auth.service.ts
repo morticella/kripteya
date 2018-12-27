@@ -46,11 +46,13 @@ export class AuthService {
     };
 
     console.log('risultato', authData);
-    this.http.post('http://localhost:3000/api/signup', authData)
+    this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/signup', authData)
       .subscribe(response => {
         console.log('risultato', response);
       });
   }
+
+
 
   login(userLogin: string, passwordLogin: string, levelLogin: string) {
 

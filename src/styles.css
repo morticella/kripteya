@@ -6,6 +6,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .purple{
   color:#673ab7;
 }
+.textWarn {
+  color: #f44336;
+}
 .md-64{
   font-size:64px;
 }
@@ -15,4 +18,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-size: 2rem;
   line-height: 64px;
   vertical-align: bottom;
+}
+
+.alert-danger {
+  background: #f44336;
+  color: #fff;
+  margin-left:15px;
+  margin-right:15px;
+}
+
+.col-12-md {
+  /* display:block; */
+  padding: 3%;
 }

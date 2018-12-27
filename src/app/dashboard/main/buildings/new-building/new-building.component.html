@@ -1,12 +1,16 @@
 <div class="container-fluid">
     <div class="col-12-md">
         <mat-card>
-            <div class="purple text-center" ><i class="material-icons md-64">local_hotel</i> <span class="titleForm">Create a new Property</span></div>
+            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Create a new Property</span></div>
               <form [formGroup]="newBuilding" (ngSubmit)="onSubmit()">
                   <section>
-                      <mat-form-field class="container-fluid">
-                          <input matInput type="text" placeholder="Name" name="name" formControlName="name">
+                      <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
+                          <input matInput type="text" placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" >
+
                       </mat-form-field>
+                      <div *ngIf="errorClass && newBuilding.value.nameBuilding === nameInvalid" class="alert alert-danger alert-dismissible text-center" color="primary">
+                          <strong>Error!</strong> This name is already in use, please select a new name building
+                      </div>
                   </section>
                   <section>
                     <mat-form-field class="container-fluid">
@@ -15,7 +19,7 @@
                   </section>
                   <section>
                       <mat-form-field class="container-fluid">
-                          <textarea type="text" matInput placeholder="Additional Info" name="info" rows="8" formControlName="info"></textarea>
+                          <textarea matInput placeholder="Additional Info" name="info" rows="8" formControlName="info"></textarea>
                       </mat-form-field>
                     </section>
                   <section class="text-right">
@@ -25,3 +29,6 @@
         </mat-card>
     </div>
 </div>
+<!-- mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored cdk-text-field-autofilled ng-dirty ng-valid ng-touched mat-form-field-invalid
+
+container-fluid mat-form-field ng-tns-c12-1 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-legacy mat-form-field-can-float mat-form-field-hide-placeholder ng-dirty ng-touched mat-form-field-invalid ng-invalid -->

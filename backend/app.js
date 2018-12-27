@@ -15,9 +15,11 @@ mongoose.connect(url)
 });
 
 const userRoutes = require('./routes/users');
+const newBuilding = require('./routes/buildings');
 const dashboardRoutes = require('./routes/dashboard');
 const checkAuth = require("./middleware/check-auth");
 const User = require('./models/users');
+const Buildings = require('./models/buildings');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,12 +32,22 @@ app.use((req, res, next) => {
 });
 
 
-app.use('/dashboard', checkAuth);
+// app.use('/dashboard', checkAuth);
+
+app.get('/api/buildings',checkAuth,(req, res, next) => {
+  Buildings.find()
+  .then(buildingsList => {
+    //console.log('niente',buildingsList);
+    const buildings = buildingsList;
+    res.status(200).json(buildings);
+    next();
+  });
+});
 
 app.use('/api/users',(req, res, next) => {
   User.find()
   .then(usersList => {
-    console.log(usersList);
+    //console.log(usersList);
     const users = usersList;
     res.status(200).json(users);
     next();
@@ -43,5 +55,7 @@ app.use('/api/users',(req, res, next) => {
 });
 
 app.use('', userRoutes);
+
+app.use('', newBuilding);
 
 module.exports = app;

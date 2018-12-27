@@ -1,0 +1,26 @@
+
+
+<div class="container-fluid">
+  <div class="col-12 md">
+      <i class="material-icons md-64">local_hotel</i>
+
+          <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Your Properties</span></div>
+          <mat-expansion-panel color="accent" *ngFor="let building of buildings">
+              <mat-expansion-panel-header>
+                <mat-panel-title color="accent" >
+                  <h4 class="textWarn"><i class="material-icons">home</i> {{building.nameBuilding}}</h4>
+
+                </mat-panel-title>
+                <!-- <mat-panel-description>
+                    {{building.address}}
+                </mat-panel-description> -->
+              </mat-expansion-panel-header>
+
+              <p>{{building.address}}</p>
+              <p>{{building.info}}</p>
+
+            </mat-expansion-panel>
+
+
+  </div>
+</div>
