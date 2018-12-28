@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
@@ -9,30 +9,35 @@ import { StorageDataService } from 'src/app/shared/storage-data.service';
   templateUrl: './list-building.component.html',
   styleUrls: ['./list-building.component.css']
 })
-export class ListBuildingComponent implements OnInit {
+export class ListBuildingComponent implements OnInit, OnDestroy {
 
   constructor(private storageData: StorageDataService) { }
   buildingsUpadate: Subscription;
   buildings: any;
-  editView = 0;
+  buildingId: string;
+  open: boolean;
+  editView = this.storageData.editView;
 
   ngOnInit() {
-    // console.log('aoao');
+
     this.buildings = this.storageData.loadBuildings();
-    console.log(this.buildings);
     this.buildingsUpadate = this.storageData.checkBuildingUpdate()
       .subscribe((buildings: any) => {
+      this.storageData.tabIndex = undefined;
       this.buildings = buildings;
-      // console.log('mannaggia' + this.buildings);
+      this.editView = this.storageData.editView;
+      this.buildingId = this.storageData.buildingId;
+      this.open = false;
     });
   }
   onDelete(id: string) {
-    // console.log('id');
     this.storageData.deleteBuilding(id);
   }
 
   onEdit(id: string) {
     this.editView = 1;
   }
-
+  ngOnDestroy() {
+    this.buildingsUpadate.unsubscribe();
+  }
 }

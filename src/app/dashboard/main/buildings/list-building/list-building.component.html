@@ -1,35 +1,42 @@
-
-
 <div class="container-fluid">
     <div class="col-12 md">
         <i class="material-icons md-64">local_hotel</i>
-
             <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Your Properties</span></div>
-            <mat-expansion-panel color="accent" *ngFor="let building of buildings">
-                <mat-expansion-panel-header>
-                  <mat-panel-title color="accent" >
-                    <h4 class="textWarn"><i class="material-icons">home</i> {{building.nameBuilding}}</h4>
+            <ng-container *ngFor="let building of buildings" >
+                <!-- [expanded]="building._id === buildingId ? true : false" -->
+                <mat-expansion-panel color="accent"  >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title color="accent" >
+                        <h4 class="textWarn"><i class="material-icons">home</i> {{building.nameBuilding}}</h4>
+                      </mat-panel-title>
+                      <!-- <mat-panel-description>
+                          {{building.address}}
+                      </mat-panel-description> -->
+                    </mat-expansion-panel-header>
+                    <app-edit-building *ngIf="editView === 1" [building]="building" ></app-edit-building>
+                      <div *ngIf="editView === 0" >
+                        <p >{{building.address}}</p>
+                        <p >{{building._id}}</p>
 
-                  </mat-panel-title>
-                  <!-- <mat-panel-description>
-                      {{building.address}}
-                  </mat-panel-description> -->
-                </mat-expansion-panel-header>
-
-                <p *ngIf="editView !== 1" >{{building.address}}</p>
-                <p *ngIf="editView !== 1" >{{building._id}}</p>
-
-                    <app-edit-building *ngIf="editView === 1" [building]="building"></app-edit-building>
-
-
-                <section class="text-right" *ngIf="editView !== 1">
-                    <button mat-raised-button class="text-right" type="submit" color="primary">New Room</button>
-                    <button mat-raised-button class="text-right" type="submit" color="accent" (click)="onEdit(building._id)">Edit</button>
-                    <button mat-raised-button class="text-right" color="warn" (click)="onDelete(building._id)">Delete</button>
-                </section>
-
-              </mat-expansion-panel>
-
-
+                        <section class="text-right">
+                          <div class="row text-center">
+                            <div class="col-md-4"></div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary">View Rooms</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary">New Room</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="accent" (click)="onEdit(building._id)">Edit</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(building._id)">Delete</button>
+                              </div>
+                          </div>
+                        </section>
+                      </div>
+                  </mat-expansion-panel>
+            </ng-container>
     </div>
   </div>

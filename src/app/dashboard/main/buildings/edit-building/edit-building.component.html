@@ -1,7 +1,7 @@
 
         <mat-card>
             <!-- <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit a Property</span></div> -->
-              <form [formGroup]="editBuilding" (ngSubmit)="onSubmit()">
+              <form [formGroup]="editBuilding" (ngSubmit)="onSubmit(building._id)">
                   <section>
                       <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
                           <input matInput type="text" placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" [value]="building.nameBuilding">
@@ -22,7 +22,7 @@
                       </mat-form-field>
                     </section>
                   <section class="text-right">
-                      <button mat-raised-button class="text-right" type="submit" color="primary">Edit Building</button>
+                      <button mat-raised-button class="text-right" type="submit" color="primary" [disabled]="!editBuilding.valid">Edit Building</button>
                   </section>
                 </form>
         </mat-card>

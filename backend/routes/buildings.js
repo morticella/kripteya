@@ -33,11 +33,32 @@ router.post("/api/new-building",checkAuth, function (req, res) {
       });
   });
 
+  router.put("/api/new-building/:id",checkAuth, (req, res, next) => {
+
+    let building = {};
+    building.nameBuilding = req.body.nameBuilding;
+    building.address = req.body.address;
+    building.info = req.body.info;
+    // const building = new Building({
+    //   nameBuilding: req.body.nameBuilding,
+    //   address: req.body.address,
+    //   info: req.body.info
+    // });
+    console.log('Building', building);
+    Building.updateOne({ _id: req.params.id }, building).then(
+      res => console.log(res)
+    )
+    .catch(
+      error => console.log(error)
+    );
+
+  });
+
   router.delete("/api/new-building/:id", checkAuth, (req, res, next) => {
 
-    console.log(req.params.id);
+    // console.log(req.params.id);
     Building.deleteOne({ _id: req.params.id }).then(result => {
-      console.log(result);
+      // console.log(result);
       res.status(200).json({ message: "Post deleted!" });
     });
   });

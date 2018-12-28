@@ -14,25 +14,39 @@ export class EditBuildingComponent implements OnInit {
   @Input() building: any;
   errorClass: boolean;
   nameInvalid: string;
+  // buildingId: string;
+  editBuilding: FormGroup;
 
-  editBuilding = new FormGroup({
-    nameBuilding: new FormControl(null, [Validators.required]),
-    address: new FormControl(null, Validators.required),
-    info: new FormControl( null),
-  });
+
+  // editBuilding = new FormGroup({
+  //   nameBuilding: new FormControl(null, [Validators.required]),
+  //   address: new FormControl(null, Validators.required),
+  //   info: new FormControl( null),
+  // });
 
   ngOnInit() {
+
+    this.editBuilding = new FormGroup({
+      nameBuilding: new FormControl(this.building.nameBuilding, [Validators.required]),
+      address: new FormControl(this.building.address, Validators.required),
+      info: new FormControl( this.building.info),
+    });
+
+    // this.editBuilding.nameBuilding.setValue('');
+    console.log('titolo', this.building);
   }
-  onSubmit() {
 
-
-    console.log('we', this.building);
+  onSubmit(id: string) {
+    console.log('we id: ', this.editBuilding);
     // mat-form-field-invalid
     // this.isLoading = true;
-    // const name = this.editBuilding.value.nameBuilding;
-    // const address = this.editBuilding.value.address;
-    // const info = this.editBuilding.value.info;
-    // this.storageData.createNewBuilding(name, address, info);
-    // this.storageData.loadBuildings();
+    this.storageData.buildingId = id;
+    this.storageData.editView = 0;
+    const name = this.editBuilding.value.nameBuilding;
+    const address = this.editBuilding.value.address;
+    const info = this.editBuilding.value.info;
+    this.storageData.editBuilding(id, name, address, info);
+    this.storageData.loadBuildings();
+    // this.storageData.lBuildings(id);
   }
 }
