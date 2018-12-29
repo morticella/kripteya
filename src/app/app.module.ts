@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 import {
   MatToolbarModule,
   MatCardModule,
@@ -12,8 +14,11 @@ import {
   MatButtonModule,
   MatTabsModule,
   MatProgressSpinnerModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatNativeDateModule,
+  MatRadioModule
 } from '@angular/material';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 const appRoutes: Routes = [
   { path: '' , component: SignupComponent },
@@ -37,9 +42,9 @@ import { ReportsComponent } from './dashboard/main/reports/reports.component';
 import { NewBuildingComponent } from './dashboard/main/buildings/new-building/new-building.component';
 import { ListBuildingComponent } from './dashboard/main/buildings/list-building/list-building.component';
 import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/edit-building.component';
-
-
-
+import { NewRoomComponent } from './dashboard/main/buildings/new-room/new-room.component';
+import { MAT_DATE_LOCALE} from '@angular/material/core';
+import { DatepickerComponent } from './dashboard/main/date-format/datepicker/datepicker.component';
 
 
 
@@ -56,6 +61,10 @@ import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/
     NewBuildingComponent,
     ListBuildingComponent,
     EditBuildingComponent,
+    NewRoomComponent,
+    DatepickerComponent,
+
+
 
   ],
   exports: [
@@ -68,6 +77,7 @@ import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
+    AngularFontAwesomeModule,
     MatToolbarModule,
     MatCardModule,
     MatFormFieldModule,
@@ -75,7 +85,10 @@ import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/
     MatButtonModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
 
   ],
   providers: [
@@ -83,6 +96,7 @@ import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/
     AuthService,
     StorageDataService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   ],
   bootstrap: [AppComponent]
 })

@@ -25,7 +25,7 @@ export class ListBuildingComponent implements OnInit, OnDestroy {
       .subscribe((buildings: any) => {
       this.storageData.tabIndex = undefined;
       this.buildings = buildings;
-      this.editView = this.storageData.editView;
+
       this.buildingId = this.storageData.buildingId;
       this.open = false;
     });
@@ -33,9 +33,15 @@ export class ListBuildingComponent implements OnInit, OnDestroy {
   onDelete(id: string) {
     this.storageData.deleteBuilding(id);
   }
-
+  onClose() {
+    this.editView = 0;
+  }
   onEdit(id: string) {
     this.editView = 1;
+  }
+
+  newRoom() {
+    this.editView = 2;
   }
   ngOnDestroy() {
     this.buildingsUpadate.unsubscribe();

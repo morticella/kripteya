@@ -13,6 +13,7 @@ export class NewBuildingComponent implements OnInit, OnDestroy {
   errorHeadersStatus: Subscription;
   errorClass: boolean;
   nameInvalid: string;
+
   // view: any;
 
   newBuilding = new FormGroup({
@@ -29,6 +30,12 @@ export class NewBuildingComponent implements OnInit, OnDestroy {
 
     // this.errorHeadersStatus = this.storageData.errorHeadersStatus;
 
+
+  }
+
+
+  onSubmit() {
+
     this.errorHeadersStatus = this.storageData.checkHeadersError()
     .subscribe((status: any) => {
       // this.storageData.tabIndex = 0;
@@ -38,7 +45,7 @@ export class NewBuildingComponent implements OnInit, OnDestroy {
         this.nameInvalid = this.newBuilding.value.nameBuilding;
         this.errorClass = true;
         this.storageData.tabIndex = 1;
-        console.log(this.nameInvalid, this.newBuilding.value.nameBuilding);
+        // console.log(this.nameInvalid, this.newBuilding.value.nameBuilding);
       }
 
       if (status === 200) {
@@ -50,10 +57,6 @@ export class NewBuildingComponent implements OnInit, OnDestroy {
       }
 
     });
-  }
-
-
-  onSubmit() {
 
     // mat-form-field-invalid
     // this.isLoading = true;

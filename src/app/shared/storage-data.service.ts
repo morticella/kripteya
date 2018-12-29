@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { UsersLevel } from './user-level/user-level.module';
 import { Building } from './models/building.model';
+import { Room } from './models/room.model';
 
 @Injectable()
 export class StorageDataService {
@@ -98,6 +99,33 @@ export class StorageDataService {
       });
   }
 
+
+  createNewRoom(data) {
+
+    const newRoom: Room = {
+      nameBuilding: data.value.nameBuilding,
+      name: data.value.name,
+      rent: data.value.rent,
+      beds: data.value.beds,
+      deposit: data.value.deposit,
+      booked: data.value.booked,
+      notice: data.value.notice
+    };
+
+    this.http.post<{status: number}>(this.urlBackEnd + '/api/new-room', newRoom)
+      .subscribe(response => {
+        // this.tabIndex = 0;
+        // console.log('qui che succede', this.tabIndex);
+        this.errorUpdate.next(200);
+      },
+      error => {
+        if (error.status === 500) {
+          // this.tabIndex = 1;
+          // console.log('qui che succede errore', this.tabIndex);
+          this.errorUpdate.next(500);
+        }
+      });
+  }
   // Observables
 
   checkHeadersError() {

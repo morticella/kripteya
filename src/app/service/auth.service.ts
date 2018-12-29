@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   private setExpirationDate(duration: number) {
-    console.log('Setting time: ', duration);
+    console.log('Setting time : ', duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
@@ -45,10 +45,9 @@ export class AuthService {
       level: levelData
     };
 
-    console.log('risultato', authData);
     this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/signup', authData)
       .subscribe(response => {
-        console.log('risultato', response);
+
       });
   }
 

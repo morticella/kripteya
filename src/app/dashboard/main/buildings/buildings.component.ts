@@ -22,10 +22,8 @@ export class BuildingsComponent implements OnInit, OnDestroy {
     this.tabIndex = this.storageData.checkBuildingUpdate()
     .subscribe((tabIndex: any) => {
       this.tabIndex = this.storageData.tabIndex;
-      console.log('view', this.tabIndex, tabIndex);
     });
     this.tabIndex = this.storageData.tabIndex;
-    console.log('Prima', this.view);
     this.view = this.storageData.checkView()
     .subscribe((view: any) => {
       this.viewUpdate = view;

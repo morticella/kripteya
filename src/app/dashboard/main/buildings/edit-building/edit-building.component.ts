@@ -33,11 +33,11 @@ export class EditBuildingComponent implements OnInit {
     });
 
     // this.editBuilding.nameBuilding.setValue('');
-    console.log('titolo', this.building);
+    // console.log('titolo', this.building);
   }
 
   onSubmit(id: string) {
-    console.log('we id: ', this.editBuilding);
+    // console.log('we id: ', this.editBuilding);
     // mat-form-field-invalid
     // this.isLoading = true;
     this.storageData.buildingId = id;

@@ -1,6 +1,5 @@
 <div class="container-fluid">
     <div class="col-12 md">
-        <i class="material-icons md-64">local_hotel</i>
             <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Your Properties</span></div>
             <ng-container *ngFor="let building of buildings" >
                 <!-- [expanded]="building._id === buildingId ? true : false" -->
@@ -13,8 +12,23 @@
                           {{building.address}}
                       </mat-panel-description> -->
                     </mat-expansion-panel-header>
+
+
+                    <section *ngIf="editView === 1 || editView === 2" class="text-right">
+                        <div class="row text-center">
+                            <div class="col-md-10">
+                            </div>
+                            <div class="col-md-2">
+                                <button mat-raised-button class="text-center" color="accent" (click)="onClose()">Back to menu</button>
+                            </div>
+                        </div>
+                      </section>
+                      <app-new-room *ngIf="editView === 2" [building]="building"></app-new-room>
                     <app-edit-building *ngIf="editView === 1" [building]="building" ></app-edit-building>
-                      <div *ngIf="editView === 0" >
+
+                    <div *ngIf="editView === 0" >
+
+
                         <p >{{building.address}}</p>
                         <p >{{building._id}}</p>
 
@@ -25,7 +39,7 @@
                                   <button mat-raised-button class="text-center" type="submit" color="primary">View Rooms</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary">New Room</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" (click)="newRoom()">New Room</button>
                               </div>
                               <div class="col-md-2">
                                   <button mat-raised-button class="text-center" type="submit" color="accent" (click)="onEdit(building._id)">Edit</button>
@@ -36,6 +50,7 @@
                           </div>
                         </section>
                       </div>
+
                   </mat-expansion-panel>
             </ng-container>
     </div>

@@ -15,8 +15,9 @@ mongoose.connect(url)
 });
 
 const userRoutes = require('./routes/users');
-const newBuilding = require('./routes/buildings');
-const dashboardRoutes = require('./routes/dashboard');
+const Building = require('./routes/buildings');
+const Room = require('./routes/rooms');
+// const dashboardRoutes = require('./routes/dashboard');
 const checkAuth = require("./middleware/check-auth");
 const User = require('./models/users');
 const Buildings = require('./models/buildings');
@@ -56,6 +57,8 @@ app.use('/api/users',(req, res, next) => {
 
 app.use('', userRoutes);
 
-app.use('', newBuilding);
+app.use('', Building);
+
+app.use('', Room);
 
 module.exports = app;
