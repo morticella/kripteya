@@ -17,6 +17,7 @@ const roomSchema = mongoose.Schema({
   beds: { type: Number, required: true },
   rent: { type: Number, required: true },
   deposit: { type: Number, required: true },
+  gender: { type: Boolean, required: true},
   notice: { type: Date},
   booked: { type: Date},
 });

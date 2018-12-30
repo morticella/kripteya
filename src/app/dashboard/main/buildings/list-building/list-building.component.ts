@@ -23,7 +23,7 @@ export class ListBuildingComponent implements OnInit, OnDestroy {
     this.buildings = this.storageData.loadBuildings();
     this.buildingsUpadate = this.storageData.checkBuildingUpdate()
       .subscribe((buildings: any) => {
-      this.storageData.tabIndex = undefined;
+      // this.storageData.tabIndex = undefined;
       this.buildings = buildings;
 
       this.buildingId = this.storageData.buildingId;

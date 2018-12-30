@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import {
   MatToolbarModule,
@@ -24,7 +24,9 @@ const appRoutes: Routes = [
   { path: '' , component: SignupComponent },
   { path: 'dashboard' , component: MainComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/buildings' , component: ListBuildingComponent, canActivate: [AuthGuard] },
-
+  { path: 'dashboard/add-building' , component: NewBuildingComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/edit-building/:id' , component: EditBuildingComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/new-room/:nameBuilding' , component: NewRoomComponent, canActivate: [AuthGuard] },
 ];
 
 import { AppComponent } from './app.component';
@@ -44,7 +46,7 @@ import { ListBuildingComponent } from './dashboard/main/buildings/list-building/
 import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/edit-building.component';
 import { NewRoomComponent } from './dashboard/main/buildings/new-room/new-room.component';
 import { MAT_DATE_LOCALE} from '@angular/material/core';
-import { DatepickerComponent } from './dashboard/main/date-format/datepicker/datepicker.component';
+
 
 
 
@@ -62,7 +64,6 @@ import { DatepickerComponent } from './dashboard/main/date-format/datepicker/dat
     ListBuildingComponent,
     EditBuildingComponent,
     NewRoomComponent,
-    DatepickerComponent,
 
 
 
@@ -77,7 +78,7 @@ import { DatepickerComponent } from './dashboard/main/date-format/datepicker/dat
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    AngularFontAwesomeModule,
+    FontAwesomeModule,
     MatToolbarModule,
     MatCardModule,
     MatFormFieldModule,

@@ -50,6 +50,7 @@ export class StorageDataService {
     this.http.get(this.urlBackEnd + '/api/buildings')
       .subscribe((buildingsData) => {
        this.buildings = buildingsData;
+       console.log(this.buildings);
         this.newBuildingUpdate.next(this.buildings);
       },
       err => console.log(err));
@@ -107,6 +108,7 @@ export class StorageDataService {
       name: data.value.name,
       rent: data.value.rent,
       beds: data.value.beds,
+      gender: data.value.gender,
       deposit: data.value.deposit,
       booked: data.value.booked,
       notice: data.value.notice

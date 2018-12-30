@@ -17,10 +17,10 @@ router.post("/api/new-room",checkAuth, function (req, res) {
       name: req.body.name,
       beds: req.body.beds,
       rent: req.body.rent,
+      gender: req.body.gender,
       deposit: req.body.deposit,
       notice: req.body.notice,
       booked: req.body.booked
-
     });
     room.save()
       .then(result => {

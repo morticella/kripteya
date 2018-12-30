@@ -66,6 +66,7 @@ export class NewBuildingComponent implements OnInit, OnDestroy {
     const info = this.newBuilding.value.info;
     this.storageData.createNewBuilding(name, address, info);
     this.storageData.loadBuildings();
+    this.router.navigate(['dashboard/buildings']);
   }
 
   ngOnDestroy() {

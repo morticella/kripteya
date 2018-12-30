@@ -3,7 +3,7 @@
 export interface Room {
   nameBuilding: string;
   name: string;
-  // gender: string;
+  gender: boolean;
   beds: number;
   rent: number;
   deposit: number;
