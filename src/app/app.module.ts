@@ -6,6 +6,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { MAT_DATE_LOCALE} from '@angular/material/core';
+import { StoreModule, Store } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import {
   MatToolbarModule,
   MatCardModule,
@@ -16,9 +19,10 @@ import {
   MatProgressSpinnerModule,
   MatExpansionModule,
   MatNativeDateModule,
-  MatRadioModule
+  MatRadioModule,
+  MatDatepickerModule
 } from '@angular/material';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 const appRoutes: Routes = [
   { path: '' , component: SignupComponent },
@@ -45,7 +49,8 @@ import { NewBuildingComponent } from './dashboard/main/buildings/new-building/ne
 import { ListBuildingComponent } from './dashboard/main/buildings/list-building/list-building.component';
 import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/edit-building.component';
 import { NewRoomComponent } from './dashboard/main/buildings/new-room/new-room.component';
-import { MAT_DATE_LOCALE} from '@angular/material/core';
+import { BuildingsListReducers } from './dashboard/main/buildings/store/building-list.reducer';
+import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.effects';
 
 
 
@@ -79,6 +84,8 @@ import { MAT_DATE_LOCALE} from '@angular/material/core';
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FontAwesomeModule,
+    StoreModule.forRoot({buildingsList: BuildingsListReducers}),
+    EffectsModule.forRoot([BuildingEffects]),
     MatToolbarModule,
     MatCardModule,
     MatFormFieldModule,
@@ -96,6 +103,8 @@ import { MAT_DATE_LOCALE} from '@angular/material/core';
     AuthGuard,
     AuthService,
     StorageDataService,
+    Store,
+
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   ],

@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
-
+import { Building } from 'src/app/shared/models/building.model';
+import * as fromBuildings from '../store/building-list.reducer';
+import * as buildingsAction from '../store/building-list.actions';
 
 @Component({
   selector: 'app-list-building',
@@ -11,39 +14,26 @@ import { StorageDataService } from 'src/app/shared/storage-data.service';
 })
 export class ListBuildingComponent implements OnInit, OnDestroy {
 
-  constructor(private storageData: StorageDataService) { }
-  buildingsUpadate: Subscription;
-  buildings: any;
-  buildingId: string;
-  open: boolean;
-  editView = this.storageData.editView;
+  constructor(private storageData: StorageDataService,
+              private store: Store<fromBuildings.LoadBuildings>
+              ) { }
+  // buildingsUpadate: Subscription;
+  buildings$: Observable<fromBuildings.LoadBuildings[]>;
+  // buildingsListState: Building[];
+  // buildings: Object;
+  // buildingId: string;
 
   ngOnInit() {
+    this.buildings$ = this.store.select<fromBuildings.LoadBuildings[]>('buildingsList');
 
-    this.buildings = this.storageData.loadBuildings();
-    this.buildingsUpadate = this.storageData.checkBuildingUpdate()
-      .subscribe((buildings: any) => {
-      // this.storageData.tabIndex = undefined;
-      this.buildings = buildings;
-
-      this.buildingId = this.storageData.buildingId;
-      this.open = false;
-    });
+    // console.log('buildings', this.buildings$);
+    this.store.dispatch(new buildingsAction.LoadingBuildings());
   }
   onDelete(id: string) {
     this.storageData.deleteBuilding(id);
   }
-  onClose() {
-    this.editView = 0;
-  }
-  onEdit(id: string) {
-    this.editView = 1;
-  }
 
-  newRoom() {
-    this.editView = 2;
-  }
   ngOnDestroy() {
-    this.buildingsUpadate.unsubscribe();
+    // this.buildingsUpadate.unsubscribe();
   }
 }

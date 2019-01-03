@@ -1,6 +1,7 @@
 // import { Room } from './room.model';
 
 export interface Building {
+  // _id: string;
   nameBuilding: string;
   address: string;
   info: string;

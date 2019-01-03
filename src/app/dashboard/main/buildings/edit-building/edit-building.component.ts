@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
-import { Building } from 'src/app/shared/models/building.model';
+// import { Building } from 'src/app/shared/models/building.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -44,6 +44,7 @@ export class EditBuildingComponent implements OnInit {
      // this.buildings = this.storageData.loadBuildings();
      // console.log(this.storageData.buildings, this.route.snapshot.params['id']);
      if (this.storageData.buildings) {
+       console.log('hey', this.storageData.buildings);
       for (const building of this.storageData.buildings) {
 
         if (building._id === this.route.snapshot.params['id']) {
@@ -51,8 +52,7 @@ export class EditBuildingComponent implements OnInit {
           this.nameBuilding = building.nameBuilding;
           this.address = building.address;
           this.info = building.info;
-         this.editBuilding = new FormGroup({
-
+          this.editBuilding = new FormGroup({
            nameBuilding: new FormControl(building.nameBuilding, [Validators.required]),
            address: new FormControl(building.address, Validators.required),
            info: new FormControl( building.info),
@@ -60,19 +60,17 @@ export class EditBuildingComponent implements OnInit {
 
         }
 
-
-
       }
      }
      if (this.storageData.buildings === undefined) {
-      this.router.navigate(['dashboard/buildings']);
+      // this.router.navigate(['dashboard/buildings']);
     }
   }
 
   onSubmit(id: string) {
 
-    this.storageData.buildingId = id;
-    this.storageData.editView = 0;
+    // this.storageData.buildingId = id;
+    // this.storageData.editView = 0;
     const name = this.editBuilding.value.nameBuilding;
     const address = this.editBuilding.value.address;
     const info = this.editBuilding.value.info;

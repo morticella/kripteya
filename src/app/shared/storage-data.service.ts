@@ -23,6 +23,7 @@ export class StorageDataService {
   private errorUpdate = new Subject<number>();
 
   buildings: any;
+  buildingsTest: Building[];
   errorHeadersStatus: number;
   users: any;
   data: any;
@@ -50,7 +51,7 @@ export class StorageDataService {
     this.http.get(this.urlBackEnd + '/api/buildings')
       .subscribe((buildingsData) => {
        this.buildings = buildingsData;
-       console.log(this.buildings);
+       // console.log(this.buildings);
         this.newBuildingUpdate.next(this.buildings);
       },
       err => console.log(err));
@@ -80,6 +81,7 @@ export class StorageDataService {
   createNewBuilding(name: string, address: string, info: string) {
 
     const newBuilding: Building = {
+      // _id: null,
       nameBuilding: name,
       address: address,
       info: info,

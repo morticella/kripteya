@@ -1,5 +1,8 @@
 
-            <div class="purple text-center" >        <i class="material-icons md-64">local_hotel</i> <span class="titleForm">Create a new Room</span></div>
+         <div class="container-fluid">
+            <div class="col-md-12">
+<mat-card>
+         <div class="purple text-center" >        <i class="material-icons md-64">local_hotel</i> <span class="titleForm">Create a new Room</span></div>
             <form [formGroup]="newRoom" (ngSubmit)="onSubmit()">
                 <section class="container-fluid">
 
@@ -53,4 +56,5 @@
                     <button mat-raised-button class="text-right" type="submit" color="primary">Insert New Room</button>
                 </section>
               </form>
-
+            </mat-card>
+</div></div>
