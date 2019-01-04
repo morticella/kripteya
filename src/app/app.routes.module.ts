@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './service/auth.guard';
 
 // SignUp/Signin Home
-import { SignupComponent } from './component/signup/signup.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 // Dashboard
 import { MainComponent } from './dashboard/main/main.component';

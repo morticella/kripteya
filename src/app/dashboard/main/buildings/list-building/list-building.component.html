@@ -4,7 +4,7 @@
 
         </div>
             <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Your Properties</span></div>
-            <ng-container *ngFor="let building of (buildings$ | async).buildings" >
+            <ng-container *ngFor="let building of (buildings | async).buildings" >
                 <mat-expansion-panel color="accent"  >
                     <mat-expansion-panel-header>
                       <mat-panel-title color="accent" >

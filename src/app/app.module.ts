@@ -10,7 +10,6 @@ import { environment } from '../environments/environment';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { AppEffects } from './app.effects';
 import { AppComponent } from './app.component';
 
 import { HeaderComponent } from './header/header.component';
@@ -18,7 +17,7 @@ import { MatSharedModule } from './shared/matShared.module';
 import { AppRoutesModule } from './app.routes.module';
 import { BuildingsModule } from './dashboard/main/buildings/buildings.module';
 import { DashboardModule } from './dashboard/main/dashboard.module';
-import { SignupComponent } from './component/signup/signup.component';
+import { SignupComponent } from './auth/signup/signup.component';
 import { StorageDataService } from './shared/storage-data.service';
 
 import { AuthService } from './service/auth.service';
@@ -29,6 +28,7 @@ import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.e
 // import { metaReducers } from './dashboard/main/buildings/store/building-list.reducer';
 
 import { NewRoomComponent } from './dashboard/main/buildings/new-room/new-room.component';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -48,10 +48,14 @@ import { NewRoomComponent } from './dashboard/main/buildings/new-room/new-room.c
     HttpClientModule,
     MatSharedModule,
     FontAwesomeModule,
-    // StoreModule.forRoot(,{ metaReducers }),
-    StoreModule.forRoot({statusList: BuildingsListReducers}),
+
+
+    // StoreModule.forRoot({statusList: BuildingsListReducers}),
+    // !environment.production ? StoreDevtoolsModule.instrument() : [],
+
+    EffectsModule.forRoot([BuildingEffects]),
+    StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([BuildingEffects, AppEffects]),
   ],
   providers: [
     AuthService,

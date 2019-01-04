@@ -4,6 +4,6 @@ export interface StateBuildings {
   buildings?: Building[];
   building: any;
   loading: boolean;
-  loaded: boolean;
+  logged: boolean;
   error: boolean;
 }

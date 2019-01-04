@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 import {tap} from 'rxjs/operators';
-import * as fromBuildings from '../store/building-list.reducer';
+import * as fromBuildings from '../../../../reducers/index';
+// import * as fromBuildings from '../store/building-list.reducer';
 import * as buildingsAction from '../store/building-list.actions';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
@@ -39,12 +40,12 @@ export class NewBuildingComponent implements OnInit {
 
   ngOnInit() {
 
-    this.errors$ = this.store.select<fromBuildings.AppState[]>('statusList');
+    this.errors$ = this.store.select<fromBuildings.AppState[]>('buildings');
   }
 
-  onSubmit(buildingData: FormGroup) {
-    this.store.select<fromBuildings.AppState[]>('statusList');
+  onSubmit(newBuilding: FormGroup) {
+    this.store.select<fromBuildings.AppState[]>('buildings');
         // this.store.dispatch(new buildingsAction.AddBuildingFailed(false));
-        this.store.dispatch(new buildingsAction.AddBuilding(buildingData.value));
+        this.store.dispatch(new buildingsAction.AddBuilding(newBuilding.value));
   }
 }

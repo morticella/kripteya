@@ -9,7 +9,7 @@ import * as BuildingsListActions from '../store/building-list.actions';
 import {Building} from '../../../../shared/models/building.model';
 // import { BuildingsListReducers } from './building-list.reducer';
 import { Store } from '@ngrx/store';
-import * as fromBuildings from '../store/building-list.reducer';
+// import * as fromBuildings from '../store/building-list.reducer';
 
 // import { Action } from 'rxjs/internal/scheduler/Action';
 import { of } from 'rxjs';
@@ -47,7 +47,7 @@ export class BuildingEffects {
  constructor(
    private actions$: Actions,
    private http: HttpClient,
-   private store: Store < fromBuildings.AppState > ,
+   // private store: Store < fromBuildings.AppState > ,
    private router: Router) {}
 
 }

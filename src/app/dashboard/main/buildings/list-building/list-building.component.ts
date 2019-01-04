@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
 import { Building } from 'src/app/shared/models/building.model';
-import * as fromBuildings from '../store/building-list.reducer';
+
+// import * as fromBuildings from '../store/building-list.reducer';
+import * as fromBuildings from '../../../../reducers/index';
 import * as buildingsAction from '../store/building-list.actions';
 
 @Component({
@@ -20,12 +22,14 @@ export class ListBuildingComponent implements OnInit, OnDestroy {
               ) {}
 
   buildings$: Observable<fromBuildings.AppState[]>;
+  buildings: any;
 
 
   ngOnInit() {
-    this.buildings$ = this.store.select<fromBuildings.AppState[]>('statusList');
-
-    // console.log('buildings', this.buildings$);
+    this.buildings$ = this.store.select<fromBuildings.AppState[]>('buildings');
+    // this.buildings$ = this.store.select<fromBuildings.AppState[]>('statusList');
+    this.buildings = this.buildings$;
+    // console.log('buildings', this.buildings$, this.buildings);
     this.store.dispatch(new buildingsAction.LoadingBuildings());
   }
   onDelete(id: string) {
