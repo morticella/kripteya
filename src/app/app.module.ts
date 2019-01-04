@@ -23,7 +23,7 @@ import { StorageDataService } from './shared/storage-data.service';
 import { AuthService } from './service/auth.service';
 import { AuthInterceptor } from './service/auth-interceptor';
 
-import { BuildingsListReducers } from './dashboard/main/buildings/store/building-list.reducer';
+// import { BuildingsListReducers } from './dashboard/main/buildings/store/building-list.reducer';
 import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.effects';
 // import { metaReducers } from './dashboard/main/buildings/store/building-list.reducer';
 

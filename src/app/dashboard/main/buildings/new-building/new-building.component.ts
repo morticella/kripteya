@@ -37,13 +37,16 @@ export class NewBuildingComponent implements OnInit {
     ) { }
 
     errors$: Observable<fromBuildings.AppState[]>;
+    errors: any;
 
   ngOnInit() {
 
     this.errors$ = this.store.select<fromBuildings.AppState[]>('buildings');
+    this.errors = this.errors$;
   }
 
   onSubmit(newBuilding: FormGroup) {
+    this.errors = this.errors$;
     this.store.select<fromBuildings.AppState[]>('buildings');
         // this.store.dispatch(new buildingsAction.AddBuildingFailed(false));
         this.store.dispatch(new buildingsAction.AddBuilding(newBuilding.value));

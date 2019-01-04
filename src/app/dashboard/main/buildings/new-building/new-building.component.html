@@ -1,33 +1,33 @@
 <div class="container-fluid">
-    <div class="col-md-12">
-        <mat-card>
-            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Create a new Property</span></div>
-              <form [formGroup]="newBuilding" (ngSubmit)="onSubmit(newBuilding)">
-                  <section>
-                      <mat-form-field class="container-fluid" [ngClass]="(errors$ | async).error ? 'mat-form-field-invalid ng-invalid' : ''">
-                          <input matInput type="text" placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" >
+  <div class="col-md-12">
+      <mat-card>
+          <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Create a new Property</span></div>
+            <form [formGroup]="newBuilding" (ngSubmit)="onSubmit(newBuilding)">
+                <section>
+                    <mat-form-field class="container-fluid" [ngClass]="(errors | async).error ? 'mat-form-field-invalid ng-invalid' : ''">
+                        <input matInput type="text" placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" >
 
-                      </mat-form-field>
-                      <div *ngIf="(errors$ | async).error" class="alert alert-danger alert-dismissible text-center" color="primary">
-                          <strong>Error!</strong> This name is already in use, please select a new name building
-                      </div>
-                  </section>
-                  <section>
+                    </mat-form-field>
+                    <div *ngIf="(errors | async).error" class="alert alert-danger alert-dismissible text-center" color="primary">
+                        <strong>Error!</strong> This name is already in use, please select a new name building
+                    </div>
+                </section>
+                <section>
+                  <mat-form-field class="container-fluid">
+                      <input type="text" matInput placeholder="Address" name="address" formControlName="address">
+                  </mat-form-field>
+                </section>
+                <section>
                     <mat-form-field class="container-fluid">
-                        <input type="text" matInput placeholder="Address" name="address" formControlName="address">
+                        <textarea matInput placeholder="Additional Info" name="info" rows="8" formControlName="info"></textarea>
                     </mat-form-field>
                   </section>
-                  <section>
-                      <mat-form-field class="container-fluid">
-                          <textarea matInput placeholder="Additional Info" name="info" rows="8" formControlName="info"></textarea>
-                      </mat-form-field>
-                    </section>
-                  <section class="text-right">
-                      <button mat-raised-button class="text-right" type="submit" color="primary">Insert New Building</button>
-                  </section>
-                </form>
-        </mat-card>
-    </div>
+                <section class="text-right">
+                    <button mat-raised-button class="text-right" type="submit" color="primary">Insert New Building</button>
+                </section>
+              </form>
+      </mat-card>
+  </div>
 </div>
 <!-- mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored cdk-text-field-autofilled ng-dirty ng-valid ng-touched mat-form-field-invalid
 
