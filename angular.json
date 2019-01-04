@@ -136,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "kripteya"
+  "defaultProject": "kripteya",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

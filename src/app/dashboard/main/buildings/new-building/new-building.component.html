@@ -4,11 +4,11 @@
             <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Create a new Property</span></div>
               <form [formGroup]="newBuilding" (ngSubmit)="onSubmit(newBuilding)">
                   <section>
-                      <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
+                      <mat-form-field class="container-fluid" [ngClass]="(errors$ | async).error ? 'mat-form-field-invalid ng-invalid' : ''">
                           <input matInput type="text" placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" >
 
                       </mat-form-field>
-                      <div *ngIf="errorClass && newBuilding.value.nameBuilding === nameInvalid" class="alert alert-danger alert-dismissible text-center" color="primary">
+                      <div *ngIf="(errors$ | async).error" class="alert alert-danger alert-dismissible text-center" color="primary">
                           <strong>Error!</strong> This name is already in use, please select a new name building
                       </div>
                   </section>

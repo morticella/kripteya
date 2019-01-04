@@ -6,22 +6,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { MAT_DATE_LOCALE} from '@angular/material/core';
+// import { MAT_DATE_LOCALE} from '@angular/material/core';
 import { StoreModule, Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  MatToolbarModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonModule,
-  MatTabsModule,
-  MatProgressSpinnerModule,
-  MatExpansionModule,
-  MatNativeDateModule,
-  MatRadioModule,
-  MatDatepickerModule
-} from '@angular/material';
+
 
 
 const appRoutes: Routes = [
@@ -51,6 +39,11 @@ import { EditBuildingComponent } from './dashboard/main/buildings/edit-building/
 import { NewRoomComponent } from './dashboard/main/buildings/new-room/new-room.component';
 import { BuildingsListReducers } from './dashboard/main/buildings/store/building-list.reducer';
 import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.effects';
+// import { metaReducers } from './dashboard/main/buildings/store/building-list.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { AppEffects } from './app.effects';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -61,20 +54,16 @@ import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.e
     HeaderComponent,
     SignupComponent,
     MainComponent,
-    BuildingsComponent,
     CustomersComponent,
     PaymentsComponent,
     ReportsComponent,
+
+    BuildingsComponent,
     NewBuildingComponent,
     ListBuildingComponent,
     EditBuildingComponent,
+
     NewRoomComponent,
-
-
-
-  ],
-  exports: [
-
   ],
   imports: [
     BrowserModule,
@@ -83,30 +72,20 @@ import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.e
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
+    SharedModule,
     FontAwesomeModule,
-    StoreModule.forRoot({buildingsList: BuildingsListReducers}),
-    EffectsModule.forRoot([BuildingEffects]),
-    MatToolbarModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatProgressSpinnerModule,
-    MatExpansionModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule
-
+    // StoreModule.forRoot(,{ metaReducers }),
+    StoreModule.forRoot({statusList: BuildingsListReducers}),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([BuildingEffects, AppEffects]),
   ],
   providers: [
     AuthGuard,
     AuthService,
     StorageDataService,
     Store,
-
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    // {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   ],
   bootstrap: [AppComponent]
 })

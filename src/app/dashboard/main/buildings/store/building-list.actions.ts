@@ -2,9 +2,10 @@ import {Action} from '@ngrx/store';
 import { Building } from '../../../../shared/models/building.model';
 
 export const ADD_BUILDING = 'ADD_BUILDING';
-export const ADDED_BUILDING = 'ADD_BUILDING';
+export const ADD_BUILDING_FAILED = 'ADD_BUILDING_FAILED';
+export const ADD_BUILDING_SUCCESS = 'ADD_BUILDING_SUCCESS';
 export const LOADING_BUILDINGS = 'LOADING_BUILDINGS';
-export const SUCCESS_BUILDING = 'SUCCESS_BUILDING';
+export const LOADING_BUILDINGS_SUCCESS = 'LOADING_BUILDINGS_SUCCESS';
 
 export class AddBuilding implements Action {
 
@@ -12,9 +13,15 @@ export class AddBuilding implements Action {
   constructor(public payload: Building) {}
 
 }
-export class AddedBuilding implements Action {
-  readonly type = ADDED_BUILDING;
-  // constructor(public payload: Building) {}
+export class AddBuildingFailed implements Action {
+
+  readonly type = ADD_BUILDING_FAILED;
+  constructor(public error: boolean) {}
+
+}
+export class AddBuildingSuccess implements Action {
+  readonly type = ADD_BUILDING_SUCCESS;
+  constructor(public payload: Building) {}
 
 }
 export class LoadingBuildings implements Action {
@@ -23,7 +30,7 @@ export class LoadingBuildings implements Action {
 }
 
 export class SuccessBuilding implements Action {
-  readonly type = SUCCESS_BUILDING;
+  readonly type = LOADING_BUILDINGS_SUCCESS;
   constructor(public payload: Building[]) {}
 }
 
@@ -31,4 +38,5 @@ export type BuildingsListAction =
               SuccessBuilding |
               AddBuilding |
               LoadingBuildings |
-              AddedBuilding;
+              AddBuildingSuccess |
+              AddBuildingFailed;

@@ -8,6 +8,7 @@ import * as buildingsAction from '../store/building-list.actions';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
 import { Store } from '@ngrx/store';
+// import { StateBuildings } from 'src/app/shared/models/stateBuildings.model';
 @Component({
   selector: 'app-new-building',
   templateUrl: './new-building.component.html',
@@ -19,6 +20,8 @@ export class NewBuildingComponent implements OnInit {
   // nameInvalid: string;
   // payload: any;
   // view: any;
+  // stateBuildings: StateBuildings;
+  // storeBuildings: any;
 
   newBuilding = new FormGroup({
     nameBuilding: new FormControl(null, [Validators.required]),
@@ -29,16 +32,20 @@ export class NewBuildingComponent implements OnInit {
   constructor(
     private storageData: StorageDataService,
     private router: Router,
-    private store: Store<fromBuildings.LoadBuildings>,
+    private store: Store<fromBuildings.AppState>,
     ) { }
 
-    buildings$: Observable<fromBuildings.LoadBuildings[]>;
+    errors$: Observable<fromBuildings.AppState[]>;
 
   ngOnInit() {
 
+    this.errors$ = this.store.select<fromBuildings.AppState[]>('statusList');
   }
-  onSubmit(data: FormGroup) {
-        this.store.dispatch(new buildingsAction.AddBuilding(data.value));
+
+  onSubmit(buildingData: FormGroup) {
+    this.store.select<fromBuildings.AppState[]>('statusList');
+        // this.store.dispatch(new buildingsAction.AddBuildingFailed(false));
+        this.store.dispatch(new buildingsAction.AddBuilding(buildingData.value));
   }
 }
 

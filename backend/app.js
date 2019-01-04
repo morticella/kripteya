@@ -37,9 +37,9 @@ app.use((req, res, next) => {
 
 app.get('/api/buildings',checkAuth,(req, res, next) => {
   Buildings.find()
-  .then(buildingsList => {
-    //console.log('niente',buildingsList);
-    const buildings = buildingsList;
+  .then(statusList => {
+    //console.log('niente',statusList);
+    const buildings = statusList;
     res.status(200).json(buildings);
     next();
   });

@@ -14,17 +14,16 @@ import * as buildingsAction from '../store/building-list.actions';
 })
 export class ListBuildingComponent implements OnInit, OnDestroy {
 
-  constructor(private storageData: StorageDataService,
-              private store: Store<fromBuildings.LoadBuildings>
-              ) { }
-  // buildingsUpadate: Subscription;
-  buildings$: Observable<fromBuildings.LoadBuildings[]>;
-  // buildingsListState: Building[];
-  // buildings: Object;
-  // buildingId: string;
+  constructor(
+    private storageData: StorageDataService,
+    private store: Store<fromBuildings.AppState>
+              ) {}
+
+  buildings$: Observable<fromBuildings.AppState[]>;
+
 
   ngOnInit() {
-    this.buildings$ = this.store.select<fromBuildings.LoadBuildings[]>('buildingsList');
+    this.buildings$ = this.store.select<fromBuildings.AppState[]>('statusList');
 
     // console.log('buildings', this.buildings$);
     this.store.dispatch(new buildingsAction.LoadingBuildings());
