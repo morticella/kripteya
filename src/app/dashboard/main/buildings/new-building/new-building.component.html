@@ -1,7 +1,8 @@
 <div class="container-fluid">
   <div class="col-md-12">
+      <mat-spinner *ngIf="errors.loading"></mat-spinner>
       <mat-card>
-          <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Create a new Property</span></div>
+          <div  class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Create a new Property</span></div>
             <form [formGroup]="newBuilding" (ngSubmit)="onSubmit(newBuilding)">
                 <section>
                     <mat-form-field class="container-fluid" [ngClass]="(errors | async).error ? 'mat-form-field-invalid ng-invalid' : ''">
@@ -23,7 +24,7 @@
                     </mat-form-field>
                   </section>
                 <section class="text-right">
-                    <button mat-raised-button class="text-right" type="submit" color="primary">Insert New Building</button>
+                    <button mat-raised-button class="text-right" type="submit" color="primary" [disabled]="!newBuilding.valid">Insert New Building</button>
                 </section>
               </form>
       </mat-card>

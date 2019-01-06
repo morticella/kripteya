@@ -11,7 +11,6 @@ export enum BuildingsActionTypes {
 }
 
 export class AddBuilding implements Action {
-
   readonly type = BuildingsActionTypes.AddBuilding;
   constructor(public payload: Building) {}
 
@@ -34,7 +33,7 @@ export class LoadingBuildings implements Action {
 
 export class LoadingBuildingsSuccess implements Action {
   readonly type = BuildingsActionTypes.LoadingBuildingsSuccess;
-  constructor(public payload: Building[]) {}
+  constructor(public payload: { buildings: Building[]}) {}
 }
 export class LoadingBuildingsFailed implements Action {
   readonly type = BuildingsActionTypes.LoadingBuildingsFailed;

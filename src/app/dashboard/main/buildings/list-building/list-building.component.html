@@ -3,8 +3,12 @@
         <div class="col-md-2">
 
         </div>
-            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Your Properties</span></div>
-            <ng-container *ngFor="let building of (buildings | async).buildings" >
+            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm" *ngIf="!buildings.loading">Your Properties</span></div>
+            <div *ngIf="(buildings | async).error" class="alert alert-danger alert-dismissible text-center" color="primary">
+                <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
+            </div>
+            <mat-spinner *ngIf="buildings.loading"></mat-spinner>
+            <ng-container *ngFor="let building of (buildings | async).entities.allLoadedBuildings" >
                 <mat-expansion-panel color="accent"  >
                     <mat-expansion-panel-header>
                       <mat-panel-title color="accent" >
