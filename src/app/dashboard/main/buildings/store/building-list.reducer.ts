@@ -1,4 +1,4 @@
-import * as BuildingsListReducers from './building-list.actions';
+import {BuildingsActionTypes} from './building-list.actions';
 import {Building} from '../../../../shared/models/building.model';
 
 export interface BuildingsState {
@@ -19,7 +19,29 @@ export const initialState: BuildingsState = {
 
 export function BuildingsReducers(state: BuildingsState = initialState, action): BuildingsState {
   switch (action.type) {
-    case BuildingsListReducers.LOADING_BUILDINGS_SUCCESS: {
+    case BuildingsActionTypes.LoadingBuildings: {
+      const loading = true;
+      const logged = false;
+      const error = false;
+      return {
+      ...state,
+      loading,
+      logged,
+      error,
+    };
+    }
+    case BuildingsActionTypes.LoadingBuildingsFailed: {
+      const loading = false;
+      const logged = true;
+      const error = action.error;
+      return {
+      ...state,
+      loading,
+      logged,
+      error
+    };
+  }
+    case BuildingsActionTypes.LoadingBuildingsSuccess: {
       const buildings = action.payload;
       const loading = false;
       const logged = true;
@@ -31,39 +53,30 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
       logged,
       error
     };
-  }
-
-    case BuildingsListReducers.ADD_BUILDING: {
-      // const building = action.payload;
-      // console.log('payload', building);
+    }
+    case BuildingsActionTypes.AddBuilding: {
       const loading = true;
       const logged = false;
       const error = false;
       return {
       ...state,
-      // building,
       loading,
       logged,
       error
     };
   }
-  case BuildingsListReducers.ADD_BUILDING_FAILED: {
-    // const building = action.payload;
-    // console.log('payload', building);
+  case BuildingsActionTypes.AddBuildingFailed: {
     const error = action.error;
     const loading = false;
     const logged = true;
     return {
     ...state,
-    // building,
     loading,
     logged,
     error
   };
 }
-  case BuildingsListReducers.ADD_BUILDING_SUCCESS: {
-    // const building = action.payload;
-    // console.log('ADDED ') ;
+  case BuildingsActionTypes.AddBuildingSuccess: {
     const loading = false;
     const logged = true;
     const error = false;
@@ -76,17 +89,6 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
     error,
   };
 }
-    case BuildingsListReducers.LOADING_BUILDINGS: {
-      const loading = true;
-      const logged = false;
-      const error = false;
-      return {
-      ...state,
-      loading,
-      logged,
-      error,
-    };
-  }
     default: return state;
 }
 }
