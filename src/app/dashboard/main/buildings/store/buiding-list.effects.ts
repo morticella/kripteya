@@ -12,6 +12,7 @@ import * as BuildingsActions from '../store/building-list.actions';
 import * as fromBuildings from '../store/building-list.reducer';
 import { Building } from '../../../../shared/models/building.model';
 import { StateBuildings } from 'src/app/shared/models/stateBuildings.model';
+import { Buildings } from 'src/app/shared/models/buildings.model';
 
 
 
@@ -22,7 +23,7 @@ export class BuildingEffects {
   error = 0;
   @Effect()
  loadBuildings$ = this.actions$
- .pipe(ofType<BuildingsActions.LoadingBuildings>(BuildingsActionTypes.LoadingBuildings), mergeMap( () => {
+ .pipe(ofType<BuildingsActions.LoadingBuildings>(BuildingsActionTypes.LoadingBuildings), switchMap( () => {
   return this.http.get<any>(this.urlBackEnd + '/api/buildings').pipe(
     map(
       data => new BuildingsActions.LoadingBuildingsSuccess(data)
@@ -38,7 +39,7 @@ export class BuildingEffects {
    (action: BuildingsActions.AddBuilding) => {
    this.newBuilding = action.payload, this.error = 0;
     return this.http.post<Building>(this.urlBackEnd + '/api/new-building', this.newBuilding)
-    .pipe(select(BuildingsActions.LoadingBuildings),
+    .pipe(
     map(
        () => new BuildingsActions.AddBuildingSuccess(this.newBuilding),
     ),

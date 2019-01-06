@@ -1,25 +1,27 @@
 import {BuildingsActionTypes} from './building-list.actions';
-import {Building} from '../../../../shared/models/building.model';
+import {Buildings} from '../../../../shared/models/buildings.model';
 import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
 
-export interface BuildingsState extends EntityState<Building> {
-  allBuildings: boolean;
+export interface BuildingsState extends EntityState<Buildings> {
+  // allBuildings: boolean;
   // ids: string[];
-  entities: {[ids: string]: Building};
+  // buildings: {[_id: string]: Building};
   building: any;
   loading: boolean;
   logged: boolean;
   error: boolean;
 }
 
-export const adapter: EntityAdapter<Building> =
-  createEntityAdapter<Building>();
+export const adapter: EntityAdapter<Buildings> =
+  createEntityAdapter<Buildings>({selectId: buildings => buildings._id});
 
 
 export const initialState: BuildingsState = adapter.getInitialState({
-  allBuildings: false,
+  // allBuildings: false,
   // ids: [],
-  entities: {},
+  // buildings: {} ,
+  ids: [],
+    entities: {},
   building: null,
   loading: false,
   logged: true,
@@ -58,33 +60,40 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
       const logged = true;
       const error = false;
 
- const allLoadedBuildings = action.payload;
-      // return adapter.addAll(action.payload, {
+ // const allLoadedBuildings = action.payload;
+
+      // const ids = [];
+      // for (const id of action.payload) {
+      //   ids.push(id._id);
+      // }
+      // return adapter.upsertMany(action.payload, {
       //   ...state,
-      //   allBuildings: true,
       //   loading,
       //   logged,
       //   error,
-      //   // ids,
-      //   entities: allLoadedBuildings,
-      //   ids: allLoadedBuildings._id
-
       // });
-      const ids = [];
-      for (const id of action.payload) {
-        ids.push(id._id);
-      }
 
-      return  {
-        ...state,
-        allBuildings: true,
-        entities:  {allLoadedBuildings},
-        ids,
+      return adapter.addAll(action.payload,
+        {
+            ...state,
         loading,
         logged,
         error,
-      };
+        });
+
+      // return   {
+      //   ...state,
+      //   ids,
+
+      //    buildings: allLoadedBuildings,
+      //   loading,
+      //   logged,
+      //   error,
+      // };
     }
+
+
+
     case BuildingsActionTypes.AddBuilding: {
       const loading = true;
       const logged = false;

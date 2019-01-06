@@ -8,8 +8,8 @@
                 <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
             </div>
             <mat-spinner *ngIf="buildings.loading"></mat-spinner>
-            <ng-container *ngFor="let building of (buildings | async).entities.allLoadedBuildings" >
-                <mat-expansion-panel color="accent"  >
+            <ng-container *ngFor="let building of (buildings | async).buildings.entities" >
+                <mat-expansion-panel color="accent" *ngIf="!buildings.loading" >
                     <mat-expansion-panel-header>
                       <mat-panel-title color="accent" >
                         <h4 class="textWarn"><i class="material-icons">home</i> {{building.nameBuilding}}</h4>

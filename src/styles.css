@@ -34,3 +34,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   /* display:block; */
   padding: 3%;
 }
+
+mat-spinner {
+  margin:auto;
+}

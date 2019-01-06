@@ -22,16 +22,16 @@ export class ListBuildingComponent implements OnInit, OnDestroy {
     private store: Store<fromBuildings.BuildingsState>
               ) {}
 
-  buildings$: Observable<fromBuildings.BuildingsState[]>;
+  buildings$: Observable<fromBuildings.BuildingsState>;
   buildings: any;
 
 
   ngOnInit() {
-    this.buildings$ = this.store.select<fromBuildings.BuildingsState[]>('buildings');
+    this.buildings$ = this.store.select('buildings');
     // this.store.select<fromBuildings.BuildingsState>
     // this.buildings$ = this.store.select<fromBuildings.AppState[]>('statusList');
     this.buildings = this.buildings$;
-    console.log('buildings', this.buildings$, this.buildings.buildings);
+    console.log('buildings', this.buildings$);
     this.store.dispatch(new buildingsAction.LoadingBuildings());
   }
   onDelete(id: string) {

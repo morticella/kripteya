@@ -28,6 +28,7 @@ export class AddBuildingSuccess implements Action {
 }
 export class LoadingBuildings implements Action {
   readonly type = BuildingsActionTypes.LoadingBuildings;
+  // constructor(public payload: { buildings: Building[]}) {}
 
 }
 
