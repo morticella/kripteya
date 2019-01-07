@@ -1,11 +1,10 @@
 import {BuildingsActionTypes} from './building-list.actions';
 import {Buildings} from '../../../../shared/models/buildings.model';
 import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
+import { Building } from 'src/app/shared/models/building.model';
 
 export interface BuildingsState extends EntityState<Buildings> {
-  // allBuildings: boolean;
-  // ids: string[];
-  // buildings: {[_id: string]: Building};
+
   building: any;
   loading: boolean;
   logged: boolean;
@@ -17,11 +16,8 @@ export const adapter: EntityAdapter<Buildings> =
 
 
 export const initialState: BuildingsState = adapter.getInitialState({
-  // allBuildings: false,
-  // ids: [],
-  // buildings: {} ,
-  ids: [],
-    entities: {},
+
+  entities: {},
   building: null,
   loading: false,
   logged: true,
@@ -36,8 +32,6 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
       const error = false;
       return  {
       ...state,
-      // allBuildings: false,
-      // buildings: true,
       loading,
       logged,
       error,
@@ -55,41 +49,18 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
     };
   }
     case BuildingsActionTypes.LoadingBuildingsSuccess: {
-      // const buildings = action.payload;
+
       const loading = false;
       const logged = true;
       const error = false;
 
- // const allLoadedBuildings = action.payload;
-
-      // const ids = [];
-      // for (const id of action.payload) {
-      //   ids.push(id._id);
-      // }
-      // return adapter.upsertMany(action.payload, {
-      //   ...state,
-      //   loading,
-      //   logged,
-      //   error,
-      // });
-
       return adapter.addAll(action.payload,
         {
-            ...state,
+        ...state,
         loading,
         logged,
         error,
         });
-
-      // return   {
-      //   ...state,
-      //   ids,
-
-      //    buildings: allLoadedBuildings,
-      //   loading,
-      //   logged,
-      //   error,
-      // };
     }
 
 

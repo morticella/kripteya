@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { BuildingsState } from './building-list.reducer';
+import * as fromBuildings from './building-list.reducer';
 
 
 
@@ -14,11 +15,7 @@ export const selectBuildingById = (ids: string) => createSelector(
 
 export const selectAllBuildings = createSelector(
   selectBuildingState,
-
-    buildings => {
-        const allBuildings = Object.values(buildings.entities);
-        return allBuildings;
-    }
+  fromBuildings.selectAll
 
 
 );

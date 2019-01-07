@@ -12,7 +12,6 @@ import {BuildingsReducers, BuildingsState} from '../dashboard/main/buildings/sto
 
 export interface AppState {
   buildings: BuildingsState;
-
 }
 
 export const reducers: ActionReducerMap<AppState> = {
