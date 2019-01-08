@@ -75,7 +75,7 @@ export class EditBuildingComponent implements OnInit {
     const address = this.editBuilding.value.address;
     const info = this.editBuilding.value.info;
     this.storageData.editBuilding(id, name, address, info);
-    this.storageData.loadBuildings();
+    // this.storageData.loadBuildings();
     this.router.navigate(['dashboard/buildings']);
 
   }

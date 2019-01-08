@@ -30,32 +30,21 @@ export class ListBuildingComponent implements OnInit {
     private http: HttpClient
               ) {}
 
-  buildings$: Observable<any>;
-  ids$: Observable<any>;
-  buildings: {};
-
-
+  buildings$: Observable<fromBuildings.BuildingsState>;
+  buildings: any;
 
 
 
   ngOnInit() {
 
+    this.store.dispatch(new buildingsAction.LoadingBuildings());
+    this.buildings$ = this.store.select<fromBuildings.BuildingsState>('buildings');
 
-    this.buildings$ = this.store.select<any>('buildings');
-    this.ids$ = this.store.select<any>('ids');
-    // this.store.select<fromBuildings.BuildingsState>
-    // this.buildings$ = this.store.select<fromBuildings.AppState[]>('statusList');
     this.buildings = this.buildings$;
 
-
-    const buildings = {};
-    // this.buildings = Object.values(this.buildings);
-    // const payloadOk = this.http.get(data => data);
-    this.store.dispatch(new buildingsAction.LoadingBuildings());
-    console.log('buildings', this.buildings[0]);
   }
   onDelete(id: string) {
-    this.storageData.deleteBuilding(id);
+    this.store.dispatch(new buildingsAction.DeleteBuilding(id));
   }
 
 

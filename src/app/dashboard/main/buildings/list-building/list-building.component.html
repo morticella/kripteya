@@ -4,14 +4,11 @@
 
         </div>
             <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm" *ngIf="!buildings.loading">Your Properties</span></div>
-            <!-- <div *ngIf="(buildings | async).error" class="alert alert-danger alert-dismissible text-center" color="primary"> -->
-                <div *ngIf="(buildings | async).error" class="alert alert-danger alert-dismissible text-center" color="primary">
 
-                let building of (buildings|async).entities
-                <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
-            </div>
             <mat-spinner *ngIf="(buildings|async).loading"></mat-spinner>
-            <!-- <ng-container *ngFor="let i = index, let id of (buildings|async).ids" > -->
+            <div *ngIf="(buildings | async).error && (buildings | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
+              <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
+              </div>
                 <ng-container *ngFor="let i = index, let building of (buildings|async).entities | entities " >
 
                 <mat-expansion-panel color="accent" *ngIf="!buildings.loading" >
@@ -39,7 +36,7 @@
                                   routerLinkActive="router-link-active" routerLinkActive="router-link-active">Edit</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(building._id)">Delete {{ (buildings | async).ids[i] }}</button>
+                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(building._id)">Delete</button>
                               </div>
 
                           </div>

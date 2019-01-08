@@ -26,7 +26,7 @@ import { AuthInterceptor } from './service/auth-interceptor';
 
 import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.effects';
 
-import { NewRoomComponent } from './dashboard/main/buildings/new-room/new-room.component';
+import { NewRoomComponent } from './dashboard/main/rooms/new-room/new-room.component';
 import { reducers, metaReducers } from './reducers';
 
 @NgModule({

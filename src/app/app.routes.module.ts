@@ -16,7 +16,7 @@ import { EditBuildingComponent } from './dashboard/main/buildings//edit-building
 
 // Rooms CRUD
 
-import { NewRoomComponent } from './dashboard/main/buildings/new-room/new-room.component';
+import { NewRoomComponent } from './dashboard/main/rooms/new-room/new-room.component';
 
 
 const appRoutes: Routes = [

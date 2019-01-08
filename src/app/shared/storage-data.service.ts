@@ -47,15 +47,15 @@ export class StorageDataService {
     this.viewUpdate.next(view);
     // console.log(this.viewUpdate.next(view));
   }
-  loadBuildings() {
-    this.http.get(this.urlBackEnd + '/api/buildings')
-      .subscribe((buildingsData) => {
-       this.buildings = buildingsData;
-       // console.log(this.buildings);
-        this.newBuildingUpdate.next(this.buildings);
-      },
-      err => console.log(err));
-  }
+  // loadBuildings() {
+  //   this.http.get(this.urlBackEnd + '/api/buildings')
+  //     .subscribe((buildingsData) => {
+  //      this.buildings = buildingsData;
+  //      // console.log(this.buildings);
+  //       this.newBuildingUpdate.next(this.buildings);
+  //     },
+  //     err => console.log(err));
+  // }
 
   deleteBuilding(id: string) {
     this.http.delete(this.urlBackEnd + '/api/new-building/' + id)
@@ -78,29 +78,29 @@ export class StorageDataService {
       },
       err => console.log(err));
   }
-  createNewBuilding(name: string, address: string, info: string) {
+  // createNewBuilding(name: string, address: string, info: string) {
 
-    const newBuilding: Building = {
-      // _id: null,
-      nameBuilding: name,
-      address: address,
-      info: info,
-    };
+  //   const newBuilding: Building = {
+  //     // _id: null,
+  //     nameBuilding: name,
+  //     address: address,
+  //     info: info,
+  //   };
 
-    this.http.post<{status: number}>(this.urlBackEnd + '/api/new-building', newBuilding)
-      .subscribe(response => {
-        this.tabIndex = 0;
-        console.log('qui che succede', this.tabIndex);
-        this.errorUpdate.next(200);
-      },
-      error => {
-        if (error.status === 500) {
-          this.tabIndex = 1;
-          console.log('qui che succede errore', this.tabIndex);
-          this.errorUpdate.next(500);
-        }
-      });
-  }
+  //   this.http.post<{status: number}>(this.urlBackEnd + '/api/new-building', newBuilding)
+  //     .subscribe(response => {
+  //       this.tabIndex = 0;
+  //       console.log('qui che succede', this.tabIndex);
+  //       this.errorUpdate.next(200);
+  //     },
+  //     error => {
+  //       if (error.status === 500) {
+  //         this.tabIndex = 1;
+  //         console.log('qui che succede errore', this.tabIndex);
+  //         this.errorUpdate.next(500);
+  //       }
+  //     });
+  // }
 
 
   createNewRoom(data) {
@@ -116,19 +116,19 @@ export class StorageDataService {
       notice: data.value.notice
     };
 
-    this.http.post<{status: number}>(this.urlBackEnd + '/api/new-room', newRoom)
-      .subscribe(response => {
-        // this.tabIndex = 0;
-        // console.log('qui che succede', this.tabIndex);
-        this.errorUpdate.next(200);
-      },
-      error => {
-        if (error.status === 500) {
-          // this.tabIndex = 1;
-          // console.log('qui che succede errore', this.tabIndex);
-          this.errorUpdate.next(500);
-        }
-      });
+    // this.http.post<{status: number}>(this.urlBackEnd + '/api/new-room', newRoom)
+    //   .subscribe(response => {
+    //     // this.tabIndex = 0;
+    //     // console.log('qui che succede', this.tabIndex);
+    //     this.errorUpdate.next(200);
+    //   },
+    //   error => {
+    //     if (error.status === 500) {
+    //       // this.tabIndex = 1;
+    //       // console.log('qui che succede errore', this.tabIndex);
+    //       this.errorUpdate.next(500);
+    //     }
+    //   });
   }
   // Observables
 

@@ -21,9 +21,10 @@ export class BuildingEffects {
   urlBackEnd = 'http://localhost:3000';
   newBuilding: Building;
   error = 0;
+  id: string;
   @Effect()
  loadBuildings$ = this.actions$
- .pipe(ofType<BuildingsActions.LoadingBuildings>(BuildingsActionTypes.LoadingBuildings), switchMap( () => {
+ .pipe(ofType<BuildingsActions.LoadingBuildings>(BuildingsActionTypes.LoadingBuildings), mergeMap( () => {
   return this.http.get<any>(this.urlBackEnd + '/api/buildings').pipe(
     map(
       data => new BuildingsActions.LoadingBuildingsSuccess(data)
@@ -50,6 +51,22 @@ export class BuildingEffects {
       () =>  of(new BuildingsActions.AddBuildingFailed(true))
     ));
   }));
+  @Effect()
+  DeleteBuilding$ = this.actions$
+  .pipe(ofType<BuildingsActions.DeleteBuilding>(BuildingsActionTypes.DeleteBuilding),
+  switchMap(
+    (action: BuildingsActions.DeleteBuilding) => {
+    this.id = action.payload, this.error = 0;
+
+     return this.http.delete<Building>(this.urlBackEnd + '/api/new-building/' + this.id)
+     .pipe(
+     map(
+        () => new BuildingsActions.DeleteBuildingSuccess(this.id),
+     ),
+     catchError(
+       () =>  of(new BuildingsActions.DeleteBuildingFailed(true))
+     ));
+   }));
 
   // @Effect()
   // loadAllCourses$ = this.actions$
@@ -65,7 +82,7 @@ export class BuildingEffects {
  constructor(
    private actions$: Actions,
    private http: HttpClient,
-   private store: Store<fromBuildings.BuildingsState>,
+   // private store: Store<fromBuildings.BuildingsState>,
    private router: Router) {}
 
 }

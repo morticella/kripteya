@@ -69,7 +69,7 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
       const loading = true;
       const logged = false;
       const error = false;
-      return {
+      return  {
       ...state,
       loading,
       logged,
@@ -92,13 +92,50 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
     const logged = true;
     const error = false;
     const building = action.payload;
-    return {
+    return adapter.addOne(action.payload, {
     ...state,
     building,
     loading,
     logged,
     error,
+  });
+}
+
+case BuildingsActionTypes.DeleteBuilding: {
+  const loading = true;
+  const logged = false;
+  const error = false;
+  return  {
+  ...state,
+  loading,
+  logged,
+  error
   };
+}
+case BuildingsActionTypes.DeleteBuildingFailed: {
+  const error = action.error;
+  const loading = false;
+  const logged = true;
+  return {
+  ...state,
+  loading,
+  logged,
+  error
+  };
+}
+
+case BuildingsActionTypes.DeleteBuildingSuccess: {
+  const loading = false;
+  const logged = true;
+  const error = false;
+  const id = action.payload;
+  return adapter.removeOne(action.payload, {
+  ...state,
+  id,
+  loading,
+  logged,
+  error,
+});
 }
     default: return state;
 }
