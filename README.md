@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 
-## Development server [Back End + Front End]
+## Development servers [Back End + Front End]
 
 Run `nodemon server.js` or `node server.js`
 
