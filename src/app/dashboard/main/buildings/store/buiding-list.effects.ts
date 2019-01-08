@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap} from 'rxjs/operators';
+import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { BuildingsActionTypes } from '../store/building-list.actions';
@@ -38,7 +38,8 @@ export class BuildingEffects {
  .pipe(ofType<BuildingsActions.AddBuilding>(BuildingsActionTypes.AddBuilding),
  switchMap(
    (action: BuildingsActions.AddBuilding) => {
-   this.newBuilding = action.payload, this.error = 0;
+   this.newBuilding = action.payload;
+   this.error = 0;
     return this.http.post<Building>(this.urlBackEnd + '/api/new-building', this.newBuilding)
     .pipe(
     map(
@@ -56,7 +57,7 @@ export class BuildingEffects {
   .pipe(ofType<BuildingsActions.DeleteBuilding>(BuildingsActionTypes.DeleteBuilding),
   switchMap(
     (action: BuildingsActions.DeleteBuilding) => {
-    this.id = action.payload, this.error = 0;
+    this.id = action.payload; this.error = 0;
 
      return this.http.delete<Building>(this.urlBackEnd + '/api/new-building/' + this.id)
      .pipe(
@@ -67,16 +68,31 @@ export class BuildingEffects {
        () =>  of(new BuildingsActions.DeleteBuildingFailed(true))
      ));
    }));
+  @Effect()
+  EditBuilding$ = this.actions$
+  .pipe(ofType<BuildingsActions.EditBuilding>(BuildingsActionTypes.EditBuilding), tap( ),
+  mergeMap(
+    (action: BuildingsActions.EditBuilding) => {
 
-  // @Effect()
-  // loadAllCourses$ = this.actions$
-  //   .pipe(
-  //     ofType<AllCoursesRequested>(CourseActionTypes.AllCoursesRequested),
-  //     withLatestFrom(this.store.pipe(select(allCoursesLoaded))),
-  //     filter(([action, allCoursesLoaded]) => !allCoursesLoaded),
-  //     mergeMap(() => this.coursesService.findAllCourses()),
-  //     map(courses => new AllCoursesLoaded({courses}))
-  //   );
+    const id = action.payload.id;
+    this.newBuilding = action.payload;
+    console.log('sei id giusto? ', id);
+
+
+
+     return this.http.put<Building>(this.urlBackEnd + '/api/new-building/' + id, this.newBuilding)
+     .pipe(
+     map(
+      () => new BuildingsActions.EditBuildingSuccess(this.newBuilding),
+     ),
+     tap(
+      () => this.router.navigate(['dashboard/buildings'])
+    ),
+     catchError(
+       () =>  of(new BuildingsActions.EditBuildingFailed(true))
+     ));
+   }));
+
 
 
  constructor(

@@ -4,8 +4,9 @@ import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
 import { Building } from 'src/app/shared/models/building.model';
 
 export interface BuildingsState extends EntityState<Buildings> {
-
   building: any;
+  editBuilding: any;
+  id: string;
   loading: boolean;
   logged: boolean;
   error: boolean;
@@ -16,8 +17,9 @@ export const adapter: EntityAdapter<Buildings> =
 
 
 export const initialState: BuildingsState = adapter.getInitialState({
-
   entities: {},
+  editBuilding: null,
+  id: null,
   building: null,
   loading: false,
   logged: true,
@@ -136,6 +138,50 @@ case BuildingsActionTypes.DeleteBuildingSuccess: {
   logged,
   error,
 });
+}
+
+case BuildingsActionTypes.EditBuilding: {
+  const loading = true;
+  const logged = false;
+  const error = false;
+  const id = action.payload.id;
+  const editBuilding = state.entities[action.payload.id];
+  return  {
+  ...state,
+  editBuilding,
+  id,
+  loading,
+  logged,
+  error
+  };
+}
+case BuildingsActionTypes.EditBuildingFailed: {
+  const error = action.error;
+  const loading = false;
+  const logged = true;
+  return {
+  ...state,
+  loading,
+  logged,
+  error
+  };
+}
+
+case BuildingsActionTypes.EditBuildingSuccess: {
+  console.log('sono in edit success');
+  const loading = false;
+  const logged = true;
+  const error = false;
+  const id = action.payload.id;
+  const editBuilding = state.entities[action.payload.id];
+  return adapter.updateOne(action.payload, {
+  ...state,
+  ...state.entities[action.payload.id],
+  id,
+  loading,
+  logged,
+  error,
+  });
 }
     default: return state;
 }

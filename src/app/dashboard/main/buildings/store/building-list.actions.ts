@@ -11,6 +11,9 @@ export enum BuildingsActionTypes {
   DeleteBuilding = '[Delete Building] Building Request',
   DeleteBuildingSuccess = '[Buildings API] Delete Building Success',
   DeleteBuildingFailed = '[Buildings API] Delete Building Failed',
+  EditBuilding = '[Edit Building] Building Request',
+  EditBuildingSuccess = '[Buildings API] Edit Building Success',
+  EditBuildingFailed = '[Buildings API] Edit Building Failed',
 }
 
 
@@ -58,6 +61,20 @@ export class DeleteBuildingFailed implements Action {
   constructor(public error: boolean) {}
 }
 
+export class EditBuilding implements Action {
+  readonly type = BuildingsActionTypes.EditBuilding;
+  constructor(public payload:  any ) {}
+}
+
+export class EditBuildingSuccess implements Action {
+  readonly type = BuildingsActionTypes.EditBuildingSuccess;
+  constructor(public payload:  any ) {}
+}
+export class EditBuildingFailed implements Action {
+  readonly type = BuildingsActionTypes.EditBuildingFailed;
+  constructor(public error: boolean) {}
+}
+
 export type BuildingsListAction =
               LoadingBuildings |
               LoadingBuildingsSuccess |
@@ -67,4 +84,7 @@ export type BuildingsListAction =
               AddBuildingFailed |
               DeleteBuilding |
               DeleteBuildingSuccess |
-              DeleteBuildingFailed;
+              DeleteBuildingFailed |
+              EditBuilding |
+              EditBuildingSuccess |
+              EditBuildingFailed;

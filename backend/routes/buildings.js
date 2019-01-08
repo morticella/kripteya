@@ -11,7 +11,6 @@ const router = express.Router();
 router.post("/api/new-building",checkAuth, function (req, res) {
 
     //Model
-    console.log('body e? ', req.body)
     const building = new Building({
       nameBuilding: req.body.nameBuilding,
       address: req.body.address,
@@ -36,12 +35,14 @@ router.post("/api/new-building",checkAuth, function (req, res) {
   router.put("/api/new-building/:id",checkAuth, (req, res, next) => {
 
     let building = {};
+
     building.nameBuilding = req.body.nameBuilding;
     building.address = req.body.address;
     building.info = req.body.info;
 
     console.log('Building', building);
     Building.updateOne({ _id: req.params.id }, building).then(
+      res.status(200).json({ message: "Post Updated!" }),
       res => console.log(res)
     )
     .catch(
