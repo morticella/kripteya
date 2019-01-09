@@ -28,6 +28,7 @@ import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.e
 
 import { NewRoomComponent } from './dashboard/main/rooms/new-room/new-room.component';
 import { reducers, metaReducers } from './reducers';
+import { RoomEffects } from './dashboard/main/rooms/store/rooms.effects';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { reducers, metaReducers } from './reducers';
     MatSharedModule,
     FontAwesomeModule,
     AppRoutesModule,
-    EffectsModule.forRoot([BuildingEffects]),
+    EffectsModule.forRoot([BuildingEffects, RoomEffects]),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],

@@ -21,6 +21,7 @@ const Room = require('./routes/rooms');
 const checkAuth = require("./middleware/check-auth");
 const User = require('./models/users');
 const Buildings = require('./models/buildings');
+const Rooms = require('./models/rooms')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,6 +42,16 @@ app.get('/api/buildings',checkAuth,(req, res, next) => {
     //console.log('niente',statusList);
     const buildings = statusList;
     res.status(200).json(buildings);
+    next();
+  });
+});
+
+app.get('/api/rooms',checkAuth,(req, res, next) => {
+  Rooms.find()
+  .then(statusList => {
+    //console.log('niente',statusList);
+    const rooms = statusList;
+    res.status(200).json(rooms);
     next();
   });
 });

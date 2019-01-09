@@ -3,7 +3,7 @@
             <div class="col-md-12">
 <mat-card>
          <div class="purple text-center" >        <i class="material-icons md-64">local_hotel</i> <span class="titleForm">Create a new Room</span></div>
-            <form [formGroup]="newRoom" (ngSubmit)="onSubmit()">
+            <form [formGroup]="newRoom" (ngSubmit)="onSubmit(newRoom)">
                 <section class="container-fluid">
 
                     <mat-radio-group formControlName="gender">
@@ -12,7 +12,7 @@
                       </mat-radio-group>
 
                     <!-- <mat-form-field class="container-fluid"> -->
-                        <input  type="hidden"  placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" >
+                        <input  type="hidden"  placeholder="idBuilding" name="idBuilding" formControlName="idBuilding" >
 
                     <!-- </mat-form-field> -->
 

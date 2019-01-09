@@ -12,7 +12,7 @@ mongoose.connect(url)
 const uniqueValidator = require('mongoose-unique-validator');
 
 const roomSchema = mongoose.Schema({
-  nameBuilding: { type: String, required: true},
+  idBuilding: { type: String, required: true},
   name: { type: String, required: true},
   beds: { type: Number, required: true },
   rent: { type: Number, required: true },

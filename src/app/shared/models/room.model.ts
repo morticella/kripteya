@@ -1,7 +1,7 @@
 // import { Customer } from './customer.model';
 
 export interface Room {
-  nameBuilding: string;
+  idBuilding: string;
   name: string;
   gender: boolean;
   beds: number;

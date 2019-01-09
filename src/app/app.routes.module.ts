@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   { path: 'dashboard/buildings' , component: ListBuildingComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/add-building' , component: NewBuildingComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/edit-building/:id' , component: EditBuildingComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/new-room/:nameBuilding' , component: NewRoomComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/new-room/:idBuilding' , component: NewRoomComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

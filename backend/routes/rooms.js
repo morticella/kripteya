@@ -11,9 +11,9 @@ const router = express.Router();
 router.post("/api/new-room",checkAuth, function (req, res) {
 
     //Model
-    console.log('niente ?',req.body)
+
     const room = new Room({
-      nameBuilding: req.body.nameBuilding,
+      idBuilding: req.body.idBuilding,
       name: req.body.name,
       beds: req.body.beds,
       rent: req.body.rent,
@@ -24,7 +24,7 @@ router.post("/api/new-room",checkAuth, function (req, res) {
     });
     room.save()
       .then(result => {
-        res.status(201).json({
+        res.status(200).json({
           message: "Room created!",
           result: result
         });
