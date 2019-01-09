@@ -63,6 +63,7 @@ export class AuthService {
 
       this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/login', authData)
         .subscribe(response => {
+          console.log(response);
           const token = response.token;
           this.token = token;
           if (token) {

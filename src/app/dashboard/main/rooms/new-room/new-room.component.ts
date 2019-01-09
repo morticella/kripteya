@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { StorageDataService } from 'src/app/shared/storage-data.service';
-import { Room } from 'src/app/shared/models/room.model';
+
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 
@@ -40,8 +39,7 @@ export class NewRoomComponent implements OnInit {
   });
 
   constructor(
-    // private storageData: StorageDataService,
-    // private router: Router,
+
     private route: ActivatedRoute,
     private store: Store<fromRooms.AppState>) { }
 
@@ -51,20 +49,12 @@ export class NewRoomComponent implements OnInit {
 
     this.store.dispatch(new roomsAction.LoadingRooms());
 
-
-    // this.errorHeadersStatus = this.storageData.errorHeadersStatus;
-
-
   }
 
 
   onSubmit(newRoom: FormGroup) {
     this.store.select<fromRooms.AppState[]>('rooms');
     this.store.dispatch(new roomsAction.AddRoom(newRoom.value));
-    // // console.log(this.newRoom);
-    // this.storageData.createNewRoom(this.newRoom);
-    // // this.storageData.loadRooms();
-    // this.router.navigate(['dashboard/buildings']);
   }
 
 }

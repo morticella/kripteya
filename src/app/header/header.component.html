@@ -14,6 +14,9 @@
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/dashboard/buildings/']" routerLinkActive="router-link-active" >Building <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/dashboard/building-rooms/']" routerLinkActive="router-link-active" >Rooms <span class="sr-only">(current)</span></a>
+          </li>
         <li class="nav-item">
           <a class="nav-link" >Reports</a>
         </li>
@@ -24,9 +27,7 @@
           <a class="nav-link" >Statistic</a>
         </li>
       </ul>
-      <div class="container-fluid" *ngIf="userIsAuthenticated">
-        <button  mat-button class="float-right" color="primary" (click)="onLogout()">Logout</button>
-      </div>
+
     </div>
   </nav>
 
