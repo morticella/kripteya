@@ -2,7 +2,10 @@
     <div class="col-md-12">
         <mat-card>
             <!-- <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit a Property</span></div> -->
-              <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)">
+            <ng-template #loading>
+              <mat-spinner></mat-spinner>
+            </ng-template>
+            <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)" *ngIf="room | async; else loading">
                   <section>
                       <mat-radio-group formControlName="gender">
                           <mat-radio-button value="true" class="gender" checked> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
@@ -11,24 +14,24 @@
                   </section>
                   <section>
                       <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
-                          <input matInput type="text" placeholder="Room Name" name="name" formControlName="name" [value]="(room|async).entities[idRoom].name">
+                          <input matInput type="text" placeholder="Room Name" name="name" formControlName="name" [ngModel]="(room|async)?.entities[idRoom].name"> {{name + 'qui'}}
                           <input type="hidden" name="id" formControlName="id" [value]="(room|async).entities[idRoom]._id">
                       </mat-form-field>
 
                   </section>
                   <section>
                       <mat-form-field class="container-fluid">
-                          <input type="number" matInput placeholder="Beds" name="beds" formControlName="beds" [value]="(room|async).entities[idRoom].beds">
+                          <input type="number" matInput placeholder="Beds" name="beds" formControlName="beds" [ngModel]="(room|async).entities[idRoom].beds">
                       </mat-form-field>
                     </section>
                   <section>
                     <mat-form-field class="container-fluid">
-                        <input type="number" matInput placeholder="Rent" name="rent" formControlName="rent" [value]="(room|async).entities[idRoom].rent">
+                        <input type="number" matInput placeholder="Rent" name="rent" formControlName="rent" [ngModel]="(room|async).entities[idRoom].rent">
                     </mat-form-field>
                   </section>
                   <section>
                       <mat-form-field class="container-fluid">
-                          <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit" [value]="(room|async).entities[idRoom].deposit">
+                          <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit" [ngModel]="(room|async).entities[idRoom].deposit">
                       </mat-form-field>
                     </section>
                   <section class="text-right">

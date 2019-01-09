@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
 
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 
@@ -26,7 +27,6 @@ export class EditRoomComponent implements OnInit {
     errorClass: boolean;
     nameInvalid: string;
     roomsState$: Observable<fromRooms.RoomsState>;
-
     // editRoom: FormGroup;
     rooms: any;
     idRoom: string;
@@ -39,8 +39,9 @@ export class EditRoomComponent implements OnInit {
     booked: Date;
     faVenus = faVenus;
     faMars = faMars;
+    // editRoom: FormGroup;
     editRoom = new FormGroup({
-      name: new FormControl(null),
+      name: new FormControl('', Validators.required),
       gender: new FormControl(null),
       id: new FormControl( this.route.snapshot.params['idRoom']),
       beds: new FormControl( null ),
@@ -54,7 +55,7 @@ ngOnInit() {
 
 
 
-console.log('hey ', this.editRoom.value);
+
 this.idRoom = this.route.snapshot.params['idRoom'];
 this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
 this.room = this.roomsState$;
@@ -62,7 +63,11 @@ this.room = this.roomsState$;
 }
 
 onSubmit(editRoom: FormGroup) {
-this.store.dispatch(new roomsAction.EditRoom(editRoom));
+  // this.name = this.editRoom.value.name;
+  // this.room.subscribe(map(room => console.log(room)));
+
+  console.log('hey ', this.store.select<fromRooms.RoomsState>('rooms'));
+  this.store.dispatch(new roomsAction.EditRoom(editRoom));
 }
 
 }

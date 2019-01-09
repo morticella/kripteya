@@ -6,19 +6,19 @@
 
                   <section>
                       <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
-                          <input matInput type="text" placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" [value]="(building|async).entities[idBuilding].nameBuilding">
+                          <input matInput type="text" placeholder="Name Building" name="nameBuilding" formControlName="nameBuilding" [ngModel]="(building|async).entities[idBuilding].nameBuilding">
                           <input type="hidden" name="id" formControlName="id" [value]="(building|async).entities[idBuilding]._id">
                       </mat-form-field>
 
                   </section>
                   <section>
                     <mat-form-field class="container-fluid">
-                        <input type="text" matInput placeholder="Address" name="address" formControlName="address" [value]="(building|async).entities[idBuilding].address">
+                        <input type="text" matInput placeholder="Address" name="address" formControlName="address" [ngModel]="(building|async).entities[idBuilding].address">
                     </mat-form-field>
                   </section>
                   <section>
                       <mat-form-field class="container-fluid">
-                          <textarea matInput placeholder="Additional Info" name="info" rows="8" formControlName="info" [value]="(building|async).entities[idBuilding].info"></textarea>
+                          <textarea matInput placeholder="Additional Info" name="info" rows="8" formControlName="info" [ngModel]="(building|async).entities[idBuilding].info"></textarea>
                       </mat-form-field>
                     </section>
                   <section class="text-right">
