@@ -17,6 +17,7 @@ import { EditBuildingComponent } from './dashboard/main/buildings//edit-building
 // Rooms CRUD
 
 import { NewRoomComponent } from './dashboard/main/rooms/new-room/new-room.component';
+import { ListRoomsComponent } from './dashboard/main/rooms/list-rooms/list-rooms.component';
 
 
 const appRoutes: Routes = [
@@ -26,6 +27,8 @@ const appRoutes: Routes = [
   { path: 'dashboard/add-building' , component: NewBuildingComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/edit-building/:id' , component: EditBuildingComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/new-room/:idBuilding' , component: NewRoomComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/building-rooms' , component: ListRoomsComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/building-rooms/:idBuilding' , component: ListRoomsComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

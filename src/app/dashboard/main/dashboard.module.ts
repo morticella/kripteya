@@ -10,7 +10,7 @@ import { ReportsComponent } from './reports/reports.component';
 
 import { MatSharedModule } from '../../shared/matShared.module';
 import { AppRoutesModule } from '../../app.routes.module';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,11 +23,11 @@ import { AppRoutesModule } from '../../app.routes.module';
     CommonModule,
     BuildingsModule,
     MatSharedModule,
-    AppRoutesModule
+    AppRoutesModule,
+    SharedModule
   ],
   exports: [
     MainComponent,
   ]
 })
 export class DashboardModule {}
-

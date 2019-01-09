@@ -58,14 +58,14 @@ router.post("/api/new-room",checkAuth, function (req, res) {
 
   // });
 
-  // router.delete("/api/new-room/:id", checkAuth, (req, res, next) => {
+  router.delete("/api/new-room/:id", checkAuth, (req, res, next) => {
 
-  //   // console.log(req.params.id);
-  //   Building.deleteOne({ _id: req.params.id }).then(result => {
-  //     // console.log(result);
-  //     res.status(200).json({ message: "Post deleted!" });
-  //   });
-  // });
+    // console.log(req.params.id);
+    Room.deleteOne({ _id: req.params.id }).then(result => {
+      // console.log(result);
+      res.status(200).json({ message: "Room deleted!" });
+    });
+  });
 
 
   module.exports = router;

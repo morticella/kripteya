@@ -1,3 +1,55 @@
-<p>
-  list-rooms works!
-</p>
+<div class="container-fluid">
+  <div class="col-md-12">
+      <div class="col-md-2">
+
+      </div>
+          <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm" *ngIf="!rooms.loading">Your Properties</span></div>
+
+          <mat-spinner *ngIf="(rooms|async).loading"></mat-spinner>
+          <div *ngIf="(rooms | async).error && (rooms | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
+            <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
+            </div>
+              <ng-container *ngFor="let i = index, let room of (rooms|async).entities | entities " >
+              <div *ngIf="idBuilding === room.idBuilding || idBuilding === undefined">
+
+                <mat-expansion-panel color="accent" *ngIf="!rooms.loading" >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title color="accent" >
+                        <h4 class="textWarn"><i class="material-icons">home</i> {{room.name}} </h4>
+                        <!-- (rooms | async).entities[(rooms | async).ids[i]].nameBuilding -->
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div >
+                        <p >{{room.gender}}</p>
+                        <p >{{room.beds}}</p>
+                        <p >{{room.rent}}</p>
+                        <p >{{room.deposit}}</p>
+                        <p >{{room.notice}}</p>
+                        <p >{{room.booked}}</p>
+
+                        <section class="text-right">
+                          <div class="row text-center">
+                            <div class="col-md-2"></div>
+                              <div class="col-md-4">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary">View Rooms</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-room/', room._id]" >New Room</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-room/', room._id]"
+                                  routerLinkActive="router-link-active" routerLinkActive="router-link-active">Edit</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(room._id)">Delete {{ room._id }}</button>
+                              </div>
+
+                          </div>
+                        </section>
+                      </div>
+                  </mat-expansion-panel>
+                </div>
+
+          </ng-container>
+  </div>
+</div>

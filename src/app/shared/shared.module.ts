@@ -14,7 +14,6 @@ import { Entities } from './entities.pipe';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule
-
   ],
   exports: [
     FormsModule,
