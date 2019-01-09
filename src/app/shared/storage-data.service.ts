@@ -49,19 +49,19 @@ export class StorageDataService {
 
 
 
-  createNewRoom(data) {
+  // createNewRoom(data) {
 
-    const newRoom: Room = {
-      nameBuilding: data.value.nameBuilding,
-      name: data.value.name,
-      rent: data.value.rent,
-      beds: data.value.beds,
-      gender: data.value.gender,
-      deposit: data.value.deposit,
-      booked: data.value.booked,
-      notice: data.value.notice
-    };
-  }
+  //   const newRoom: Room = {
+  //     idBuilding: data.value.idBuilding,
+  //     name: data.value.name,
+  //     rent: data.value.rent,
+  //     beds: data.value.beds,
+  //     gender: data.value.gender,
+  //     deposit: data.value.deposit,
+  //     booked: data.value.booked,
+  //     notice: data.value.notice
+  //   };
+  // }
   // Observables
 
   checkHeadersError() {

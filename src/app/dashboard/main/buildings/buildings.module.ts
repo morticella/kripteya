@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 
 import { BuildingsComponent } from './buildings.component';
 import { NewBuildingComponent } from './new-building/new-building.component';
@@ -10,7 +8,8 @@ import { EditBuildingComponent } from './edit-building/edit-building.component';
 
 import { MatSharedModule } from 'src/app/shared/matShared.module';
 import { AppRoutesModule } from 'src/app/app.routes.module';
-import { Entities } from 'src/app/shared/entities.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 
 
@@ -20,14 +19,13 @@ import { Entities } from 'src/app/shared/entities.pipe';
     NewBuildingComponent,
     ListBuildingComponent,
     EditBuildingComponent,
-    Entities,
+
   ],
   exports: [
-    Entities
+
   ],
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
+    SharedModule,
     MatSharedModule,
     CommonModule,
     AppRoutesModule,
