@@ -11,13 +11,13 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { SignupComponent } from './auth/signup/signup.component';
 
 import { MatSharedModule } from './shared/matShared.module';
 import { AppRoutesModule } from './app.routes.module';
-import { BuildingsModule } from './dashboard/main/buildings/buildings.module';
-import { DashboardModule } from './dashboard/main/dashboard.module';
+import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
+import { DashboardModule } from './dashboard/main/dashboard.module';
+import { BuildingsModule } from './dashboard/main/buildings/buildings.module';
 import { RoomsModule } from './dashboard/main/rooms/rooms.module';
 import { StorageDataService } from './shared/storage-data.service';
 
@@ -26,6 +26,7 @@ import { AuthInterceptor } from './service/auth-interceptor';
 
 import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.effects';
 import { RoomEffects } from './dashboard/main/rooms/store/rooms.effects';
+import { AuthEffects } from './auth/signup/store/signup.effects';
 
 import { reducers, metaReducers } from './reducers';
 
@@ -33,19 +34,20 @@ import { reducers, metaReducers } from './reducers';
   declarations: [
     AppComponent,
     HeaderComponent,
-    SignupComponent,
+
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    AuthModule,
     DashboardModule,
     BuildingsModule,
     RoomsModule,
     SharedModule,
     MatSharedModule,
     AppRoutesModule,
-    EffectsModule.forRoot([BuildingEffects, RoomEffects]),
+    EffectsModule.forRoot([BuildingEffects, RoomEffects, AuthEffects]),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],

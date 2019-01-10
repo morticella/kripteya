@@ -1,0 +1,59 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+
+import { Router } from '@angular/router';
+
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
+import { of } from 'rxjs';
+
+import { AuthActionTypes } from '../store/signup.actions';
+import * as AuthActions from '../store/signup.actions';
+import { Auth } from 'src/app/service/auth.model';
+
+
+console.log('sono nelleffects ');
+
+@Injectable()
+export class AuthEffects {
+  urlBackEnd = 'http://localhost:3000';
+  // newAuth: Auth;
+  error = 0;
+  id: string;
+  user: any;
+  passHash: string;
+
+  expiresIn: number;
+
+
+   @Effect()
+ Login$ = this.actions$
+ .pipe(ofType<AuthActions.LoginAuth>(AuthActionTypes.LoginAuth), switchMap( (action: AuthActions.LoginAuth) => {
+
+  const passHash =  window.btoa(action.payload.passwordLogin);
+  const authData: Auth = {
+    user: action.payload.emailLogin,
+    password: passHash,
+    level: null
+  };
+  // const level: string = localStorage.getItem('token');
+  // const token: string = localStorage.getItem('expiration');
+  return this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/login', authData).pipe(
+    map(
+      data => new AuthActions.LoginAuthSuccess(data)
+    ),
+    tap(
+      data => console.log(data)
+    ),
+    catchError(
+      () => of(new AuthActions.LoginAuthFailed(true))
+    ));
+  }));
+
+ constructor(
+   private actions$: Actions,
+   private http: HttpClient,
+   // private store: Store<fromAuth.AuthState>,
+   private router: Router) {}
+
+}

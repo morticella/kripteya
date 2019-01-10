@@ -3,14 +3,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
+
 
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 
 import * as fromRooms from '../store/rooms.reducers';
 import * as roomsAction from '../store/rooms.actions';
 
-import { StorageDataService } from 'src/app/shared/storage-data.service';
 
 @Component({
   selector: 'app-edit-room',
@@ -52,10 +51,6 @@ export class EditRoomComponent implements OnInit {
     });
 
 ngOnInit() {
-
-
-
-
 this.idRoom = this.route.snapshot.params['idRoom'];
 this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
 this.room = this.roomsState$;
@@ -63,10 +58,6 @@ this.room = this.roomsState$;
 }
 
 onSubmit(editRoom: FormGroup) {
-  // this.name = this.editRoom.value.name;
-  // this.room.subscribe(map(room => console.log(room)));
-
-  console.log('hey ', this.store.select<fromRooms.RoomsState>('rooms'));
   this.store.dispatch(new roomsAction.EditRoom(editRoom));
 }
 

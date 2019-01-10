@@ -1,10 +1,16 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
+import 'rxjs/add/operator/map';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
 import { UsersLevel } from 'src/app/shared/user-level/user-level.module';
 import { AuthService } from 'src/app/service/auth.service';
+import { AuthState } from './store/signup.reducers';
+import * as fromAuth from './store/signup.reducers';
+import * as authActions from './store/signup.actions';
+import { Store } from '@ngrx/store';
 
 
 @Component({
@@ -14,7 +20,7 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class SignupComponent implements OnInit, OnDestroy {
 
-  isLoading = false;
+
 
   usersSignup = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -31,13 +37,19 @@ export class SignupComponent implements OnInit, OnDestroy {
   setup: boolean;
   level: string;
   users: any;
+  signup: boolean;
+  authState$: Observable<fromAuth.AuthState>;
+  authState: any;
 
   constructor(
     private storageData: StorageDataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store<AuthState>,
     ) { }
 
   ngOnInit() {
+    this.authState$ = this.store.select('auth');
+    this.authState = this.authState$;
 
     this.users = this.storageData.loadUsers();
     this.usersUpdated = this.storageData.checkLoadedUsers()
@@ -54,23 +66,29 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSignUp() {
-    this.isLoading = true;
     const user = this.usersSignup.value.email;
     const password = this.usersSignup.value.password;
     const passHash =  window.btoa(password);
     const level = this.level;
     this.authService.signupSuperAdmin(user, passHash, level);
-    // this.router.navigateByUrl('/main');
+    const love = this.store.select('signup').map(
+      (signup) => {
+        return signup.valueOf;
+      }
+    );
+    console.log(love, 'love?');
   }
 
-  onLogin() {
+  onLogin(data: FormGroup) {
     // this.isLoading = true;
+    console.log('form ', data);
     const email = this.usersLogin.value.emailLogin;
     const password = this.usersLogin.value.passwordLogin;
     const level = null;
     // this.router.navigateByUrl('/main');
+    this.store.dispatch(new authActions.LoginAuth(data));
     const passHash =  window.btoa(password);
-    this.authService.login(email, passHash , level);
+    // this.authService.login(email, passHash , level);
     // this.isLoading = false;
   }
   checkPassword (control: FormControl): {[s: string]: boolean} {
@@ -80,7 +98,7 @@ export class SignupComponent implements OnInit, OnDestroy {
      return {'Passowrd not equals': true};
   }
   ngOnDestroy() {
-    this.isLoading = true;
+
     this.usersUpdated.unsubscribe();
   }
 }

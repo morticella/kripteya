@@ -9,6 +9,7 @@ const router = express.Router();
 //SignUp Method
 
 router.post("/api/signup", function (req, res) {
+
   var atob = require('atob');
       let passHash =  atob(req.body.password);
   bcrypt.hash(passHash, 10).then(hash => {
@@ -22,7 +23,7 @@ router.post("/api/signup", function (req, res) {
     user
       .save()
       .then(result => {
-        res.status(201).json({
+        res.status(200).json({
           message: "User created!",
           result: result
         });
@@ -38,6 +39,7 @@ router.post("/api/signup", function (req, res) {
 // Login Method + Token
 
 router.post("/api/login", (req, res, next) => {
+  console.log('succede qualcosa qui?',req.body);
   let fetchedUser;
 
   User.findOne({ user: req.body.user })
@@ -49,6 +51,7 @@ router.post("/api/login", (req, res, next) => {
           message: "Auth failed"
         });
       }
+
       fetchedUser = userCheck;
       var atob = require('atob');
       let passHash =  atob(req.body.password);

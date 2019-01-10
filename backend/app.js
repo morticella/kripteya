@@ -56,7 +56,7 @@ app.get('/api/rooms',checkAuth,(req, res, next) => {
   });
 });
 
-app.use('/api/users',(req, res, next) => {
+app.get('/api/users',(req, res, next) => {
   User.find()
   .then(usersList => {
     //console.log(usersList);

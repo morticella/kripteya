@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
     <span class="brand" ><i class="material-icons">subdirectory_arrow_right</i> {{brand}}</span>
-    <div class="container-fluid" *ngIf="userIsAuthenticated">
+    <div class="container-fluid" >
       <button  mat-button class="float-right" color="accent" (click)="onLogout()">Logout</button>
     </div>
   </mat-toolbar>

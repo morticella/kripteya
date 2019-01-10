@@ -5,7 +5,7 @@
             <ng-template #loading>
               <mat-spinner></mat-spinner>
             </ng-template>
-            <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)" *ngIf="room | async; else loading">
+            <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)" *ngIf="(room | async).loading; else loading">
                   <section>
                       <mat-radio-group formControlName="gender">
                           <mat-radio-button value="true" class="gender" checked> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
