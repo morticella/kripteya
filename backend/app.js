@@ -59,11 +59,18 @@ app.get('/api/rooms',checkAuth,(req, res, next) => {
 app.get('/api/users',(req, res, next) => {
   User.find()
   .then(usersList => {
-    //console.log(usersList);
     const users = usersList;
-    res.status(200).json(users);
+    if(usersList.length===0){
+    res.status(500).json(users);
+    return
+    }
+    res.status(200).json();
     next();
-  });
+  })
+  .catch(err => {
+    res.status(500).json({
+      error: err
+    })});
 });
 
 app.use('', userRoutes);

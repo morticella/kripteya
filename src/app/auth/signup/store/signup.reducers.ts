@@ -7,8 +7,8 @@ export interface AuthState {
   tokenExpirationDate: number;
   authenticated: boolean;
   loading: boolean;
-  signup: boolean;
   error: boolean;
+  setup: boolean;
 }
 
 const initialState: AuthState = {
@@ -17,8 +17,8 @@ const initialState: AuthState = {
   tokenExpirationDate: null,
   authenticated: false,
   loading: false,
-  signup: false,
   error: false,
+  setup: true,
 };
 
 export function AuthReducers(state: AuthState = initialState, action): AuthState {
@@ -42,6 +42,39 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
       error
     };
   }
+  case AuthActionTypes.CheckSetUp: {
+    const loading = true;
+    return  {
+    ...state,
+    loading,
+  };
+  }
+  case AuthActionTypes.CheckSetUpSuccess: {
+    const authenticated = false;
+    const loading = false;
+    const error = false;
+    const setup = false;
+    return {
+    ...state,
+    authenticated,
+    setup,
+    loading,
+    error
+  };
+}
+case AuthActionTypes.CheckSetUpFailed: {
+  const authenticated = false;
+  const loading = false;
+  const error = false;
+  const setup = true;
+  return {
+  ...state,
+  authenticated,
+  loading,
+  error,
+  setup,
+};
+}
     case AuthActionTypes.LoginAuthSuccess: {
       const authenticated = true;
       const loading = false;
@@ -51,8 +84,7 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
       setInterval(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('expiration');
-        this.authenticated = false;
-      }, 14400);
+      }, 14400 * 1000);
       localStorage.setItem('token', token);
       localStorage.setItem('expiration', tokenExpirationDate);
 
@@ -65,23 +97,7 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
         error
         };
     }
-    case AuthActionTypes.LogoutAuth: {
-      const loading = true;
 
-      return  {
-      ...state,
-      loading,
-
-    };
-    }
-    case AuthActionTypes.LogoutAuthFailed: {
-      const loading = false;
-      return {
-      ...state,
-      loading,
-
-    };
-  }
     case AuthActionTypes.LogoutAuthSuccess: {
       const authenticated = false;
       const token = null;
@@ -130,7 +146,6 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
         loading,
         token,
         tokenExpirationDate,
-        // signup,
         error
         };
     }

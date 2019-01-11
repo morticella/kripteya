@@ -1,11 +1,11 @@
 <div class="container-fluid">
     <div class="col-md-12">
         <mat-card>
-            <!-- <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit a Property</span></div> -->
-            <ng-template #loading>
-              <mat-spinner></mat-spinner>
-            </ng-template>
-            <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)" *ngIf="(room | async).loading; else loading">
+            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit Room in {{(building|async)?.entities[(room|async).entities[idRoom].idBuilding].nameBuilding}}</span></div>
+
+              <mat-spinner *ngIf="(room | async).loading"></mat-spinner>
+
+            <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)" *ngIf="!(room | async).loading">
                   <section>
                       <mat-radio-group formControlName="gender">
                           <mat-radio-button value="true" class="gender" checked> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
@@ -14,7 +14,7 @@
                   </section>
                   <section>
                       <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
-                          <input matInput type="text" placeholder="Room Name" name="name" formControlName="name" [ngModel]="(room|async)?.entities[idRoom].name"> {{name + 'qui'}}
+                          <input matInput type="text" placeholder="Room Name" name="name" formControlName="name" [ngModel]="(room|async)?.entities[idRoom].name">
                           <input type="hidden" name="id" formControlName="id" [value]="(room|async).entities[idRoom]._id">
                       </mat-form-field>
 

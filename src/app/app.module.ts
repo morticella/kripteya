@@ -19,7 +19,6 @@ import { SharedModule } from './shared/shared.module';
 import { DashboardModule } from './dashboard/main/dashboard.module';
 import { BuildingsModule } from './dashboard/main/buildings/buildings.module';
 import { RoomsModule } from './dashboard/main/rooms/rooms.module';
-import { StorageDataService } from './shared/storage-data.service';
 
 import { AuthInterceptor } from './service/auth-interceptor';
 
@@ -51,7 +50,6 @@ import { reducers, metaReducers } from './reducers';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
-    StorageDataService,
     Store,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],

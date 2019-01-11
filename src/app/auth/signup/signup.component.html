@@ -1,5 +1,26 @@
-<div class="container" *ngIf="setup && !(authState|async).signup">
+<div class="container" *ngIf="!(authState|async).setup">
+    <div class="row">
+      <div class="col-md-10">
+          <mat-card>
+            <h3 class="purple text-center" >Welcome in Kripteya</h3>
+            <form [formGroup]="usersLogin" (ngSubmit)="onLogin(usersLogin.value)">
+              <section>
+                  <mat-form-field class="container-fluid">
+                      <input matInput type="email" placeholder="Email" name="email" formControlName="emailLogin">
+                  </mat-form-field>
 
+              </section>
+              <mat-form-field class="container-fluid">
+                  <input type="password" matInput placeholder="Password" name="password" formControlName="passwordLogin" >
+              </mat-form-field>
+              <button mat-button class="mat-primary-bg" type="submit" [disabled]="!usersLogin.valid">Login</button>
+
+            </form>
+          </mat-card>
+      </div>
+    </div>
+  </div>
+<div class="container" *ngIf="(authState|async)?.setup">
   <div class="row">
     <div class="col-md-10">
         <mat-card>
@@ -33,25 +54,4 @@
   </div>
 </div>
 
-<div class="container" *ngIf="!setup || (authState|async).signup === true">
-  <div class="row">
-    <div class="col-md-10">
-        <mat-card>
-          <h3 class="purple text-center" >Welcome in Kripteya</h3>
-          <form [formGroup]="usersLogin" (ngSubmit)="onLogin(usersLogin.value)">
-            <section>
-                <mat-form-field class="container-fluid">
-                    <input matInput type="email" placeholder="Email" name="email" formControlName="emailLogin">
-                </mat-form-field>
 
-            </section>
-            <mat-form-field class="container-fluid">
-                <input type="password" matInput placeholder="Password" name="password" formControlName="passwordLogin" >
-            </mat-form-field>
-            <button mat-button class="mat-primary-bg" type="submit" [disabled]="!usersLogin.valid">Login</button>
-
-          </form>
-        </mat-card>
-    </div>
-  </div>
-</div>

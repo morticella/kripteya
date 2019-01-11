@@ -1,14 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import * as fromBuildings from '../store/building-list.reducer';
 import * as buildingsAction from '../store/building-list.actions';
-
-import { StorageDataService } from 'src/app/shared/storage-data.service';
-// import { Building } from 'src/app/shared/models/building.model';
 
 @Component({
   selector: 'app-edit-building',
@@ -18,8 +15,7 @@ import { StorageDataService } from 'src/app/shared/storage-data.service';
 export class EditBuildingComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private store: Store<fromBuildings.BuildingsState>,
-              private router: Router) { }
+              private store: Store<fromBuildings.BuildingsState>) { }
   @Input() building: any;
   errorClass: boolean;
   nameInvalid: string;
@@ -38,11 +34,9 @@ export class EditBuildingComponent implements OnInit {
   info: string;
 
   ngOnInit() {
-
       this.idBuilding = this.route.snapshot.params['id'];
       this.buildingsState$ = this.store.select<fromBuildings.BuildingsState>('buildings');
       this.building = this.buildingsState$;
-
   }
 
   onSubmit(editBuilding: FormGroup) {

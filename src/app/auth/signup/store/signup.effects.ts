@@ -4,12 +4,13 @@ import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
+import {switchMap, map, catchError, tap} from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { AuthActionTypes } from '../store/signup.actions';
 import * as AuthActions from '../store/signup.actions';
 import { Auth } from 'src/app/service/auth.model';
+import { UsersLevel } from 'src/app/shared/user-level/user-level.module';
 
 
 console.log('sono nelleffects ');
@@ -17,12 +18,10 @@ console.log('sono nelleffects ');
 @Injectable()
 export class AuthEffects {
   urlBackEnd = 'http://localhost:3000';
-  // newAuth: Auth;
   error = 0;
   id: string;
   user: any;
   passHash: string;
-
   expiresIn: number;
 
 
@@ -36,7 +35,7 @@ export class AuthEffects {
     level: null
   };
 
-  return this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/login', authData).pipe(
+  return this.http.post<{token: string, expiresIn: number}>(this.urlBackEnd + '/api/login', authData).pipe(
     map(
       data => new AuthActions.LoginAuthSuccess(data)
     ),
@@ -58,7 +57,6 @@ export class AuthEffects {
     password: passHash,
     level: level
   };
-
   return this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/signup', authData).pipe(
     map(
       data => new AuthActions.SignUpAuthSuccess(data)
@@ -70,7 +68,18 @@ export class AuthEffects {
       () => of(new AuthActions.SignUpAuthFailed(true))
     ));
   }));
+  @Effect()
+  Setup$ = this.actions$
+ .pipe(ofType<AuthActions.CheckSetUp>(AuthActionTypes.CheckSetUp), switchMap( () => {
 
+  return this.http.get<UsersLevel>('http://localhost:3000/api/users').pipe(
+    map(
+      () => new AuthActions.CheckSetUpSuccess(false)
+    ),
+    catchError(
+      () => of(new AuthActions.CheckSetUpFailed(true))
+    ));
+  }));
  constructor(
    private actions$: Actions,
    private http: HttpClient,

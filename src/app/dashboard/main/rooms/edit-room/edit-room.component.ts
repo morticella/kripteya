@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 
 import * as fromRooms from '../store/rooms.reducers';
+import * as fromBuildings from '../../buildings/store/building-list.reducer';
 import * as roomsAction from '../store/rooms.actions';
 
 
@@ -26,7 +27,8 @@ export class EditRoomComponent implements OnInit {
     errorClass: boolean;
     nameInvalid: string;
     roomsState$: Observable<fromRooms.RoomsState>;
-
+    buildingsState$: Observable<fromBuildings.BuildingsState>;
+    building: any;
     rooms: any;
     idRoom: string;
     gender: boolean;
@@ -51,7 +53,9 @@ export class EditRoomComponent implements OnInit {
   ngOnInit() {
     this.idRoom = this.route.snapshot.params['idRoom'];
     this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
+    this.buildingsState$ = this.store.select<fromBuildings.BuildingsState>('buildings');
     this.room = this.roomsState$;
+    this.building = this.buildingsState$;
 
   }
 

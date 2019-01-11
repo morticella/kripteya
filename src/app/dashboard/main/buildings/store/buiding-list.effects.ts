@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -9,12 +10,15 @@ import { BuildingsActionTypes } from '../store/building-list.actions';
 import * as BuildingsActions from '../store/building-list.actions';
 import { Building } from '../../../../shared/models/building.model';
 
+
+
 @Injectable()
 export class BuildingEffects {
   urlBackEnd = 'http://localhost:3000';
   newBuilding: Building;
   error = 0;
   id: string;
+
   @Effect()
  loadBuildings$ = this.actions$
  .pipe(ofType<BuildingsActions.LoadingBuildings>(BuildingsActionTypes.LoadingBuildings), mergeMap( () => {
