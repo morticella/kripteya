@@ -29,24 +29,45 @@ export class AuthEffects {
    @Effect()
  Login$ = this.actions$
  .pipe(ofType<AuthActions.LoginAuth>(AuthActionTypes.LoginAuth), switchMap( (action: AuthActions.LoginAuth) => {
-
   const passHash =  window.btoa(action.payload.passwordLogin);
   const authData: Auth = {
     user: action.payload.emailLogin,
     password: passHash,
     level: null
   };
-  // const level: string = localStorage.getItem('token');
-  // const token: string = localStorage.getItem('expiration');
+
   return this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/login', authData).pipe(
     map(
       data => new AuthActions.LoginAuthSuccess(data)
     ),
     tap(
-      data => console.log(data)
+      () => this.router.navigate(['dashboard'])
     ),
     catchError(
       () => of(new AuthActions.LoginAuthFailed(true))
+    ));
+  }));
+
+  @Effect()
+  Signup$ = this.actions$
+ .pipe(ofType<AuthActions.SignUpAuth>(AuthActionTypes.SignUpAuth), switchMap( (action: AuthActions.SignUpAuth) => {
+  const passHash =  window.btoa(action.payload.password);
+  const level = 'SuperAdmin';
+  const authData: Auth = {
+    user: action.payload.email,
+    password: passHash,
+    level: level
+  };
+
+  return this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/signup', authData).pipe(
+    map(
+      data => new AuthActions.SignUpAuthSuccess(data)
+    ),
+    tap(
+      () => this.router.navigate(['dashboard'])
+    ),
+    catchError(
+      () => of(new AuthActions.SignUpAuthFailed(true))
     ));
   }));
 

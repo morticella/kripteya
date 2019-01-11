@@ -44,54 +44,23 @@ export class AuthService {
 
   signupSuperAdmin(userData: string, passwordData: string, levelData: string) {
 
-    const authData: Auth = {
-      user: userData,
-      password: passwordData,
-      level: levelData
-    };
+    // const authData: Auth = {
+    //   user: userData,
+    //   password: passwordData,
+    //   level: levelData
+    // };
 
-    this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/signup', authData)
-      .subscribe(
-      res => {
-        this.store.dispatch(new authAction.SignUpAuthSuccess());
-        this.router.navigate(['/dashboard']);
-      },
-        () => this.store.dispatch(new authAction.SignUpAuthFailed(true)),
+    // this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/signup', authData)
+    //   .subscribe(
+    //   res => {
+    //     this.store.dispatch(new authAction.SignUpAuthSuccess());
+    //     this.router.navigate(['/dashboard']);
+    //   },
+    //     () => this.store.dispatch(new authAction.SignUpAuthFailed(true)),
 
-    );
+    // );
   }
 
-  login(userLogin: string, passwordLogin: string, levelLogin: string) {
-
-      const authData: Auth = {
-        user: userLogin,
-        password: passwordLogin,
-        level: levelLogin
-      };
-
-      this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/login', authData)
-        .subscribe(response => {
-         //  console.log(response);
-          const token = response.token;
-
-          this.token = token;
-          if (token) {
-            this.store.dispatch(new authAction.LoginAuthSuccess(''));
-            const expiresInDuration = response.expiresIn;
-            this.setExpirationDate(expiresInDuration);
-            // this.isAuthenticated = true;
-            this.authStatusListener.next(true);
-            const now = new Date();
-            const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-            // this.saveAuthData(token, expirationDate);
-            this.store.dispatch(new authAction.SetToken(token));
-            this.store.dispatch(new authAction.SetTokenExpiration(expirationDate));
-            this.router.navigate(['/dashboard']);
-          }
-        },
-        () => this.store.dispatch(new authAction.LoginAuthFailed(true)));
-
-    }
   logout() {
       // this.token = null;
       this.authStatusListener.next(false);
@@ -99,7 +68,7 @@ export class AuthService {
       // this.clearAuthData();
       // clearTimeout(this.tokenTimer);
       this.store.dispatch(new authAction.LogoutAuth());
-      this.store.dispatch(new authAction.UnSetToken(null));
+      // this.store.dispatch(new authAction.UnSetToken(null));
   }
 
   autoAuthUser() {
@@ -108,7 +77,7 @@ export class AuthService {
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.token = authInformation.token;
-      this.isAuthenticated = true;
+      // this.isAuthenticated = true;
       this.setExpirationDate(expiresIn / 1000);
       this.authStatusListener.next(true);
     }

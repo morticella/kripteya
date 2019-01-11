@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import { StorageDataService } from 'src/app/shared/storage-data.service';
 import { UsersLevel } from 'src/app/shared/user-level/user-level.module';
 import { AuthService } from 'src/app/service/auth.service';
-import { AuthState } from './store/signup.reducers';
+
 import * as fromAuth from './store/signup.reducers';
 import * as authActions from './store/signup.actions';
 import { Store } from '@ngrx/store';
@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(
     private storageData: StorageDataService,
     private authService: AuthService,
-    private store: Store<AuthState>,
+    private store: Store<fromAuth.AuthState>,
     ) { }
 
   ngOnInit() {
@@ -65,31 +65,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSignUp() {
-    const user = this.usersSignup.value.email;
-    const password = this.usersSignup.value.password;
-    const passHash =  window.btoa(password);
-    const level = this.level;
-    this.authService.signupSuperAdmin(user, passHash, level);
-    const love = this.store.select('signup').map(
-      (signup) => {
-        return signup.valueOf;
-      }
-    );
-    console.log(love, 'love?');
+  onSignUp(data: FormGroup) {
+    this.store.dispatch(new authActions.SignUpAuth(data));
   }
 
   onLogin(data: FormGroup) {
-    // this.isLoading = true;
-    console.log('form ', data);
-    const email = this.usersLogin.value.emailLogin;
-    const password = this.usersLogin.value.passwordLogin;
-    const level = null;
-    // this.router.navigateByUrl('/main');
     this.store.dispatch(new authActions.LoginAuth(data));
-    const passHash =  window.btoa(password);
-    // this.authService.login(email, passHash , level);
-    // this.isLoading = false;
   }
   checkPassword (control: FormControl): {[s: string]: boolean} {
     if (control.value) {

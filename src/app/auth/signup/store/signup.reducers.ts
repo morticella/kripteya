@@ -1,21 +1,15 @@
 import {AuthActionTypes} from './signup.actions';
-import {Auth} from '../../../shared/models/auth.model';
-import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
-import { Router } from '@angular/router';
-// import { Room } from 'src/app/shared/models/room.model';
+
 
 export interface AuthState {
   user: string;
   token: string;
-  tokenExpirationDate: Date;
+  tokenExpirationDate: number;
   authenticated: boolean;
   loading: boolean;
   signup: boolean;
   error: boolean;
 }
-// export const adapter: EntityAdapter<Auth> =
-//   createEntityAdapter<Auth>({selectId: auth => auth._id});
-
 
 const initialState: AuthState = {
   user: null,
@@ -52,17 +46,24 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
       const authenticated = true;
       const loading = false;
       const error = false;
-      localStorage.getItem('token');
-      localStorage.getItem('expiration');
+      const token = action.payload.token;
+      const tokenExpirationDate = action.payload.expiresIn;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('expiration', tokenExpirationDate);
+
       return {
         ...state,
         authenticated,
         loading,
+        token,
+        tokenExpirationDate,
         error
         };
     }
     case AuthActionTypes.LogoutAuth: {
       const loading = true;
+
       return  {
       ...state,
       loading,
@@ -81,6 +82,8 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
       const authenticated = false;
       const token = null;
       const loading = false;
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiration');
       return {
         ...state,
         loading,
@@ -112,69 +115,27 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
     case AuthActionTypes.SignUpAuthSuccess: {
       const authenticated = true;
       const loading = false;
-      const signup = true;
       const error = false;
-      return {
-        ...state,
-        authenticated,
-        loading,
-        signup,
-        error
-        };
-    }
-    case AuthActionTypes.SetToken: {
-      const authenticated = true;
-      const loading = false;
-      const token = action.payload;
-      const error = false;
-      localStorage.setItem('token', token);
+      const token = action.payload.token;
+      const tokenExpirationDate = action.payload.expiresIn;
 
+      localStorage.setItem('token', token);
+      localStorage.setItem('expiration', tokenExpirationDate);
       return {
         ...state,
         authenticated,
         loading,
         token,
-        error
-        };
-    }
-    case AuthActionTypes.UnSetToken: {
-      const authenticated = true;
-      const loading = false;
-      const token = action.payload;
-      const error = false;
-      localStorage.removeItem('token');
-      localStorage.removeItem('expiration');
-      return {
-        ...state,
-        authenticated,
-        loading,
-        token,
-        error
-        };
-    }
-    case AuthActionTypes.SetTokenExpiration: {
-      const authenticated = true;
-      const loading = false;
-      const tokenExpirationDate = action.payload;
-      const error = false;
-      localStorage.setItem('expiration', tokenExpirationDate.toISOString());
-      return {
-        ...state,
-        authenticated,
-        loading,
         tokenExpirationDate,
+        // signup,
         error
         };
     }
+
+
     default: return state;
 }
 
 }
 
-// export const {
-//   selectAll,
-//   selectEntities,
-//   selectIds,
-//   selectTotal
-// };
 

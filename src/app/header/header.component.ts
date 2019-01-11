@@ -5,7 +5,7 @@ import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../auth/signup/store/signup.reducers';
-
+import * as fromAuth from '../auth/signup/store/signup.actions';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -25,21 +25,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.brand = 'Kripteya';
-    console.log(this.store.select('auth'));
+
     this.authState$ = this.store.select('auth');
     this.authState = this.authState$;
-    this.userIsAuthenticated = this.authService.getIsAuth();
-    this.authListenerSubs = this.authService.getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.userIsAuthenticated = isAuthenticated;
-      });
+    // // this.userIsAuthenticated = this.authService.getIsAuth();
+    // this.authListenerSubs = this.authService.getAuthStatusListener()
+    //   .subscribe(isAuthenticated => {
+    //     this.userIsAuthenticated = isAuthenticated;
+    //   });
   }
 
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
+    // this.authListenerSubs.unsubscribe();
   }
   onLogout() {
-    this.authService.logout();
-    this.userIsAuthenticated = false;
+    this.store.dispatch(new fromAuth.LogoutAuthSuccess(true));
+    // this.authService.logout();
+    // this.userIsAuthenticated = false;
   }
 }

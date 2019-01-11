@@ -13,9 +13,6 @@ export enum AuthActionTypes {
   LogoutAuth = '[Trying Logout] Logout Auth Request',
   LogoutAuthSuccess = '[Logout API] Logout Auth Success',
   LogoutAuthFailed = '[Logout API] Logout Auth Failed',
-  SetToken = '[Set Token] Auth Token',
-  UnSetToken = '[unSet Token] Auth Token',
-  SetTokenExpiration = '[Set Token Expiration] Timer started'
 }
 
 
@@ -55,27 +52,14 @@ export class SignUpAuth implements Action {
 
 export class SignUpAuthSuccess implements Action {
   readonly type = AuthActionTypes.SignUpAuthSuccess;
-
+  constructor(public payload: any) {}
 }
 export class SignUpAuthFailed implements Action {
   readonly type = AuthActionTypes.SignUpAuthFailed;
   constructor(public error: boolean) {}
 }
 
-export class SetToken implements Action {
-  readonly type = AuthActionTypes.SetToken;
-  constructor(public payload: string) {}
-}
 
-export class SetTokenExpiration implements Action {
-  readonly type = AuthActionTypes.SetTokenExpiration;
-  constructor(public payload: Date) {}
-}
-
-export class UnSetToken implements Action {
-  readonly type = AuthActionTypes.UnSetToken;
-  constructor(public payload: string) {}
-}
 
 
 
@@ -88,7 +72,4 @@ export type AuthListAction =
               SignUpAuthFailed |
               LogoutAuth |
               LogoutAuthSuccess |
-              LogoutAuthFailed |
-              SetToken |
-              SetTokenExpiration |
-              UnSetToken;
+              LogoutAuthFailed;
