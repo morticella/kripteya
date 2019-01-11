@@ -51,6 +51,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.authState$ = this.store.select('auth');
     this.authState = this.authState$;
 
+
     this.users = this.storageData.loadUsers();
     this.usersUpdated = this.storageData.checkLoadedUsers()
     .subscribe((usersLevel: UsersLevel[]) => {

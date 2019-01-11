@@ -20,6 +20,7 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private store: Store<AppState>) {}
     isAuth: boolean;
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -27,6 +28,9 @@ export class AuthGuard implements CanActivate {
     const CheckAuth = this.store.select(authState => authState.auth.authenticated).subscribe(
       authState => this.isAuth = authState
     );
+    if (localStorage.getItem('token')) {
+      this.isAuth = true;
+    }
     if (!this.isAuth) {
       this.router.navigate(['/']);
     }
