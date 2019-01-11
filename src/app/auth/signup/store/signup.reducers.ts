@@ -48,7 +48,11 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
       const error = false;
       const token = action.payload.token;
       const tokenExpirationDate = action.payload.expiresIn;
-
+      setInterval(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('expiration');
+        this.authenticated = false;
+      }, 14400);
       localStorage.setItem('token', token);
       localStorage.setItem('expiration', tokenExpirationDate);
 
@@ -118,7 +122,6 @@ export function AuthReducers(state: AuthState = initialState, action): AuthState
       const error = false;
       const token = action.payload.token;
       const tokenExpirationDate = action.payload.expiresIn;
-
       localStorage.setItem('token', token);
       localStorage.setItem('expiration', tokenExpirationDate);
       return {

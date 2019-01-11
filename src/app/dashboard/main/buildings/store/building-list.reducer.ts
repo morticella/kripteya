@@ -1,7 +1,6 @@
 import {BuildingsActionTypes} from './building-list.actions';
 import {Buildings} from '../../../../shared/models/buildings.model';
 import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
-import { Building } from 'src/app/shared/models/building.model';
 
 export interface BuildingsState extends EntityState<Buildings> {
   building: any;
@@ -14,7 +13,6 @@ export interface BuildingsState extends EntityState<Buildings> {
 
 export const adapter: EntityAdapter<Buildings> =
   createEntityAdapter<Buildings>({selectId: buildings => buildings._id});
-
 
 export const initialState: BuildingsState = adapter.getInitialState({
   entities: {},
@@ -51,11 +49,9 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
     };
   }
     case BuildingsActionTypes.LoadingBuildingsSuccess: {
-
       const loading = false;
       const logged = true;
       const error = false;
-
       return adapter.addAll(action.payload,
         {
         ...state,
@@ -64,8 +60,6 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
         error,
         });
     }
-
-
 
     case BuildingsActionTypes.AddBuilding: {
       const loading = true;
@@ -78,7 +72,43 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
       error
     };
   }
-  case BuildingsActionTypes.AddBuildingFailed: {
+    case BuildingsActionTypes.AddBuildingFailed: {
+      const error = action.error;
+      const loading = false;
+      const logged = true;
+      return {
+      ...state,
+      loading,
+      logged,
+      error
+    };
+  }
+    case BuildingsActionTypes.AddBuildingSuccess: {
+      const loading = false;
+      const logged = true;
+      const error = false;
+      const building = action.payload;
+      return adapter.addOne(action.payload, {
+      ...state,
+      building,
+      loading,
+      logged,
+      error,
+    });
+  }
+
+  case BuildingsActionTypes.DeleteBuilding: {
+    const loading = true;
+    const logged = false;
+    const error = false;
+    return  {
+    ...state,
+    loading,
+    logged,
+    error
+    };
+  }
+  case BuildingsActionTypes.DeleteBuildingFailed: {
     const error = action.error;
     const loading = false;
     const logged = true;
@@ -87,102 +117,65 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
     loading,
     logged,
     error
-  };
-}
-  case BuildingsActionTypes.AddBuildingSuccess: {
+    };
+  }
+
+  case BuildingsActionTypes.DeleteBuildingSuccess: {
     const loading = false;
     const logged = true;
     const error = false;
-    const building = action.payload;
-    return adapter.addOne(action.payload, {
+    const id = action.payload;
+    return adapter.removeOne(action.payload, {
     ...state,
-    building,
+    id,
     loading,
     logged,
     error,
   });
-}
+  }
 
-case BuildingsActionTypes.DeleteBuilding: {
-  const loading = true;
-  const logged = false;
-  const error = false;
-  return  {
-  ...state,
-  loading,
-  logged,
-  error
-  };
-}
-case BuildingsActionTypes.DeleteBuildingFailed: {
-  const error = action.error;
-  const loading = false;
-  const logged = true;
-  return {
-  ...state,
-  loading,
-  logged,
-  error
-  };
-}
+  case BuildingsActionTypes.EditBuilding: {
+    const loading = true;
+    const logged = false;
+    const error = false;
+    const id = action.payload.id;
+    const editBuilding = state.entities[action.payload.id];
+    return  {
+    ...state,
+    editBuilding,
+    id,
+    loading,
+    logged,
+    error
+    };
+  }
+  case BuildingsActionTypes.EditBuildingFailed: {
+    const error = action.error;
+    const loading = false;
+    const logged = true;
+    return {
+    ...state,
+    loading,
+    logged,
+    error
+    };
+  }
 
-case BuildingsActionTypes.DeleteBuildingSuccess: {
-  const loading = false;
-  const logged = true;
-  const error = false;
-  const id = action.payload;
-  return adapter.removeOne(action.payload, {
-  ...state,
-  id,
-  loading,
-  logged,
-  error,
-});
-}
+  case BuildingsActionTypes.EditBuildingSuccess: {
 
-case BuildingsActionTypes.EditBuilding: {
-  const loading = true;
-  const logged = false;
-  const error = false;
-  const id = action.payload.id;
-  const editBuilding = state.entities[action.payload.id];
-  return  {
-  ...state,
-  editBuilding,
-  id,
-  loading,
-  logged,
-  error
-  };
-}
-case BuildingsActionTypes.EditBuildingFailed: {
-  const error = action.error;
-  const loading = false;
-  const logged = true;
-  return {
-  ...state,
-  loading,
-  logged,
-  error
-  };
-}
-
-case BuildingsActionTypes.EditBuildingSuccess: {
-  console.log('sono in edit success');
-  const loading = false;
-  const logged = true;
-  const error = false;
-  const id = action.payload.id;
-  const editBuilding = state.entities[action.payload.id];
-  return adapter.updateOne(action.payload, {
-  ...state,
-  ...state.entities[action.payload.id],
-  id,
-  loading,
-  logged,
-  error,
-  });
-}
+    const loading = false;
+    const logged = true;
+    const error = false;
+    const id = action.payload.id;
+    return adapter.updateOne(action.payload, {
+    ...state,
+    ...state.entities[action.payload.id],
+    id,
+    loading,
+    logged,
+    error,
+    });
+  }
     default: return state;
 }
 }

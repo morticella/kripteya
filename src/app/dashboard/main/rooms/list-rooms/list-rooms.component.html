@@ -4,14 +4,12 @@
 
       </div>
           <div class="purple text-center" ><i class="material-icons md-64">local_hotel</i> <span class="titleForm" *ngIf="!rooms.loading">Rooms</span></div>
-
           <mat-spinner *ngIf="(rooms|async).loading"></mat-spinner>
           <div *ngIf="(rooms | async).error && (rooms | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
             <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
             </div>
               <ng-container *ngFor="let i = index, let room of (rooms|async).entities | entities " >
               <div *ngIf="idBuilding === room.idBuilding || idBuilding === undefined">
-
                 <mat-expansion-panel color="accent" *ngIf="!rooms.loading" >
                     <mat-expansion-panel-header>
                       <mat-panel-title color="accent" >
@@ -19,14 +17,11 @@
                         <!-- (rooms | async).entities[(rooms | async).ids[i]].nameBuilding -->
                       </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div >
+                    <div>
                         <p >{{room.gender}}</p>
                         <p >{{room.beds}}</p>
                         <p >{{room.rent}}</p>
                         <p >{{room.deposit}}</p>
-                        <p >{{room.notice}}</p>
-                        <p >{{room.booked}}</p>
-
                         <section class="text-right">
                           <div class="row text-center">
                             <div class="col-md-2"></div>
@@ -42,13 +37,11 @@
                               <div class="col-md-2">
                                   <button mat-raised-button class="text-center" color="warn" (click)="onDelete(room._id)">Delete</button>
                               </div>
-
                           </div>
                         </section>
                       </div>
                   </mat-expansion-panel>
                 </div>
-
           </ng-container>
   </div>
 </div>

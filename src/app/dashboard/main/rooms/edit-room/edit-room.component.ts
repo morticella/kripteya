@@ -26,7 +26,7 @@ export class EditRoomComponent implements OnInit {
     errorClass: boolean;
     nameInvalid: string;
     roomsState$: Observable<fromRooms.RoomsState>;
-    // editRoom: FormGroup;
+
     rooms: any;
     idRoom: string;
     gender: boolean;
@@ -38,7 +38,7 @@ export class EditRoomComponent implements OnInit {
     booked: Date;
     faVenus = faVenus;
     faMars = faMars;
-    // editRoom: FormGroup;
+
     editRoom = new FormGroup({
       name: new FormControl('', Validators.required),
       gender: new FormControl(null),
@@ -46,20 +46,18 @@ export class EditRoomComponent implements OnInit {
       beds: new FormControl( null ),
       deposit: new FormControl( null  ),
       rent: new FormControl( null ),
-      // booked: new FormControl( null ),
-      // notice: new FormControl( null ),
     });
 
-ngOnInit() {
-this.idRoom = this.route.snapshot.params['idRoom'];
-this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
-this.room = this.roomsState$;
+  ngOnInit() {
+    this.idRoom = this.route.snapshot.params['idRoom'];
+    this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
+    this.room = this.roomsState$;
 
-}
+  }
 
-onSubmit(editRoom: FormGroup) {
-  this.store.dispatch(new roomsAction.EditRoom(editRoom));
-}
+  onSubmit(editRoom: FormGroup) {
+    this.store.dispatch(new roomsAction.EditRoom(editRoom));
+  }
 
 }
 

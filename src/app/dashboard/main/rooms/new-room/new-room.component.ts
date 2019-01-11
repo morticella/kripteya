@@ -21,12 +21,10 @@ export class NewRoomComponent implements OnInit {
   errorHeadersStatus: Subscription;
   errorClass: boolean;
   nameInvalid: string;
-  // newRoom: FormGroup;
-  // Icons Awesome Font
   faVenus = faVenus;
   faMars = faMars;
   @Input() building: any;
-  // view: any;
+
   newRoom = new FormGroup({
     idBuilding: new FormControl(this.route.snapshot.params['idBuilding'], [Validators.required]),
     name: new FormControl(null, Validators.required),
@@ -39,18 +37,12 @@ export class NewRoomComponent implements OnInit {
   });
 
   constructor(
-
     private route: ActivatedRoute,
     private store: Store<fromRooms.AppState>) { }
 
-
-
   ngOnInit() {
-
     this.store.dispatch(new roomsAction.LoadingRooms());
-
   }
-
 
   onSubmit(newRoom: FormGroup) {
     this.store.select<fromRooms.AppState[]>('rooms');

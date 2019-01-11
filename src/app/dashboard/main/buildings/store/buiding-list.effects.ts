@@ -1,20 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { BuildingsActionTypes } from '../store/building-list.actions';
 import * as BuildingsActions from '../store/building-list.actions';
-import * as fromBuildings from '../store/building-list.reducer';
 import { Building } from '../../../../shared/models/building.model';
-import { StateBuildings } from 'src/app/shared/models/stateBuildings.model';
-import { Buildings } from 'src/app/shared/models/buildings.model';
-
-
 
 @Injectable()
 export class BuildingEffects {
@@ -58,7 +51,6 @@ export class BuildingEffects {
   switchMap(
     (action: BuildingsActions.DeleteBuilding) => {
     this.id = action.payload; this.error = 0;
-
      return this.http.delete<Building>(this.urlBackEnd + '/api/new-building/' + this.id)
      .pipe(
      map(
@@ -73,13 +65,8 @@ export class BuildingEffects {
   .pipe(ofType<BuildingsActions.EditBuilding>(BuildingsActionTypes.EditBuilding), tap( ),
   mergeMap(
     (action: BuildingsActions.EditBuilding) => {
-
     const id = action.payload.id;
     this.newBuilding = action.payload;
-    console.log('sei id giusto? ', id);
-
-
-
      return this.http.put<Building>(this.urlBackEnd + '/api/new-building/' + id, this.newBuilding)
      .pipe(
      map(
@@ -93,13 +80,9 @@ export class BuildingEffects {
      ));
    }));
 
-
-
  constructor(
    private actions$: Actions,
    private http: HttpClient,
-   // private store: Store<fromBuildings.BuildingsState>,
    private router: Router) {}
-
 }
 

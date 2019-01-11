@@ -1,7 +1,6 @@
 import {RoomsActionTypes} from './rooms.actions';
 import {Rooms} from '../../../../shared/models/rooms.model';
 import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
-// import { Room } from 'src/app/shared/models/room.model';
 
 export interface RoomsState extends EntityState<Rooms> {
   Room: any;
@@ -45,10 +44,8 @@ export function RoomsReducers(state: RoomsState = initialState, action): RoomsSt
     };
   }
     case RoomsActionTypes.LoadingRoomsSuccess: {
-
       const loading = false;
       const error = false;
-
       return adapter.addAll(action.payload,
         {
         ...state,
@@ -56,8 +53,6 @@ export function RoomsReducers(state: RoomsState = initialState, action): RoomsSt
         error,
         });
     }
-
-
 
     case RoomsActionTypes.AddRoom: {
       const loading = true;
@@ -144,11 +139,9 @@ case RoomsActionTypes.EditRoomFailed: {
 }
 
 case RoomsActionTypes.EditRoomSuccess: {
-  console.log('sono in edit success');
   const loading = false;
   const error = false;
   const id = action.payload.id;
-  // const editRoom = state.entities[action.payload.id];
   return adapter.updateOne(action.payload, {
   ...state,
   ...state.entities[action.payload.id],

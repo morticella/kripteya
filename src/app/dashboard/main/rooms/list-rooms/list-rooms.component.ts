@@ -1,12 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable} from 'rxjs';
 
 import * as fromRooms from '../store/rooms.reducers';
 import * as roomsAction from '../store/rooms.actions';
-import { ActivatedRoute } from '@angular/router';
-// import {selectAllRooms} from '../store/room-list.selectors';
 
 @Component({
   selector: 'app-list-rooms',
@@ -26,7 +25,6 @@ export class ListRoomsComponent implements OnInit {
 
   ngOnInit() {
     this.idBuilding = this.route.snapshot.params['idBuilding'];
-    console.log(this.idBuilding);
     this.store.dispatch(new roomsAction.LoadingRooms());
     this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
     this.rooms = this.roomsState$;

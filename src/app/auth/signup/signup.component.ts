@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
-import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
-import 'rxjs/add/operator/map';
 
 import { StorageDataService } from 'src/app/shared/storage-data.service';
 import { UsersLevel } from 'src/app/shared/user-level/user-level.module';
-import { AuthService } from 'src/app/service/auth.service';
+
 
 import * as fromAuth from './store/signup.reducers';
 import * as authActions from './store/signup.actions';
@@ -43,7 +41,6 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   constructor(
     private storageData: StorageDataService,
-    private authService: AuthService,
     private store: Store<fromAuth.AuthState>,
     ) { }
 

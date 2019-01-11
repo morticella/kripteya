@@ -2,19 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import { Router } from '@angular/router';
-// import { select, Store } from '@ngrx/store';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { RoomsActionTypes } from '../store/rooms.actions';
 import * as RoomsActions from '../store/rooms.actions';
-// import * as fromRooms from '../store/building-list.reducer';
 import { Room } from '../../../../shared/models/room.model';
-// import { StateRooms } from 'src/app/shared/models/stateRooms.model';
-// import { Rooms } from 'src/app/shared/models/buildings.model';
-
-
 
 @Injectable()
 export class RoomEffects {
@@ -58,7 +52,6 @@ export class RoomEffects {
   switchMap(
     (action: RoomsActions.DeleteRoom) => {
     this.id = action.payload; this.error = 0;
-
      return this.http.delete<Room>(this.urlBackEnd + '/api/new-room/' + this.id)
      .pipe(
      map(
@@ -73,7 +66,6 @@ export class RoomEffects {
   .pipe(ofType<RoomsActions.EditRoom>(RoomsActionTypes.EditRoom), tap( ),
   mergeMap(
     (action: RoomsActions.EditRoom) => {
-
     const id = action.payload.id;
     this.newRoom = action.payload;
      return this.http.put<Room>(this.urlBackEnd + '/api/new-room/' + id, this.newRoom)
@@ -91,7 +83,6 @@ export class RoomEffects {
  constructor(
    private actions$: Actions,
    private http: HttpClient,
-   // private store: Store<fromRooms.RoomsState>,
    private router: Router) {}
 
 }
