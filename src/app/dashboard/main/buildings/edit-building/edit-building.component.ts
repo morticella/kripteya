@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import * as fromBuildings from '../store/building-list.reducer';
 import * as buildingsAction from '../store/building-list.actions';
+import { AppState } from 'src/app/reducers';
 
 @Component({
   selector: 'app-edit-building',
@@ -15,7 +16,8 @@ import * as buildingsAction from '../store/building-list.actions';
 export class EditBuildingComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private store: Store<fromBuildings.BuildingsState>) { }
+              private store: Store<fromBuildings.BuildingsState>,
+              private emergencyStore: Store<AppState>) { }
   @Input() building: any;
   errorClass: boolean;
   nameInvalid: string;
@@ -32,11 +34,22 @@ export class EditBuildingComponent implements OnInit {
   nameBuilding: string;
   address: string;
   info: string;
+  reloadBuildings: Object;
 
   ngOnInit() {
       this.idBuilding = this.route.snapshot.params['id'];
       this.buildingsState$ = this.store.select<fromBuildings.BuildingsState>('buildings');
       this.building = this.buildingsState$;
+
+      this.emergencyStore.select(appState => appState).subscribe(
+        appState => {
+          this.reloadBuildings = appState.buildings.ids[0];
+        }
+      );
+      if (!this.reloadBuildings) {
+        this.emergencyStore.dispatch(new buildingsAction.LoadingBuildings());
+      }
+
   }
 
   onSubmit(editBuilding: FormGroup) {
