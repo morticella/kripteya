@@ -7,9 +7,9 @@
 
             <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)" *ngIf="!(room | async).loading">
                   <section>
-                      <mat-radio-group formControlName="gender">
-                          <mat-radio-button value="true" class="gender" checked> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
-                          <mat-radio-button value="false" class="gender"> <fa-icon [icon]="faVenus"></fa-icon> Female </mat-radio-button>
+                      <mat-radio-group formControlName="gender" [ngModel]="(room|async)?.entities[idRoom].gender">
+                          <mat-radio-button value="true" class="gender" [checked]="(room|async)?.entities[idRoom].gender === true"> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
+                          <mat-radio-button value="false" class="gender" [checked]="(room|async)?.entities[idRoom].gender === false"> <fa-icon [icon]="faVenus"></fa-icon> Female </mat-radio-button>
                         </mat-radio-group>
                   </section>
                   <section>

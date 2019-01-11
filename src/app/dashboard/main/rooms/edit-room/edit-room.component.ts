@@ -1,16 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 
+import { AppState } from 'src/app/reducers';
 import * as fromRooms from '../store/rooms.reducers';
 import * as fromBuildings from '../../buildings/store/building-list.reducer';
+import * as buildingsAction from '../../buildings/store/building-list.actions';
 import * as roomsAction from '../store/rooms.actions';
-
 
 @Component({
   selector: 'app-edit-room',
@@ -21,7 +21,7 @@ export class EditRoomComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private store: Store<fromRooms.RoomsState>,
-    private router: Router) { }
+    private emergencyStore: Store<AppState>) { }
 
     @Input() room: any;
     errorClass: boolean;
@@ -36,18 +36,18 @@ export class EditRoomComponent implements OnInit {
     name: string;
     rent: number;
     deposit: number;
-    notice: Date;
-    booked: Date;
     faVenus = faVenus;
     faMars = faMars;
+    reloadBuildings: Object;
+    reloadRooms: Object;
 
     editRoom = new FormGroup({
-      name: new FormControl('', Validators.required),
-      gender: new FormControl(null),
+      name: new FormControl(null, Validators.required),
+      gender: new FormControl(null, Validators.required),
       id: new FormControl( this.route.snapshot.params['idRoom']),
-      beds: new FormControl( null ),
-      deposit: new FormControl( null  ),
-      rent: new FormControl( null ),
+      beds: new FormControl( null, Validators.required ),
+      deposit: new FormControl( null, Validators.required  ),
+      rent: new FormControl( null, Validators.required ),
     });
 
   ngOnInit() {
@@ -57,6 +57,18 @@ export class EditRoomComponent implements OnInit {
     this.room = this.roomsState$;
     this.building = this.buildingsState$;
 
+    this.emergencyStore.select(appState => appState).subscribe(
+      appState => {
+        this.reloadBuildings = appState.buildings.ids[0];
+        this.reloadRooms = appState.rooms.ids[0];
+      }
+    );
+    if (!this.reloadBuildings) {
+      this.emergencyStore.dispatch(new buildingsAction.LoadingBuildings());
+    }
+    if (!this.reloadBuildings) {
+      this.emergencyStore.dispatch(new roomsAction.LoadingRooms());
+    }
   }
 
   onSubmit(editRoom: FormGroup) {
