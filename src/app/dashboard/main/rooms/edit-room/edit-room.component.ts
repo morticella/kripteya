@@ -66,7 +66,7 @@ export class EditRoomComponent implements OnInit {
     if (!this.reloadBuildings) {
       this.emergencyStore.dispatch(new buildingsAction.LoadingBuildings());
     }
-    if (!this.reloadBuildings) {
+    if (!this.reloadRooms) {
       this.emergencyStore.dispatch(new roomsAction.LoadingRooms());
     }
   }
