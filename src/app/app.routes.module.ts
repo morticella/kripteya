@@ -15,10 +15,12 @@ import { ListBuildingComponent } from './dashboard/main/buildings//list-building
 import { EditBuildingComponent } from './dashboard/main/buildings//edit-building/edit-building.component';
 
 // Rooms CRUD
-
 import { NewRoomComponent } from './dashboard/main/rooms/new-room/new-room.component';
 import { ListRoomsComponent } from './dashboard/main/rooms/list-rooms/list-rooms.component';
 import { EditRoomComponent } from './dashboard/main/rooms/edit-room/edit-room.component';
+
+// Customers CRUD
+import { NewCustomerComponent } from './dashboard/main/customers/new-customer/new-customer.component';
 
 
 const appRoutes: Routes = [
@@ -31,6 +33,7 @@ const appRoutes: Routes = [
   { path: 'dashboard/building-rooms/:idBuilding' , component: ListRoomsComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/new-room/:idBuilding' , component: NewRoomComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/edit-room/:idRoom' , component: EditRoomComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/new-customer' , component: NewCustomerComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

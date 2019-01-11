@@ -40,7 +40,7 @@ export class LoginAuthFailed implements Action {
 }
 export class LogoutAuthSuccess implements Action {
   readonly type = AuthActionTypes.LogoutAuthSuccess;
-  constructor(public payload: any) {}
+  // constructor(public payload: any) {}
 }
 export class SignUpAuth implements Action {
   readonly type = AuthActionTypes.SignUpAuth;

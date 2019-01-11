@@ -10,7 +10,7 @@ import { of } from 'rxjs';
 import { AuthActionTypes } from '../store/signup.actions';
 import * as AuthActions from '../store/signup.actions';
 import { Auth } from 'src/app/service/auth.model';
-import { UsersLevel } from 'src/app/shared/user-level/user-level.module';
+import { UsersLevel } from 'src/app/shared/models/user-level.model';
 
 
 console.log('sono nelleffects ');
@@ -80,6 +80,14 @@ export class AuthEffects {
       () => of(new AuthActions.CheckSetUpFailed(true))
     ));
   }));
+
+    @Effect({dispatch: false})
+    authLogout$ = this.actions$
+ .pipe(ofType<AuthActions.LogoutAuthSuccess>(AuthActionTypes.LogoutAuthSuccess),
+    tap(
+      () => this.router.navigate(['/'])
+    )
+  );
  constructor(
    private actions$: Actions,
    private http: HttpClient,

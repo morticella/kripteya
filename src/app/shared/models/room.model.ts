@@ -1,5 +1,3 @@
-// import { Customer } from './customer.model';
-
 export interface Room {
   idBuilding: string;
   name: string;
@@ -7,7 +5,4 @@ export interface Room {
   beds: number;
   rent: number;
   deposit: number;
-  notice: Date;
-  booked: Date;
-  // customers: string;
 }
