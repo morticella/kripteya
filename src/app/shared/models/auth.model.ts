@@ -1,5 +1,5 @@
 export interface Auth {
   user: string;
-  logged: boolean;
-  loading: boolean;
+  password: string;
+  level: string;
 }

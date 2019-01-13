@@ -8,6 +8,7 @@ import { of } from 'rxjs';
 
 import { BuildingsActionTypes } from '../store/building-list.actions';
 import * as BuildingsActions from '../store/building-list.actions';
+import * as fromBuildings from '../store/building-list.reducer';
 import { Building } from '../../../../shared/models/building.model';
 
 
@@ -18,6 +19,9 @@ export class BuildingEffects {
   newBuilding: Building;
   error = 0;
   id: string;
+  idsLength: number;
+
+
 
   @Effect()
  loadBuildings$ = this.actions$
@@ -87,6 +91,7 @@ export class BuildingEffects {
  constructor(
    private actions$: Actions,
    private http: HttpClient,
+   private store: Store<fromBuildings.BuildingsState > ,
    private router: Router) {}
 }
 

@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 
 import { AuthActionTypes } from '../store/signup.actions';
 import * as AuthActions from '../store/signup.actions';
-import { Auth } from 'src/app/service/auth.model';
+import { Auth } from 'src/app/shared/models/auth.model';
 import { UsersLevel } from 'src/app/shared/models/user-level.model';
 
 
