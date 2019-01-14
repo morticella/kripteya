@@ -103,7 +103,7 @@ case AuthActionTypes.CheckSetUpFailed: {
       const loading = false;
       localStorage.removeItem('token');
       localStorage.removeItem('expiresIn');
-      localStorage.removeItem('stateBuildings');
+      localStorage.removeItem('buildingsState');
 
       return {
         ...state,

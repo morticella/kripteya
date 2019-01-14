@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem('stateBuildings');
       this.router.navigate(['/']);
      }, this.logout * 1000);
-    console.log('', this.logout);
 
   }
 

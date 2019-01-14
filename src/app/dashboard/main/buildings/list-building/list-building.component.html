@@ -3,15 +3,15 @@
         <div class="col-md-2">
 
         </div>
-            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm" *ngIf="!buildings.loading">Your Properties</span></div>
+            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm" *ngIf="!buildingsState$.loading">Your Properties</span></div>
 
-            <mat-spinner *ngIf="(buildings|async).loading"></mat-spinner>
-            <div *ngIf="(buildings | async).error && (buildings | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
+            <mat-spinner *ngIf="(buildingsState$|async).loading"></mat-spinner>
+            <div *ngIf="(buildingsState$ | async).error && (buildingsState$ | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
               <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
               </div>
-                <ng-container *ngFor="let i = index, let building of (buildings|async).entities | entities " >
+                <ng-container *ngFor="let i = index, let building of (buildingsState$|async).entities | entities " >
 
-                <mat-expansion-panel color="accent" *ngIf="!buildings.loading" >
+                <mat-expansion-panel color="accent" *ngIf="!buildingsState$.loading" >
                     <mat-expansion-panel-header>
                       <mat-panel-title color="accent" >
                         <h4 class="textWarn"><i class="material-icons">home</i> {{building.nameBuilding}} </h4>
