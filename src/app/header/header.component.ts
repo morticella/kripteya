@@ -15,6 +15,11 @@ export class HeaderComponent implements OnInit {
   authState$: Observable<AuthState>;
   authState: any;
   brand: string;
+  now: Date = new Date();
+  expiresIn: Date  = new Date(localStorage.getItem('expiresIn'));
+  timeDiff = Math.abs(this.expiresIn.getTime() - this.now.getTime());
+  logout = Math.ceil(this.timeDiff / (1000));
+  countdownLogout: string | number;
 
   constructor(
     private router: Router,
@@ -22,9 +27,21 @@ export class HeaderComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+
     this.brand = 'Kripteya';
     this.authState$ = this.store.select('auth');
     this.authState = this.authState$;
+    this.countdownLogout = +this.expiresIn - +this.now;
+    this.countdownLogout = JSON.stringify(this.expiresIn);
+    // this.logout = this.logout - 3550;
+     setInterval(() => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiresIn');
+      localStorage.removeItem('stateBuildings');
+      this.router.navigate(['/']);
+     }, this.logout * 1000);
+    console.log('', this.logout);
+
   }
 
   onLogout() {

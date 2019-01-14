@@ -6,6 +6,7 @@ import {switchMap, map, take} from 'rxjs/operators';
 import * as fromBuildings from '../store/building-list.reducer';
 import * as buildingsAction from '../store/building-list.actions';
 import { AppState } from 'src/app/reducers';
+import { pipe } from '@angular/core/src/render3';
 // import {selectAllBuildings} from '../store/building-list.selectors';
 
 @Component({
@@ -31,19 +32,16 @@ export class ListBuildingComponent implements OnInit {
 
     this.buildingsState$ = this.store.select<fromBuildings.BuildingsState>('buildings');
     this.buildings = this.buildingsState$;
-    this.storeControl.select(buildingsState => buildingsState).subscribe(
-      buildingState => {
-        this.buildingLength = buildingState.buildings.ids.length;
-        this.checkBuildingsLength = localStorage.getItem('stateBuildings');
-        if (+this.buildingLength !== +this.checkBuildingsLength) {
-          localStorage.setItem('stateBuildings', this.buildingLength );
-          this.store.dispatch(new buildingsAction.LoadingBuildings());
-        }
+    this.storeControl.dispatch(new buildingsAction.LoadingBuildings());
+    this.storeControl.select(buildingsState => buildingsState.buildings).subscribe(
+
         // this.checkBuildingsLength =
-        console.log('e dai', this.buildingLength, this.checkBuildingsLength, localStorage.getItem('stateBuildings'));
-    }
 
 
+        // buildingsState => {
+        //
+        //   console.log(buildingsState);
+        // }
     );
 
   }

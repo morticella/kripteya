@@ -1,10 +1,11 @@
 import {AuthActionTypes} from './signup.actions';
+import { NullViewportScroller } from '@angular/common/src/viewport_scroller';
 
 
 export interface AuthState {
   user: string;
   token: string;
-  tokenExpirationDate: number;
+  tokenExpirationDate: Date;
   authenticated: boolean;
   loading: boolean;
   error: boolean;
@@ -80,20 +81,18 @@ case AuthActionTypes.CheckSetUpFailed: {
       const loading = false;
       const error = false;
       const token = action.payload.token;
-      const tokenExpirationDate = action.payload.expiresIn;
-      setInterval(() => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('expiration');
-      }, 14400 * 1000);
+      const now = new Date();
+      const tokenExpirationDate = new Date(now.getTime() + (1 * 60 * 60 * 1000));
       localStorage.setItem('token', token);
-      localStorage.setItem('expiration', tokenExpirationDate);
+      localStorage.setItem('stateBuildings', undefined);
+      localStorage.setItem('expiresIn', tokenExpirationDate.toISOString());
 
       return {
         ...state,
         authenticated,
         loading,
         token,
-        tokenExpirationDate,
+        // tokenExpirationDate,
         error
         };
     }
@@ -103,7 +102,9 @@ case AuthActionTypes.CheckSetUpFailed: {
       const token = null;
       const loading = false;
       localStorage.removeItem('token');
-      localStorage.removeItem('expiration');
+      localStorage.removeItem('expiresIn');
+      localStorage.removeItem('stateBuildings');
+
       return {
         ...state,
         loading,
@@ -137,15 +138,15 @@ case AuthActionTypes.CheckSetUpFailed: {
       const loading = false;
       const error = false;
       const token = action.payload.token;
-      const tokenExpirationDate = action.payload.expiresIn;
+      // const tokenExpirationDate = action.payload.expiresIn;
       localStorage.setItem('token', token);
-      localStorage.setItem('expiration', tokenExpirationDate);
+      // localStorage.setItem('expiration', tokenExpirationDate);
       return {
         ...state,
         authenticated,
         loading,
         token,
-        tokenExpirationDate,
+        // tokenExpirationDate,
         error
         };
     }

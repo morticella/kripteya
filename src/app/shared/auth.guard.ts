@@ -19,7 +19,10 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private store: Store<AppState>) {}
 
-    isAuth: boolean;
+    isAuth = false;
+
+
+
 
   canActivate(
     route: ActivatedRouteSnapshot,
