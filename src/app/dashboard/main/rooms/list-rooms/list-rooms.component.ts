@@ -21,7 +21,7 @@ export class ListRoomsComponent implements OnInit {
     private route: ActivatedRoute
     ) {}
 
-  roomsState$: Observable<AppState>;
+  roomsState$: Observable<fromRooms.RoomsState>;
   rooms: any;
   check: number;
   checkRefresh: string | number ;
@@ -29,16 +29,11 @@ export class ListRoomsComponent implements OnInit {
 
   ngOnInit() {
     this.idBuilding = this.route.snapshot.params['idBuilding'];
-    // this.store.dispatch(new roomsAction.LoadingRooms());
-    this.roomsState$ = this.store.select<AppState>('rooms');
-    this.rooms = this.roomsState$;
-
-
-
-    // this.buildingsState$ = this.store.select<fromBuildings.BuildingsState>('buildings');
-    this.store.select(buildingsState => buildingsState).subscribe(
-        buildingsState => {
-         this.check = buildingsState.rooms.ids.length;
+    this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
+    // this.rooms = this.roomsState$;
+    this.store.select(roomsState => roomsState).subscribe(
+        roomsState => {
+         this.check = roomsState.rooms.ids.length;
           if (this.check === 0 && this.stopRefresh === 0) {
             this.stopRefresh = 1;
             this.store.dispatch(new roomsAction.LoadingRooms());
