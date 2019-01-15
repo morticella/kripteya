@@ -9,6 +9,7 @@ import { EditBuildingComponent } from './edit-building/edit-building.component';
 import { MatSharedModule } from 'src/app/shared/matShared.module';
 import { AppRoutesModule } from 'src/app/app.routes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { BuildingsRoutingModule } from './building-routes.module';
 
 
 
@@ -29,7 +30,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatSharedModule,
     CommonModule,
     AppRoutesModule,
-
+    BuildingsRoutingModule
   ]
 })
 
