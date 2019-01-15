@@ -9,11 +9,12 @@
             <div *ngIf="(buildingsState$ | async).error && (buildingsState$ | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
               <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
               </div>
-                <ng-container *ngFor="let i = index, let building of (buildingsState$|async).entities | entities " >
+                <ng-container *ngFor="let i = index, let building of (buildingsState$|async).entities | entities, let room of (roomsState$|async).entities | entities " >
 
                 <mat-expansion-panel color="accent" *ngIf="!buildingsState$.loading" >
                     <mat-expansion-panel-header>
                       <mat-panel-title color="accent" >
+                        <input type="hidden" name="idBuilding" [(ngModel)]="building._id" id="idBuilding">
                         <h4 class="textWarn"><i class="material-icons">home</i> {{building.nameBuilding}} </h4>
                         <!-- (buildings | async).entities[(buildings | async).ids[i]].nameBuilding -->
                       </mat-panel-title>
@@ -36,7 +37,7 @@
                                   routerLinkActive="router-link-active" routerLinkActive="router-link-active">Edit</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(building._id)">Delete</button>
+                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(building._id)" [disabled]="deleteControl(building._id)">Delete</button>
                               </div>
 
                           </div>

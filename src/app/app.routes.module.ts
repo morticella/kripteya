@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   { path: 'dashboard' , component: MainComponent, canActivate: [AuthGuard] },
 
 
-  { path: 'dashboard/new-customer' , component: NewCustomerComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/new-customer/:idRoom' , component: NewCustomerComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

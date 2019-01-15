@@ -29,7 +29,7 @@
                                     <button mat-raised-button class="text-center" type="submit" color="primary">View Customers</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-room/', room._id]" >New Customer</button>
+                                    <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', room._id]" > {{ room._id}}</button>
                                 </div>
                                 <div class="col-md-2">
                                     <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-room/', room._id]">Edit</button>
