@@ -18,8 +18,8 @@ const roomSchema = mongoose.Schema({
   rent: { type: Number, required: true },
   deposit: { type: Number, required: true },
   gender: { type: Boolean, required: true},
-  notice: { type: Date},
-  booked: { type: Date},
+  // notice: { type: Date},
+  // booked: { type: Date},
 });
 
 roomSchema.plugin(uniqueValidator);

@@ -146,8 +146,6 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
     state.entities[id].nameBuilding = action.payload.nameBuilding;
     state.entities[id].address = action.payload.address;
     state.entities[id].info = action.payload.info;
-    // const nameBuilding;
-    // console.log(state.entities[id].building.nameBuilding);
     return adapter.updateOne(action.payload, {
     ...state,
     ...state.entities[id].nameBuilding,

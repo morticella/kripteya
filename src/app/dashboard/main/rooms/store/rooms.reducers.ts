@@ -3,6 +3,7 @@ import {Rooms} from '../../../../shared/models/rooms.model';
 import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
 
 export interface RoomsState extends EntityState<Rooms> {
+  entities: {};
   Room: any;
   editRoom: any;
   id: string;
@@ -142,9 +143,15 @@ case RoomsActionTypes.EditRoomSuccess: {
   const loading = false;
   const error = false;
   const id = action.payload.id;
+
   return adapter.updateOne(action.payload, {
   ...state,
-  ...state.entities[action.payload.id],
+  ...state.entities[id].name = action.payload.name,
+  ...state.entities[id].gender = action.payload.gender,
+  ...state.entities[id].idBuilding = action.payload.idBuilding,
+  ...state.entities[id].beds = action.payload.beds,
+  ...state.entities[id].rent = action.payload.rent,
+  ...state.entities[id].deposit = action.payload.deposit,
   id,
   loading,
   error,

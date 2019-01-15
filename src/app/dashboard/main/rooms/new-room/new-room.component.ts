@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRooms from '../../../../reducers/index';
 import * as roomsAction from '../store/rooms.actions';
+import { identifierModuleUrl } from '@angular/compiler';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class NewRoomComponent implements OnInit {
   nameInvalid: string;
   faVenus = faVenus;
   faMars = faMars;
+  idBuilding: string;
   @Input() building: any;
 
   newRoom = new FormGroup({
@@ -41,6 +43,7 @@ export class NewRoomComponent implements OnInit {
     private store: Store<fromRooms.AppState>) { }
 
   ngOnInit() {
+    this.idBuilding = this.route.snapshot.params['idBuilding'];
     this.store.dispatch(new roomsAction.LoadingRooms());
   }
 
