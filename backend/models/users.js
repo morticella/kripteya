@@ -3,7 +3,7 @@ const url = "mongodb+srv://morticella:Yakuza1977@cluster0-acrnr.mongodb.net/test
 
 mongoose.connect(url)
 .then(() => {
-  console.log('connected');
+  console.log('connected users');
 })
 .catch(err => {
   console.log(err);

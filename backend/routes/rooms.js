@@ -19,8 +19,6 @@ router.post("/api/new-room",checkAuth, function (req, res) {
       rent: req.body.rent,
       gender: req.body.gender,
       deposit: req.body.deposit,
-      notice: req.body.notice,
-      booked: req.body.booked
     });
     room.save()
       .then(result => {
@@ -45,8 +43,7 @@ router.post("/api/new-room",checkAuth, function (req, res) {
     room.beds = req.body.beds;
     room.rent = req.body.rent;
     room.deposit = req.body.deposit;
-    room.notice = req.body.notice;
-    room.booked = req.body.booked;
+
 
     Room.updateOne({ _id: req.params.id }, room).then(
       () => {

@@ -17,11 +17,13 @@ mongoose.connect(url)
 const userRoutes = require('./routes/users');
 const Building = require('./routes/buildings');
 const Room = require('./routes/rooms');
+const Customer = require('./routes/customers');
 // const dashboardRoutes = require('./routes/dashboard');
 const checkAuth = require("./middleware/check-auth");
 const User = require('./models/users');
 const Buildings = require('./models/buildings');
-const Rooms = require('./models/rooms')
+const Rooms = require('./models/rooms');
+const Customers = require('./models/customers');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -49,9 +51,17 @@ app.get('/api/buildings',checkAuth,(req, res, next) => {
 app.get('/api/rooms',checkAuth,(req, res, next) => {
   Rooms.find()
   .then(statusList => {
-    //console.log('niente',statusList);
     const rooms = statusList;
     res.status(200).json(rooms);
+    next();
+  });
+});
+
+app.get('/api/customers',checkAuth,(req, res, next) => {
+  Customers.find()
+  .then(statusList => {
+    const customers = statusList;
+    res.status(200).json(customers);
     next();
   });
 });
@@ -78,5 +88,7 @@ app.use('', userRoutes);
 app.use('', Building);
 
 app.use('', Room);
+
+app.use('', Customer);
 
 module.exports = app;
