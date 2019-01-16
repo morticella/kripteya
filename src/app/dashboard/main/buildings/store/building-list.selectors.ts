@@ -16,8 +16,6 @@ export const selectBuildingById = (ids: string) => createSelector(
 export const selectAllBuildings = createSelector(
   selectBuildingState,
   fromBuildings.selectAll
-
-
 );
 
 

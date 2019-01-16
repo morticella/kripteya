@@ -16,15 +16,13 @@ import { MainComponent } from './dashboard/main/main.component';
 
 
 // Customers CRUD
-import { NewCustomerComponent } from './dashboard/main/customers/new-customer/new-customer.component';
+
 
 
 const appRoutes: Routes = [
   { path: '' , component: SignupComponent },
   { path: 'dashboard' , component: MainComponent, canActivate: [AuthGuard] },
 
-
-  { path: 'dashboard/new-customer/:idRoom/:idBuilding' , component: NewCustomerComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

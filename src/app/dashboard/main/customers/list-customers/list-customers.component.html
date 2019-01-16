@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="col-md-12">
+      <div class="col-md-2">
+
+      </div>
+          <div class="purple text-center" ><i class="material-icons md-64">person</i> <span class="titleForm" *ngIf="!customersState$.loading">Customers</span></div>
+          <mat-spinner *ngIf="(customersState$|async).loading"></mat-spinner>
+          <div *ngIf="(customersState$ | async).error && (customersState$ | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
+            <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
+            </div>
+              <ng-container *ngFor="let i = index, let customers of (customersState$|async).entities | entities " >
+              <div *ngIf="idRoom === customers.idRoom || idRoom === undefined">
+                <mat-expansion-panel color="accent" *ngIf="!customersState$.loading" >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title color="accent" >
+                        <h4 class="textWarn"><i class="material-icons">person</i> {{customers.name}} </h4>
+                        <!-- (customersState$ | async).entities[(customersState$ | async).ids[i]].nameRoom -->
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <!-- <p >{{customers.gender}}</p>
+                        <p >{{customers.beds}}</p> -->
+                        <p >{{customers.rent}}</p>
+                        <p >{{customers.deposit}}</p>
+                        <section class="text-right">
+                          <div class="row text-center">
+                            <div class="col-md-2"></div>
+                              <div class="col-md-4">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/customers-customer/']" >View Customers</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', customers._id, idRoom]" > New Customer</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-customers/', customers._id]">Edit</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(customers._id)">Delete</button>
+                              </div>
+                          </div>
+                        </section>
+                      </div>
+                  </mat-expansion-panel>
+                </div>
+          </ng-container>
+  </div>
+</div>

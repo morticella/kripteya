@@ -11,7 +11,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { MatSharedModule } from '../../shared/matShared.module';
 import { AppRoutesModule } from '../../app.routes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NewCustomerComponent } from './customers/new-customer/new-customer.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +19,6 @@ import { NewCustomerComponent } from './customers/new-customer/new-customer.comp
     CustomersComponent,
     PaymentsComponent,
     ReportsComponent,
-    NewCustomerComponent,
   ],
   imports: [
     CommonModule,

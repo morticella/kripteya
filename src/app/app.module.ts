@@ -19,6 +19,8 @@ import { SharedModule } from './shared/shared.module';
 import { DashboardModule } from './dashboard/main/dashboard.module';
 import { BuildingsModule } from './dashboard/main/buildings/buildings.module';
 import { RoomsModule } from './dashboard/main/rooms/rooms.module';
+import { CustomersModule } from './dashboard/main/customers/customers.module';
+
 
 import { AuthInterceptor } from './service/auth-interceptor';
 
@@ -43,6 +45,7 @@ import { reducers, metaReducers } from './reducers';
     DashboardModule,
     BuildingsModule,
     RoomsModule,
+    CustomersModule,
     SharedModule,
     MatSharedModule,
     AppRoutesModule,
