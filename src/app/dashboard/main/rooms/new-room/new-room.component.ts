@@ -9,7 +9,6 @@ import { Store } from '@ngrx/store';
 
 import * as fromRooms from '../../../../reducers/index';
 import * as roomsAction from '../store/rooms.actions';
-import { identifierModuleUrl } from '@angular/compiler';
 
 
 @Component({

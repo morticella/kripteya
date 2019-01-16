@@ -62,7 +62,7 @@ router.post("/api/login", (req, res, next) => {
       fetchedUser = userCheck;
       var atob = require('atob');
       let passHash =  atob(req.body.password);
-      console.log('Hash', passHash);
+      // console.log('Hash', passHash);
       return bcrypt.compare(passHash, userCheck.password);
     })
     .then(result => {

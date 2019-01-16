@@ -16,9 +16,9 @@ export const adapter: EntityAdapter<Buildings> =
 
 export const initialState: BuildingsState = adapter.getInitialState({
   entities: {},
+  building: null,
   editBuilding: null,
   id: null,
-  building: null,
   loading: false,
   error: false
 });
@@ -122,7 +122,7 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
     const editBuilding = state.entities[action.payload.id];
     return  {
     ...state,
-    ...state.entities[action.payload.id],
+    // ...state.entities[action.payload.id],
     editBuilding,
     id,
     loading,
@@ -140,18 +140,18 @@ export function BuildingsReducers(state: BuildingsState = initialState, action):
   }
 
   case BuildingsActionTypes.EditBuildingSuccess: {
-    const loading = false;
+    // const loading = false;
     const error = false;
     const id = action.payload.id;
-    state.entities[id].nameBuilding = action.payload.nameBuilding;
-    state.entities[id].address = action.payload.address;
-    state.entities[id].info = action.payload.info;
+    const loading = state.loading = false;
+    const info = state.entities[id].info = action.payload.info;
+    const address = state.entities[id].address = action.payload.address;
+    const nameBuilding = state.entities[id].nameBuilding = action.payload.nameBuilding;
     return adapter.updateOne(action.payload, {
     ...state,
-    ...state.entities[id].nameBuilding,
-    ...state.entities[id].address,
-    ...state.entities[id].info,
-    id,
+    nameBuilding,
+    address,
+    info,
     loading,
     error,
     });

@@ -1,32 +1,32 @@
-import {RoomsActionTypes} from './rooms.actions';
-import {Rooms} from '../../../../shared/models/rooms.model';
+import {CustomersActionTypes} from './customers.actions';
+import {Customers} from '../../../../shared/models/customers.model';
 import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
 
-export interface RoomsState extends EntityState<Rooms> {
+export interface CustomersState extends EntityState<Customers> {
   entities: {};
-  Room: any;
-  editRoom: any;
+  Customer: any;
+  editCustomer: any;
   id: string;
   loading: boolean;
   error: boolean;
 }
 
-export const adapter: EntityAdapter<Rooms> =
-  createEntityAdapter<Rooms>({selectId: rooms => rooms._id});
+export const adapter: EntityAdapter<Customers> =
+  createEntityAdapter<Customers>({selectId: customers => customers._id});
 
 
-export const initialState: RoomsState = adapter.getInitialState({
+export const initialState: CustomersState = adapter.getInitialState({
   entities: {},
-  editRoom: null,
+  editCustomer: null,
   id: null,
-  Room: null,
+  Customer: null,
   loading: false,
   error: false
 });
 
-export function RoomsReducers(state: RoomsState = initialState, action): RoomsState {
+export function CustomersReducers(state: CustomersState = initialState, action): CustomersState {
   switch (action.type) {
-    case RoomsActionTypes.LoadingRooms: {
+    case CustomersActionTypes.LoadingCustomers: {
       const loading = true;
       const error = false;
       return  {
@@ -35,7 +35,7 @@ export function RoomsReducers(state: RoomsState = initialState, action): RoomsSt
       error,
     };
     }
-    case RoomsActionTypes.LoadingRoomsFailed: {
+    case CustomersActionTypes.LoadingCustomersFailed: {
       const loading = false;
       const error = action.error;
       return {
@@ -44,7 +44,7 @@ export function RoomsReducers(state: RoomsState = initialState, action): RoomsSt
       error
     };
   }
-    case RoomsActionTypes.LoadingRoomsSuccess: {
+    case CustomersActionTypes.LoadingCustomersSuccess: {
       const loading = false;
       const error = false;
       return adapter.addAll(action.payload,
@@ -55,7 +55,7 @@ export function RoomsReducers(state: RoomsState = initialState, action): RoomsSt
         });
     }
 
-    case RoomsActionTypes.AddRoom: {
+    case CustomersActionTypes.AddCustomer: {
       const loading = true;
       const error = false;
       return  {
@@ -64,7 +64,7 @@ export function RoomsReducers(state: RoomsState = initialState, action): RoomsSt
       error
     };
   }
-  case RoomsActionTypes.AddRoomFailed: {
+  case CustomersActionTypes.AddCustomerFailed: {
     const error = action.error;
     const loading = false;
     return {
@@ -73,19 +73,19 @@ export function RoomsReducers(state: RoomsState = initialState, action): RoomsSt
     error
   };
 }
-  case RoomsActionTypes.AddRoomSuccess: {
+  case CustomersActionTypes.AddCustomerSuccess: {
     const loading = false;
     const error = false;
-    const room = action.payload;
+    const customer = action.payload;
     return adapter.addOne(action.payload, {
     ...state,
-    room,
+    customer,
     loading,
     error,
   });
 }
 
-case RoomsActionTypes.DeleteRoom: {
+case CustomersActionTypes.DeleteCustomer: {
   const loading = true;
   const error = false;
   return  {
@@ -94,7 +94,7 @@ case RoomsActionTypes.DeleteRoom: {
   error
   };
 }
-case RoomsActionTypes.DeleteRoomFailed: {
+case CustomersActionTypes.DeleteCustomerFailed: {
   const error = action.error;
   const loading = false;
   return {
@@ -104,7 +104,7 @@ case RoomsActionTypes.DeleteRoomFailed: {
   };
 }
 
-case RoomsActionTypes.DeleteRoomSuccess: {
+case CustomersActionTypes.DeleteCustomerSuccess: {
   const loading = false;
   const error = false;
   const id = action.payload;
@@ -116,20 +116,20 @@ case RoomsActionTypes.DeleteRoomSuccess: {
 });
 }
 
-case RoomsActionTypes.EditRoom: {
+case CustomersActionTypes.EditCustomer: {
   const loading = true;
   const error = false;
   const id = action.payload.id;
-  const editRoom = state.entities[action.payload.id];
+  const editCustomer = state.entities[action.payload.id];
   return  {
   ...state,
-  editRoom,
+  editCustomer,
   id,
   loading,
   error
   };
 }
-case RoomsActionTypes.EditRoomFailed: {
+case CustomersActionTypes.EditCustomerFailed: {
   const error = action.error;
   const loading = false;
   return {
@@ -139,11 +139,11 @@ case RoomsActionTypes.EditRoomFailed: {
   };
 }
 
-case RoomsActionTypes.EditRoomSuccess: {
+case CustomersActionTypes.EditCustomerSuccess: {
   const loading = false;
   const error = false;
   const id = action.payload.id;
-  console.log(action.payload.idBuilding);
+
   return adapter.updateOne(action.payload, {
   ...state,
   ...state.entities[id].name = action.payload.name,

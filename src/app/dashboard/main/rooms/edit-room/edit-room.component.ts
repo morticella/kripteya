@@ -45,6 +45,7 @@ export class EditRoomComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       gender: new FormControl(null, Validators.required),
       id: new FormControl( this.route.snapshot.params['idRoom']),
+      idBuilding: new FormControl( null, Validators.required),
       beds: new FormControl( null, Validators.required ),
       deposit: new FormControl( null, Validators.required  ),
       rent: new FormControl( null, Validators.required ),

@@ -68,7 +68,7 @@ export class EditBuilding implements Action {
 
 export class EditBuildingSuccess implements Action {
   readonly type = BuildingsActionTypes.EditBuildingSuccess;
-  constructor(public payload:  any ) {}
+  constructor(public payload:  Building ) {}
 }
 export class EditBuildingFailed implements Action {
   readonly type = BuildingsActionTypes.EditBuildingFailed;

@@ -31,9 +31,8 @@ export class HeaderComponent implements OnInit {
     this.brand = 'Kripteya';
     this.authState$ = this.store.select('auth');
     this.authState = this.authState$;
-    this.countdownLogout = +this.expiresIn - +this.now;
-    this.countdownLogout = JSON.stringify(this.expiresIn);
-    // this.logout = this.logout - 3550;
+
+    console.log('logout' , this.logout);
      setInterval(() => {
       localStorage.removeItem('token');
       localStorage.removeItem('expiresIn');

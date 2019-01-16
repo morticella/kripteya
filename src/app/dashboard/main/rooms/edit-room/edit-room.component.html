@@ -16,6 +16,7 @@
                       <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
                           <input matInput type="text" placeholder="Room Name" name="name" formControlName="name" [ngModel]="(room|async)?.entities[idRoom].name">
                           <input type="hidden" name="id" formControlName="id" [value]="(room|async).entities[idRoom]._id">
+                          <input type="hidden" name="idBuilding" formControlName="idBuilding" [ngModel]="(room|async).entities[idRoom].idBuilding">
                       </mat-form-field>
 
                   </section>

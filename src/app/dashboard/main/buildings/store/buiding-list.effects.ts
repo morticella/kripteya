@@ -43,8 +43,11 @@ export class BuildingEffects {
    this.error = 0;
     return this.http.post<Building>(this.urlBackEnd + '/api/new-building', this.newBuilding)
     .pipe(
-    map(
-       () => new BuildingsActions.AddBuildingSuccess(this.newBuilding),
+    switchMap(
+      () => [
+        new BuildingsActions.AddBuildingSuccess(this.newBuilding),
+        new BuildingsActions.LoadingBuildings()
+    ]
     ),
     tap(
       () => this.router.navigate(['dashboard/buildings'])
@@ -70,7 +73,7 @@ export class BuildingEffects {
    }));
   @Effect()
   EditBuilding$ = this.actions$
-  .pipe(ofType<BuildingsActions.EditBuilding>(BuildingsActionTypes.EditBuilding), tap( ),
+  .pipe(ofType<BuildingsActions.EditBuilding>(BuildingsActionTypes.EditBuilding),
   mergeMap(
     (action: BuildingsActions.EditBuilding) => {
     const id = action.payload.id;

@@ -71,7 +71,7 @@ export class RoomEffects {
      return this.http.put<Room>(this.urlBackEnd + '/api/new-room/' + id, this.newRoom)
      .pipe(
      map(
-      () => new RoomsActions.EditRoomSuccess(this.newRoom),
+      () => new RoomsActions.EditRoomSuccess(this.newRoom)
      ),
      tap(
       () => this.router.navigate(['dashboard/buildings'])

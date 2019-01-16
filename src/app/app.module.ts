@@ -25,6 +25,7 @@ import { AuthInterceptor } from './service/auth-interceptor';
 import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.effects';
 import { RoomEffects } from './dashboard/main/rooms/store/rooms.effects';
 import { AuthEffects } from './auth/signup/store/signup.effects';
+import { CustomerEffects } from './dashboard/main/customers/store/customers.effects';
 
 import { reducers, metaReducers } from './reducers';
 
@@ -45,7 +46,11 @@ import { reducers, metaReducers } from './reducers';
     SharedModule,
     MatSharedModule,
     AppRoutesModule,
-    EffectsModule.forRoot([BuildingEffects, RoomEffects, AuthEffects]),
+    EffectsModule.forRoot([
+      BuildingEffects,
+      RoomEffects,
+      AuthEffects,
+      CustomerEffects]),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],

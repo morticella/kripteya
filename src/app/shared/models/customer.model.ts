@@ -1,9 +1,11 @@
 export interface Customer {
-  building: string;
-  room: string;
+  _id?: string;
+  idBuilding: string;
+  idRoom: string;
   name: string;
-  gender: string;
+  // gender: string;
   rent: number;
   deposit: number;
+  booked: Date;
   notice: Date;
 }
