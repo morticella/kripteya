@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -29,6 +28,7 @@ export class ListRoomsComponent implements OnInit {
 
   ngOnInit() {
     this.idBuilding = this.route.snapshot.params['idBuilding'];
+
     this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
     // this.rooms = this.roomsState$;
     this.store.select(roomsState => roomsState).subscribe(
@@ -40,6 +40,8 @@ export class ListRoomsComponent implements OnInit {
            }
         });
   }
+
+
   onDelete(id: string) {
     this.store.dispatch(new roomsAction.DeleteRoom(id));
   }

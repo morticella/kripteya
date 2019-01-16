@@ -143,15 +143,21 @@ case RoomsActionTypes.EditRoomSuccess: {
   const loading = false;
   const error = false;
   const id = action.payload.id;
+  const name = state.entities[id].name = action.payload.name;
+  const gender = state.entities[id].gender = action.payload.gender;
+  const idBuilding = state.entities[id].idBuilding = action.payload.idBuilding;
+  const beds = state.entities[id].beds = action.payload.beds;
+  const rent = state.entities[id].rent = action.payload.rent;
+  const deposit = state.entities[id].deposit = action.payload.deposit;
   console.log(action.payload.idBuilding);
   return adapter.updateOne(action.payload, {
   ...state,
-  ...state.entities[id].name = action.payload.name,
-  ...state.entities[id].gender = action.payload.gender,
-  ...state.entities[id].idBuilding = action.payload.idBuilding,
-  ...state.entities[id].beds = action.payload.beds,
-  ...state.entities[id].rent = action.payload.rent,
-  ...state.entities[id].deposit = action.payload.deposit,
+  name,
+  gender,
+  idBuilding,
+  beds,
+  rent,
+  deposit,
   id,
   loading,
   error,
