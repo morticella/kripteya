@@ -142,16 +142,15 @@ case CustomersActionTypes.EditCustomerFailed: {
 case CustomersActionTypes.EditCustomerSuccess: {
   const loading = false;
   const error = false;
-  const id = action.payload.id;
+  const id = action.payload.idCustomer;
 
   return adapter.updateOne(action.payload, {
   ...state,
   ...state.entities[id].name = action.payload.name,
-  ...state.entities[id].gender = action.payload.gender,
-  ...state.entities[id].idBuilding = action.payload.idBuilding,
-  ...state.entities[id].beds = action.payload.beds,
   ...state.entities[id].rent = action.payload.rent,
   ...state.entities[id].deposit = action.payload.deposit,
+  ...state.entities[id].booked = action.payload.booked,
+  ...state.entities[id].notice = action.payload.notice,
   id,
   loading,
   error,

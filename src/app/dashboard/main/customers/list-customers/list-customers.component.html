@@ -26,13 +26,13 @@
                           <div class="row text-center">
                             <div class="col-md-2"></div>
                               <div class="col-md-4">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/customers-customer/']" >View Customers</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/customers-customer/']" >Check In</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', customers._id, idRoom]" > New Customer</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', customers._id, idRoom]" > Payment</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-customers/', customers._id]">Edit</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-customer/', customers._id]">Edit</button>
                               </div>
                               <div class="col-md-2">
                                   <button mat-raised-button class="text-center" color="warn" (click)="onDelete(customers._id)">Delete</button>

@@ -67,7 +67,7 @@ export class CustomerEffects {
   .pipe(ofType<CustomersActions.EditCustomer>(CustomersActionTypes.EditCustomer), tap( ),
   mergeMap(
     (action: CustomersActions.EditCustomer) => {
-    const id = action.payload.id;
+    const id = action.payload.idCustomer;
     this.newCustomer = action.payload;
      return this.http.put<Customer>(this.urlBackEnd + '/api/new-customer/' + id, this.newCustomer)
      .pipe(

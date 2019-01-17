@@ -5,11 +5,13 @@ import { AuthGuard } from 'src/app/shared/auth.guard';
 
 import { ListCustomersComponent } from './list-customers/list-customers.component';
 import { NewCustomerComponent } from './new-customer/new-customer.component';
+import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 const customersRoutes: Routes = [
   { path: 'dashboard/room-customers' , component: ListCustomersComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/room-customers/:idRomm' , component: ListCustomersComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/new-customer/:idRoom/:idBuilding' , component: NewCustomerComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/edit-customer/:idCustomer' , component: EditCustomerComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

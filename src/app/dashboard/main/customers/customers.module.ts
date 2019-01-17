@@ -9,6 +9,7 @@ import { CustomersRoutingModule } from './customers-routes.module';
 
 import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { ListCustomersComponent } from './list-customers/list-customers.component';
+import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 // import { BuildingsRoutingModule } from './building-routes.module';
 
 
@@ -17,7 +18,8 @@ import { ListCustomersComponent } from './list-customers/list-customers.componen
 @NgModule({
   declarations: [
     NewCustomerComponent,
-    ListCustomersComponent
+    ListCustomersComponent,
+    EditCustomerComponent
 
   ],
   exports: [
