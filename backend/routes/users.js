@@ -47,7 +47,7 @@ router.post("/api/signup", function (req, res) {
 // Login Method + Token
 
 router.post("/api/login", (req, res, next) => {
-  console.log('succede qualcosa qui?',req.body);
+
   let fetchedUser;
 
   User.findOne({ user: req.body.user })

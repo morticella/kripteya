@@ -10,6 +10,8 @@ import { MatSharedModule } from 'src/app/shared/matShared.module';
 import { AppRoutesModule } from 'src/app/app.routes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BuildingsRoutingModule } from './building-routes.module';
+import { DashboardModule } from '../dashboard.module';
+
 
 
 
@@ -29,6 +31,7 @@ import { BuildingsRoutingModule } from './building-routes.module';
     SharedModule,
     MatSharedModule,
     CommonModule,
+    DashboardModule,
     AppRoutesModule,
     BuildingsRoutingModule
   ]

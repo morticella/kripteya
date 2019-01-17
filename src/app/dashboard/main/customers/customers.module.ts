@@ -10,6 +10,7 @@ import { CustomersRoutingModule } from './customers-routes.module';
 import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { ListCustomersComponent } from './list-customers/list-customers.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
+import { DashboardModule } from '../dashboard.module';
 // import { BuildingsRoutingModule } from './building-routes.module';
 
 
@@ -29,6 +30,7 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
     SharedModule,
     MatSharedModule,
     CommonModule,
+    DashboardModule,
     AppRoutesModule,
     CustomersRoutingModule
     // BuildingsRoutingModule

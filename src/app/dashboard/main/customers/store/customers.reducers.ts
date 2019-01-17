@@ -74,12 +74,12 @@ export function CustomersReducers(state: CustomersState = initialState, action):
   };
 }
   case CustomersActionTypes.AddCustomerSuccess: {
-    const loading = false;
+
     const error = false;
-    const customer = action.payload;
+    const loading = state.loading = false;
+
     return adapter.addOne(action.payload, {
     ...state,
-    customer,
     loading,
     error,
   });

@@ -7,7 +7,8 @@ import { AuthGuard } from './shared/auth.guard';
 import { SignupComponent } from './auth/signup/signup.component';
 
 // Dashboard
-import { MainComponent } from './dashboard/main/main.component';
+// import { MainComponent } from './dashboard/main/main.component';
+import { DashboardComponent } from './dashboard/main/dashboard.component';
 
 // Buildings CRUD
 
@@ -21,7 +22,7 @@ import { MainComponent } from './dashboard/main/main.component';
 
 const appRoutes: Routes = [
   { path: '' , component: SignupComponent },
-  { path: 'dashboard' , component: MainComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard' , component: DashboardComponent, canActivate: [AuthGuard] },
 
 ];
 

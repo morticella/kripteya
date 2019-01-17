@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
+import {switchMap, map, withLatestFrom, concatMap, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { RoomsActionTypes } from '../store/rooms.actions';
@@ -36,9 +36,10 @@ export class RoomEffects {
    this.error = 0;
     return this.http.post<Room>(this.urlBackEnd + '/api/new-room', this.newRoom)
     .pipe(
-    map(
-       () => new RoomsActions.AddRoomSuccess(this.newRoom),
-    ),
+      concatMap(roomsState => [
+        new RoomsActions.AddRoomSuccess(this.newRoom),
+        new RoomsActions.LoadingRooms()
+      ]),
     tap(
       () => this.router.navigate(['dashboard/buildings'])
     ),

@@ -1,7 +1,7 @@
-
-         <div class="container-fluid">
-            <div class="col-md-12">
-<mat-card>
+<app-menu></app-menu>
+<div class="container-fluid">
+  <div class="col-md-12">
+      <mat-card>
          <div class="purple text-center" >        <i class="material-icons md-64">person</i> <span class="titleForm">Create a new Customer</span></div>
             <form [formGroup]="newCustomer" (ngSubmit)="onSubmit(newCustomer)">
                 <section class="container-fluid">

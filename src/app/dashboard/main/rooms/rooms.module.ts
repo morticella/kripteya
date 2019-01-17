@@ -9,6 +9,7 @@ import { NewRoomComponent } from './new-room/new-room.component';
 import { ListRoomsComponent } from './list-rooms/list-rooms.component';
 import { EditRoomComponent } from './edit-room/edit-room.component';
 import { RoomsRoutingModule } from './rooms-routes.module';
+import { DashboardModule } from '../dashboard.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RoomsRoutingModule } from './rooms-routes.module';
     SharedModule,
     MatSharedModule,
     CommonModule,
+    DashboardModule,
     AppRoutesModule,
     RoomsRoutingModule
   ]

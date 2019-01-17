@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {switchMap, map, withLatestFrom, skip, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
+import {switchMap, map, withLatestFrom, concatMap, catchError, tap, mergeMap, mapTo} from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { CustomersActionTypes } from '../store/customers.actions';
@@ -37,9 +37,10 @@ export class CustomerEffects {
    this.error = 0;
     return this.http.post<Customer>(this.urlBackEnd + '/api/new-customer', this.newCustomer)
     .pipe(
-    map(
-       () => new CustomersActions.AddCustomerSuccess(this.newCustomer),
-    ),
+      concatMap(currentUserAccount => [
+        new CustomersActions.AddCustomerSuccess(this.newCustomer),
+        new CustomersActions.LoadingCustomers()
+      ]),
     tap(
       () => this.router.navigate(['dashboard/buildings'])
     ),

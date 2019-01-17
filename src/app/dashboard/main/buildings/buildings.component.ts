@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 
 
 @Component({
-  selector: 'app-buildings',
+  selector: 'app-buildings-menu',
   templateUrl: './buildings.component.html',
   styleUrls: ['./buildings.component.css']
 })
