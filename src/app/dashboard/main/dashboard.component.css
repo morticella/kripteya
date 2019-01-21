@@ -1,3 +1,7 @@
 mat-grid-tile {
   background: #673ab7;
 }
+
+.md-64 {
+  color: #ffffff!important;
+}

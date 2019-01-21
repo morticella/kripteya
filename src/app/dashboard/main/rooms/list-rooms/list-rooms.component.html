@@ -4,21 +4,22 @@
         <div class="col-md-2">
 
         </div>
-            <div class="purple text-center" ><i class="material-icons md-64">local_hotel</i> <span class="titleForm" *ngIf="!roomsState$.loading">Rooms</span></div>
-            <mat-spinner *ngIf="(roomsState$|async).loading"></mat-spinner>
-            <div *ngIf="(roomsState$ | async).error && (roomsState$ | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
+            <div class="purple text-center" ><i class="material-icons md-64">local_hotel</i> <span class="titleForm" *ngIf="nameBuilding">{{nameBuilding}}'s</span> <span class="titleForm" *ngIf="!roomsState.loading">Rooms</span></div>
+            <mat-spinner *ngIf="(roomsState|async).loading"></mat-spinner>
+            <div *ngIf="(roomsState | async).error && (roomsState | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
               <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
               </div>
-                <ng-container *ngFor="let i = index, let room of (roomsState$|async).entities | entities " >
+                <ng-container *ngFor="let i = index, let room of (roomsState|async).entities | entities " >
                 <div *ngIf="idBuilding === room.idBuilding || idBuilding === undefined">
-                  <mat-expansion-panel color="accent" *ngIf="!roomsState$.loading" >
+                  <mat-expansion-panel color="accent" *ngIf="!roomsState.loading" >
                       <mat-expansion-panel-header>
                         <mat-panel-title color="accent" >
                           <h4 class="textWarn"><i class="material-icons">local_hotel</i> {{room.name}} </h4>
-                          <!-- (roomsState$ | async).entities[(roomsState$ | async).ids[i]].nameBuilding -->
+                          <!-- (roomsState | async).entities[(roomsState | async).ids[i]].nameBuilding -->
                         </mat-panel-title>
                       </mat-expansion-panel-header>
                       <div>
+                        {{room._id}}
                           <p >{{room.gender}}</p>
                           <p >{{room.beds}}</p>
                           <p >{{room.rent}}</p>
@@ -27,10 +28,10 @@
                             <div class="row text-center">
                               <div class="col-md-2"></div>
                                 <div class="col-md-4">
-                                    <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/room-customer/']" >View Customers</button>
+                                    <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/room-customers/', room._id]" [disabled]="!viewCustomerControl(room._id)">View Customers</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', room._id, idBuilding]" > New Customer</button>
+                                    <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', room._id, idBuilding]" [disabled]="!newCustomerControl(room._id) || room.beds === newCustomerControl(room._id)">New Customer </button>
                                 </div>
                                 <div class="col-md-2">
                                     <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-room/', room._id]">Edit</button>

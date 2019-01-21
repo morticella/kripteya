@@ -9,7 +9,7 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 const customersRoutes: Routes = [
   { path: 'dashboard/room-customers' , component: ListCustomersComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/room-customers/:idRomm' , component: ListCustomersComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/room-customers/:idRoom' , component: ListCustomersComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/new-customer/:idRoom/:idBuilding' , component: NewCustomerComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/edit-customer/:idCustomer' , component: EditCustomerComponent, canActivate: [AuthGuard] },
 ];
