@@ -15,11 +15,6 @@ import { AppState } from 'src/app/reducers';
 })
 export class ListRoomsComponent implements OnInit, OnDestroy {
 
-  constructor(
-    private store: Store<AppState>,
-    private route: ActivatedRoute
-    ) {}
-
   allowedActionControl$: any;
   roomsState$: Observable<AppState>;
   roomsState: Object;
@@ -31,6 +26,10 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
   reloadBuildings: number  | string;
   reloadCustomers: number | string;
 
+  constructor(
+    private store: Store<AppState>,
+    private route: ActivatedRoute) {}
+
   ngOnInit() {
     this.idBuilding = this.route.snapshot.params['idBuilding'];
 
@@ -40,7 +39,7 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
         appState => {
          this.reloadCustomers = appState.customers.ids[0];
          this.reloadBuildings = appState.buildings.ids[0];
-         this.reloadRooms = appState.buildings.ids[0];
+         this.reloadRooms = appState.rooms.ids[0];
          if (this.reloadCustomers ) {
           this.customersStateJSON = appState.customers.entities;
           this.customersStateString = JSON.stringify(this.customersStateJSON);
@@ -66,7 +65,6 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
         }
 
   }
-
   viewDeleteCustomerControl (idRoom: string) {
     if (this.customersStateString) {
       return this.customersStateString.includes(idRoom);
