@@ -46,7 +46,7 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
           this.customersStateString = JSON.stringify(this.customersStateJSON);
 
         }
-        // if the users select view page from a building with this statment I will show the Rooms Building Name
+        // if the users select view rooms from a building with this statment I will show the Rooms Building Name
         if (appState.buildings.entities[this.idBuilding]) {
           this.nameBuilding = appState.buildings.entities[this.idBuilding].nameBuilding;
 
@@ -67,12 +67,16 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
 
   }
 
-  viewCustomerControl (idRoom: string) {
-    return this.customersStateString.includes(idRoom);
+  viewDeleteCustomerControl (idRoom: string) {
+    if (this.customersStateString) {
+      return this.customersStateString.includes(idRoom);
+    }
   }
   newCustomerControl (idRoom: string) {
     const regex = new RegExp(idRoom, 'gi');
-    return (this.customersStateString.match(regex) || []).length;
+    if (this.customersStateString) {
+      return (this.customersStateString.match(regex) || []).length;
+    }
   }
   onDelete(id: string) {
     this.store.dispatch(new roomsAction.DeleteRoom(id));
