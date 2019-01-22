@@ -1,4 +1,64 @@
 <app-menu></app-menu>
-<p>
-  checkin works!
-</p>
+<div class="container-fluid">
+  <div class="col-md-12">
+      <mat-card>
+         <div class="purple text-center" >        <i class="material-icons md-64">person</i> <span class="titleForm">New Check In</span></div>
+            <form [formGroup]="newCustomer" (ngSubmit)="onSubmit(newCustomer)">
+                <section class="container-fluid">
+
+                    <!-- <mat-radio-group formControlName="gender">
+                        <mat-radio-button value="true" class="gender" checked> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
+                        <mat-radio-button value="false" class="gender"> <fa-icon [icon]="faVenus"></fa-icon> Female </mat-radio-button>
+                      </mat-radio-group> -->
+
+                    <!-- <mat-form-field class="container-fluid"> -->
+                        <input  type="hidden"  placeholder="idCustomer" name="idCustomer" formControlName="idCustomer" value="idCustomer">
+                        <input  type="hidden"  placeholder="idRoom" name="idRoom" formControlName="idRoom" value="idRoom">
+                        <input  type="hidden"  placeholder="idBuilding" name="idBuilding" formControlName="idBuilding" [ngModel]="idBuilding">
+                        <input  type="hidden"  placeholder="type" name="type" formControlName="type" value="'checkin'">
+                    <!-- </mat-form-field> -->
+
+                </section>
+                <section>
+                  <mat-form-field class="container-fluid">
+                      <input type="text" matInput placeholder="Customer name" name="name" formControlName="name">
+                  </mat-form-field>
+                </section>
+                  <!-- <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="number" matInput placeholder="Beds" name="beds" formControlName="beds">
+                      </mat-form-field>
+                  </section> -->
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="number" matInput placeholder="Weekly Rent" name="rent" formControlName="rent">
+                      </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit">
+                      </mat-form-field>
+                  </section>
+
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input matInput [matDatepicker]="from" placeholder="Payement from" formControlName="from">
+                          <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                          <mat-datepicker #from></mat-datepicker>
+                      </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input matInput [matDatepicker]="to" placeholder="Payement to" formControlName="to">
+                          <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                          <mat-datepicker #to></mat-datepicker>
+                      </mat-form-field>
+                  </section>
+                <section class="text-right">
+                    <button mat-raised-button class="text-right" type="submit" color="primary">Insert New Customer</button>
+                </section>
+              </form>
+            </mat-card>
+</div></div>
+
+

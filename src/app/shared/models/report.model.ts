@@ -3,9 +3,9 @@ export interface Report {
   now: Date;
   namePayment: string;
   nameBuilding: string;
-  nameRoom: string;
-  from: Date;
-  to: Date;
+  // nameRoom: string;
+  from?: Date;
+  to?: Date;
   amount: number;
   deposit?: number;
   info?: string;

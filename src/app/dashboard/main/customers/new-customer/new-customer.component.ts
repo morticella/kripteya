@@ -1,18 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
-// import * as fromRooms from '../../rooms/store/rooms.reducers';
-// import * as fromBuildings from '../../buildings/store/building-list.reducer';
-// import * as buildingsAction from '../../buildings/store/building-list.actions';
-import * as roomsAction from '../../rooms/store/rooms.actions';
-
-
-import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 
+import * as roomsAction from '../../rooms/store/rooms.actions';
 import {AppState} from '../../../../reducers/index';
 import * as customersAction from '../store/customers.actions';
+
+import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-new-customer',
@@ -21,9 +17,6 @@ import * as customersAction from '../store/customers.actions';
 })
 export class NewCustomerComponent implements OnInit {
 
-  // errorHeadersStatus: Subscription;
-  // errorClass: boolean;
-  // nameInvalid: string;
   faVenus = faVenus;
   faMars = faMars;
   idRoom: string;
@@ -52,7 +45,6 @@ export class NewCustomerComponent implements OnInit {
 
     this.idRoom = this.route.snapshot.params['idRoom'];
     this.idBuilding = this.route.snapshot.params['idBuilding'];
-    // here 9 means undefined I don't know how it doesn't work with === undedined or !
 
     this.store.select(appState => appState).subscribe(
       appState => {
@@ -78,6 +70,5 @@ export class NewCustomerComponent implements OnInit {
     this.store.select(roomsState => roomsState).subscribe(
           roomsState => this.idBuilding = roomsState.rooms.entities[this.idRoom].idBuilding
     );
-    console.log(this.idBuilding);
   }
 }

@@ -12,13 +12,17 @@ router.post("/api/new-report",checkAuth, function (req, res) {
 
     //Model
     const report = new Report({
-      idBuilding: req.body.idBuilding,
-      idRoom: req.body.idRoom,
-      name: req.body.name,
-      rent: req.body.rent,
+      now: req.body.now,
+      namePayment: req.body.namePayment,
+      nameBuilding: req.body.nameBuilding,
+      from: req.body.from,
+      to: req.body.to,
+      amount: req.body.amount,
       deposit: req.body.deposit,
-      notice: req.body.notice,
-      booked: req.body.booked
+      info: req.body.info,
+      type: req.body.type,
+      paymentType: req.body.paymentType
+
     });
     report.save()
       .then(result => {
