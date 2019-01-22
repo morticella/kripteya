@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <mat-card>
             <!-- <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit a Property</span></div> -->
-              <form [formGroup]="editBuilding" (ngSubmit)="onSubmit(editBuilding.value)">
+              <form [formGroup]="editBuilding" (ngSubmit)="onSubmit(editBuilding.value)" *ngIf="(building|async).ids.length > 0">
 
                   <section>
                       <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">

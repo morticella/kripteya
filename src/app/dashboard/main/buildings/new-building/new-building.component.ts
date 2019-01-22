@@ -1,11 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
 import {  Observable } from 'rxjs';
-import * as fromBuildings from '../../../../reducers/index';
-import * as buildingsAction from '../store/building-list.actions';
 
 import { Store } from '@ngrx/store';
+import * as fromBuildings from '../../../../reducers/index';
+import * as buildingsAction from '../store/building-list.actions';
 
 @Component({
   selector: 'app-new-building',

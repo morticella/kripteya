@@ -20,22 +20,23 @@ import * as roomsAction from '../store/rooms.actions';
 export class EditRoomComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-    private store: Store<fromRooms.RoomsState>,
+    private store: Store<AppState>,
     private emergencyStore: Store<AppState>) { }
 
-    @Input() room: any;
-    errorClass: boolean;
-    nameInvalid: string;
-    roomsState$: Observable<fromRooms.RoomsState>;
-    buildingsState$: Observable<fromBuildings.BuildingsState>;
+    // @Input()
+    room: any;
+    // errorClass: boolean;
+    // nameInvalid: string;
+    roomsState$: Observable<AppState>;
+    buildingsState$: Observable<AppState>;
     building: any;
     rooms: any;
-    idRoom: string;
-    gender: boolean;
-    beds: number;
     name: string;
-    rent: number;
+    gender: boolean;
+    idRoom: string;
+    beds: number;
     deposit: number;
+    rent: number;
     faVenus = faVenus;
     faMars = faMars;
     reloadBuildings: Object;
@@ -53,8 +54,8 @@ export class EditRoomComponent implements OnInit {
 
   ngOnInit() {
     this.idRoom = this.route.snapshot.params['idRoom'];
-    this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
-    this.buildingsState$ = this.store.select<fromBuildings.BuildingsState>('buildings');
+    this.roomsState$ = this.store.select<AppState>('rooms');
+    this.buildingsState$ = this.store.select<AppState>('buildings');
     this.room = this.roomsState$;
     this.building = this.buildingsState$;
 

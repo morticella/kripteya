@@ -1,7 +1,7 @@
 <app-menu></app-menu>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="(room | async).ids[0] && (building | async).ids[0]">
     <div class="col-md-12">
-        <mat-card>
+        <mat-card >
             <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit Room in {{(building|async)?.entities[(room|async).entities[idRoom].idBuilding].nameBuilding}}</span></div>
 
               <mat-spinner *ngIf="(room | async).loading"></mat-spinner>
@@ -14,7 +14,7 @@
                         </mat-radio-group>
                   </section>
                   <section>
-                      <mat-form-field class="container-fluid" [ngClass]="errorClass ? 'mat-form-field-invalid ng-invalid' : ''">
+                      <mat-form-field class="container-fluid" >
                           <input matInput type="text" placeholder="Room Name" name="name" formControlName="name" [ngModel]="(room|async)?.entities[idRoom].name">
                           <input type="hidden" name="id" formControlName="id" [value]="(room|async).entities[idRoom]._id">
                           <input type="hidden" name="idBuilding" formControlName="idBuilding" [ngModel]="(room|async).entities[idRoom].idBuilding">
