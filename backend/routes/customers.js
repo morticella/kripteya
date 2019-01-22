@@ -11,7 +11,6 @@ const router = express.Router();
 router.post("/api/new-customer",checkAuth, function (req, res) {
 
     //Model
-  console.log('hey');
     const customer = new Customer({
       idBuilding: req.body.idBuilding,
       idRoom: req.body.idRoom,

@@ -18,12 +18,14 @@ const userRoutes = require('./routes/users');
 const Building = require('./routes/buildings');
 const Room = require('./routes/rooms');
 const Customer = require('./routes/customers');
+const Report = require('./routes/reports');
 // const dashboardRoutes = require('./routes/dashboard');
 const checkAuth = require("./middleware/check-auth");
 const User = require('./models/users');
 const Buildings = require('./models/buildings');
 const Rooms = require('./models/rooms');
 const Customers = require('./models/customers');
+const Reports = require('./models/reports');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -66,6 +68,15 @@ app.get('/api/customers',checkAuth,(req, res, next) => {
   });
 });
 
+app.get('/api/reports',checkAuth,(req, res, next) => {
+  Reports.find()
+  .then(statusList => {
+    const reports = statusList;
+    res.status(200).json(reports);
+    next();
+  });
+});
+
 app.get('/api/users',(req, res, next) => {
   User.find()
   .then(usersList => {
@@ -90,5 +101,7 @@ app.use('', Building);
 app.use('', Room);
 
 app.use('', Customer);
+
+app.use('', Report);
 
 module.exports = app;
