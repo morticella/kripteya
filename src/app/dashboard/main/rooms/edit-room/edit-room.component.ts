@@ -1,5 +1,5 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 
 import { AppState } from 'src/app/reducers';
-import * as fromRooms from '../store/rooms.reducers';
-import * as fromBuildings from '../../buildings/store/building-list.reducer';
 import * as buildingsAction from '../../buildings/store/building-list.actions';
 import * as roomsAction from '../store/rooms.actions';
 
@@ -17,16 +15,13 @@ import * as roomsAction from '../store/rooms.actions';
   templateUrl: './edit-room.component.html',
   styleUrls: ['./edit-room.component.css']
 })
-export class EditRoomComponent implements OnInit {
+export class EditRoomComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
-    private store: Store<AppState>,
-    private emergencyStore: Store<AppState>) { }
+    private store: Store<AppState>) { }
 
-    // @Input()
     room: any;
-    // errorClass: boolean;
-    // nameInvalid: string;
+    emergencyReload$: any;
     roomsState$: Observable<AppState>;
     buildingsState$: Observable<AppState>;
     building: any;
@@ -59,23 +54,25 @@ export class EditRoomComponent implements OnInit {
     this.room = this.roomsState$;
     this.building = this.buildingsState$;
 
-    this.emergencyStore.select(appState => appState).subscribe(
+    this.emergencyReload$ = this.store.select(appState => appState).subscribe(
       appState => {
         this.reloadBuildings = appState.buildings.ids[0];
         this.reloadRooms = appState.rooms.ids[0];
       }
     );
-    if (!this.reloadBuildings) {
-      this.emergencyStore.dispatch(new buildingsAction.LoadingBuildings());
-    }
     if (!this.reloadRooms) {
-      this.emergencyStore.dispatch(new roomsAction.LoadingRooms());
+      this.store.dispatch(new roomsAction.LoadingRooms());
+    }
+    if (!this.reloadBuildings) {
+      this.store.dispatch(new buildingsAction.LoadingBuildings());
     }
   }
 
   onSubmit(editRoom: FormGroup) {
     this.store.dispatch(new roomsAction.EditRoom(editRoom));
   }
-
+  ngOnDestroy() {
+    this.emergencyReload$.unsubscribe();
+  }
 }
 

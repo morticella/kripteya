@@ -11,6 +11,8 @@ import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { ListCustomersComponent } from './list-customers/list-customers.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { DashboardModule } from '../dashboard.module';
+import { CheckinComponent } from './checkin/checkin.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 // import { BuildingsRoutingModule } from './building-routes.module';
 
 
@@ -20,7 +22,9 @@ import { DashboardModule } from '../dashboard.module';
   declarations: [
     NewCustomerComponent,
     ListCustomersComponent,
-    EditCustomerComponent
+    EditCustomerComponent,
+    CheckinComponent,
+    CheckoutComponent
 
   ],
   exports: [
