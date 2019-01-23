@@ -14,22 +14,45 @@
                     <!-- <mat-form-field class="container-fluid"> -->
                         <input  type="hidden"  placeholder="idCustomer" name="idCustomer" formControlName="idCustomer" value="idCustomer">
                         <input  type="hidden"  placeholder="idRoom" name="idRoom" formControlName="idRoom" value="idRoom">
-                        <input  type="hidden"  placeholder="idBuilding" name="idBuilding" formControlName="idBuilding" [ngModel]="idBuilding">
+                        <input  type="hidden"  placeholder="idBuilding" name="idBuilding" formControlName="idBuilding" value="'test'">
                         <input  type="hidden"  placeholder="type" name="type" formControlName="type" value="'checkin'">
+                        <input  type="hidden"  placeholder="now" name="now" formControlName="now" value="new Date()">
                     <!-- </mat-form-field> -->
 
                 </section>
                 <section>
                   <mat-form-field class="container-fluid">
-                      <input type="text" matInput placeholder="Customer name" name="name" formControlName="name">
+                      <input type="text" matInput placeholder="Customer name" name="namePayment" formControlName="namePayment">
                   </mat-form-field>
                 </section>
-                  <!-- <section>
-                      <mat-form-field class="container-fluid">
-                          <input type="number" matInput placeholder="Beds" name="beds" formControlName="beds">
+                <section>
+                    <mat-form-field class="container-fluid">
+                        <mat-select placeholder="Payment Type" name="paymentType" formControlName="paymentType">
+                          <mat-option [value]="'Cash'">
+                            Cash
+                          </mat-option>
+                          <mat-option [value]="'Other'">
+                            Other Kind
+                          </mat-option>
+                        </mat-select>
                       </mat-form-field>
-                  </section> -->
+                </section>
                   <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="number" matInput placeholder="Rent" name="amount" formControlName="amount">
+                      </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit">
+                      </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="text" matInput placeholder="Additional Info" name="info" formControlName="info">
+                      </mat-form-field>
+                  </section>
+                  <!-- <section>
                       <mat-form-field class="container-fluid">
                           <input type="number" matInput placeholder="Weekly Rent" name="rent" formControlName="rent">
                       </mat-form-field>
@@ -38,7 +61,7 @@
                       <mat-form-field class="container-fluid">
                           <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit">
                       </mat-form-field>
-                  </section>
+                  </section> -->
 
                   <section>
                       <mat-form-field class="container-fluid">

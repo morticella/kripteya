@@ -14,7 +14,8 @@ router.post("/api/new-report",checkAuth, function (req, res) {
     const report = new Report({
       now: req.body.now,
       namePayment: req.body.namePayment,
-      nameBuilding: req.body.nameBuilding,
+      idBuilding: req.body.idBuilding,
+      idRoom: req.body.idRoom,
       from: req.body.from,
       to: req.body.to,
       amount: req.body.amount,

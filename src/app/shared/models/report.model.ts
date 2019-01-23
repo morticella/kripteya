@@ -2,7 +2,8 @@ export interface Report {
   _id?: string;
   now: Date;
   namePayment: string;
-  nameBuilding: string;
+  idBuilding: string;
+  idRoom: string;
   // nameRoom: string;
   from?: Date;
   to?: Date;

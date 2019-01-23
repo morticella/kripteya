@@ -14,7 +14,8 @@ import {
   MatNativeDateModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatGridListModule
+  MatGridListModule,
+  MatSelectModule
 } from '@angular/material';
 
 @NgModule({
@@ -30,7 +31,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule
   ],
   exports: [
     // CommonModule,
@@ -45,7 +47,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},

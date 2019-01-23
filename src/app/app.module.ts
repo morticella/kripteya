@@ -28,6 +28,7 @@ import { BuildingEffects } from './dashboard/main/buildings/store/buiding-list.e
 import { RoomEffects } from './dashboard/main/rooms/store/rooms.effects';
 import { AuthEffects } from './auth/signup/store/signup.effects';
 import { CustomerEffects } from './dashboard/main/customers/store/customers.effects';
+import { ReportEffects } from './dashboard/main/reports/store/reports.effects';
 
 import { reducers, metaReducers } from './reducers';
 
@@ -53,7 +54,8 @@ import { reducers, metaReducers } from './reducers';
       BuildingEffects,
       RoomEffects,
       AuthEffects,
-      CustomerEffects]),
+      CustomerEffects,
+      ReportEffects]),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],

@@ -4,6 +4,10 @@
       <mat-card>
          <div class="purple text-center" >        <i class="material-icons md-64">person</i> <span class="titleForm">Create a new Customer</span></div>
             <form [formGroup]="newCustomer" (ngSubmit)="onSubmit(newCustomer)">
+              <section>
+                <p>{{ 'Building : ' + nameBuilding}}</p>
+                <p>{{'Room : ' + nameRoom}}</p>
+              </section>
                 <section class="container-fluid">
 
                     <!-- <mat-radio-group formControlName="gender">
@@ -12,8 +16,8 @@
                       </mat-radio-group> -->
 
                     <!-- <mat-form-field class="container-fluid"> -->
-                        <input  type="hidden"  placeholder="idRoom" name="idRoom" formControlName="idRoom" value="idRoom">
-                        <input  type="hidden"  placeholder="idBuilding" name="idBuilding" formControlName="idBuilding" [ngModel]="idBuilding">
+                        <input  type="hidden"  placeholder="idRoom" name="idRoom" formControlName="idRoom" value="idRoom"> {{idRoom}}
+                        <input  type="hidden"  placeholder="idBuilding" name="idBuilding" formControlName="idBuilding" [ngModel]="idBuilding"> {{idBuilding}}
 
                     <!-- </mat-form-field> -->
 
