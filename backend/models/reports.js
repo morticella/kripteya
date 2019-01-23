@@ -14,8 +14,9 @@ const uniqueValidator = require('mongoose-unique-validator');
 const reportsSchema = mongoose.Schema({
   now: { type: Date, required: true},
   namePayment: { type: String, required: true},
+  idCustomer: { type: String },
   idBuilding: { type: String, required: true },
-  idRoom: { type: String, required: true },
+  idRoom: { type: String },
   from: { type: Date },
   to: { type: Date },
   amount: { type: Number, required: true },

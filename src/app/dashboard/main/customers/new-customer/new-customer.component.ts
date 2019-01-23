@@ -79,7 +79,7 @@ export class NewCustomerComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(newCustomer: FormGroup) {
-    this.store.select<AppState[]>('customers');
+    // this.store.select<AppState[]>('customers');
     this.store.dispatch(new customersAction.AddCustomer(newCustomer.value));
   }
 

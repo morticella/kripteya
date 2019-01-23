@@ -1,0 +1,81 @@
+<app-menu></app-menu>
+<div class="container-fluid" *ngIf="(reportsState|async).ids[0]">
+  <div class="col-md-12">
+      <div class="col-md-2">
+
+      </div>
+          <div class="purple text-center" ><i class="material-icons md-64">money</i> <span class="titleForm" *ngIf="!reportsState.loading">Reports</span></div>
+          <mat-spinner *ngIf="(reportsState|async).loading"></mat-spinner>
+          <div *ngIf="(reportsState | async).error && (reportsState | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
+            <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
+            </div>
+              <ng-container *ngFor="let i = index, let reports of (reportsState|async).entities | entities " >
+              <div *ngIf="idRoom === reports.idRoom || idRoom === undefined">
+                <mat-expansion-panel color="accent" *ngIf="!reportsState.loading" >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title color="accent" >
+                        <h4 class="textWarn"><i class="material-icons">person</i> {{reports.namePayment}} </h4>
+                        <!-- (reportsState | async).entities[(reportsState | async).ids[i]].nameRoom -->
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <!-- <p >{{reports.gender}}</p>
+                        <p >{{reports.beds}}</p> -->
+                        <p >{{reports.rent}}</p>
+                        <p >{{reports.deposit}}</p>
+                        <section class="text-right">
+                          <div class="row text-center">
+                            <div class="col-md-2"></div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkin/', reports._id]" >Check In</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkout/', reports._id]" >Check Out</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-report/', reports._id, idRoom]" > Payment</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-report/', reports._id]">Edit</button>
+                              </div>
+                              <div class="col-md-2">
+                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(reports._id)">Delete</button>
+                              </div>
+                          </div>
+                        </section>
+                      </div>
+                  </mat-expansion-panel>
+                </div>
+          </ng-container>
+  </div>
+</div>
+
+<table mat-table *ngIf="dataSource.length > 0" [dataSource]="dataSource" class="mat-elevation-z8">
+    {{dataSource[0].namePayment}}
+    <!-- {{dataSource[0].namePayment}} -->
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="namePayment">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element">{{element.namePayment}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Amount </th>
+      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{element.deposit}} </td>
+    </ng-container> -->
+
+    <!-- <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container> -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

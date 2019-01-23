@@ -31,6 +31,7 @@ import { CustomerEffects } from './dashboard/main/customers/store/customers.effe
 import { ReportEffects } from './dashboard/main/reports/store/reports.effects';
 
 import { reducers, metaReducers } from './reducers';
+import { ReportsModule } from './dashboard/main/reports/reports.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { reducers, metaReducers } from './reducers';
     BuildingsModule,
     RoomsModule,
     CustomersModule,
+    ReportsModule,
     SharedModule,
     MatSharedModule,
     AppRoutesModule,
