@@ -6,6 +6,7 @@ import * as reportsAction from '../dashboard/main/reports/store/reports.actions'
 import * as roomsAction from '../dashboard/main/rooms/store/rooms.actions';
 import * as buildingsAction from '../dashboard/main/buildings/store/building-list.actions';
 import * as customersAction from '../dashboard/main/customers/store/customers.actions';
+import * as fromRooms from '../dashboard/main/rooms/store/rooms.reducers';
 import * as fromBuildings from '../dashboard/main/buildings/store/building-list.reducer';
 
 @Injectable({
@@ -17,7 +18,7 @@ export class StateService {
 
   allowedActionControl$ = this.store.select(state => state);
   buildingsState$ = this.store.select<fromBuildings.BuildingsState>('buildings');
-  roomsState$ = this.store.select<AppState>('rooms');
+  roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
   customersState$ = this.store.select<AppState>('customers');
   reportsState$ = this.store.select<AppState>('reports');
 
@@ -27,6 +28,7 @@ export class StateService {
   reloadReports: number | string;
 
   roomsStateString: string;
+  customersStateString: string;
 
   reloadControl() {
     if (!this.reloadReports && this.reloadReports !== 0) {
