@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable} from 'rxjs';
 
-import * as fromBuildings from '../store/building-list.reducer';
+import { AppState } from 'src/app/reducers';
 import * as buildingsAction from '../store/building-list.actions';
 
-import * as roomsActions from '../../rooms/store/rooms.actions';
-import * as fromRooms from '../../rooms/store/rooms.reducers';
-import { AppState } from 'src/app/reducers';
+import { StateService } from '../../../../service/state.service';
 
 @Component({
   selector: 'app-list-building',
@@ -17,40 +14,31 @@ import { AppState } from 'src/app/reducers';
 
 export class ListBuildingComponent implements OnInit, OnDestroy {
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>,
+              private stateService: StateService) {}
 
-  buildingsState$: Observable<fromBuildings.BuildingsState>;
-  roomsState$: Observable<fromRooms.RoomsState>;
+  buildingsState$: Object;
+  roomsState$: Object;
   allowedActionControl$: any;
-  buildings: Object;
-  roomsStateJSON: Object;
-  roomsStateString: string;
-  reloadRooms: number | string;
-  reloadBuildings: number  | string;
 
   ngOnInit() {
 
-    this.buildingsState$ = this.store.select<fromBuildings.BuildingsState>('buildings');
-    this.roomsState$ = this.store.select<fromRooms.RoomsState>('rooms');
-    this.allowedActionControl$ = this.store.select(appState => appState)
+    this.buildingsState$ = this.stateService.buildingsState$;
+    this.roomsState$ = this.stateService.roomsState$;
+    this.allowedActionControl$ = this.stateService.allowedActionControl$
       .subscribe( appState => {
-          this.reloadBuildings = appState.buildings.ids[0];
-          this.reloadRooms = appState.rooms.ids[0];
-          this.roomsStateJSON = appState.rooms.entities;
-          this.roomsStateString = JSON.stringify(this.roomsStateJSON);
+          this.stateService.reloadBuildings = appState.buildings.ids[0];
+          this.stateService.reloadRooms = appState.rooms.ids[0];
+          const roomsStateJSON = appState.rooms.entities;
+          this.stateService.roomsStateString = JSON.stringify(roomsStateJSON);
         });
 
-    if (!this.reloadRooms) {
-          this.store.dispatch(new roomsActions.LoadingRooms());
-    }
-    if (!this.reloadBuildings) {
-          this.store.dispatch(new buildingsAction.LoadingBuildings());
-    }
+    this.stateService.reloadControl();
   }
 
   deleteControl (idBuilding: string) {
-    if (this.roomsStateString) {
-      return this.roomsStateString.includes(idBuilding);
+    if (this.stateService.roomsStateString) {
+      return this.stateService.roomsStateString.includes(idBuilding);
     }
   }
   onDelete(id: string) {
