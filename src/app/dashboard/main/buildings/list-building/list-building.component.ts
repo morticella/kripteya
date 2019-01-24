@@ -27,8 +27,6 @@ export class ListBuildingComponent implements OnInit, OnDestroy {
     this.roomsState$ = this.stateService.roomsState$;
     this.allowedActionControl$ = this.stateService.allowedActionControl$
       .subscribe( appState => {
-          this.stateService.reloadBuildings = appState.buildings.ids[0];
-          this.stateService.reloadRooms = appState.rooms.ids[0];
           const roomsStateJSON = appState.rooms.entities;
           this.stateService.roomsStateString = JSON.stringify(roomsStateJSON);
         });

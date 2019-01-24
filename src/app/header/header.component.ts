@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   expiresIn: Date  = new Date(localStorage.getItem('expiresIn'));
   timeDiff = Math.abs(this.expiresIn.getTime() - this.now.getTime());
   logout = Math.ceil(this.timeDiff / (1000));
-  countdownLogout: string | number;
+  // countdownLogout: string | number;
 
   constructor(
     private router: Router,
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
     this.authState = this.authState$;
 
     console.log('logout' , this.logout);
-     setInterval(() => {
+     setTimeout(() => {
       localStorage.removeItem('token');
       localStorage.removeItem('expiresIn');
       localStorage.removeItem('stateBuildings');
