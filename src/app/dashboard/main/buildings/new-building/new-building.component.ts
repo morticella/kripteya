@@ -1,10 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {  Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import * as fromBuildings from '../../../../reducers/index';
 import * as buildingsAction from '../store/building-list.actions';
+import { StateService } from '../../../../service/state.service';
 
 @Component({
   selector: 'app-new-building',
@@ -22,20 +22,16 @@ export class NewBuildingComponent implements OnInit {
 
   constructor(
     private store: Store<fromBuildings.AppState>,
+    private stateService: StateService
     ) { }
 
-    errors$: Observable<fromBuildings.AppState[]>;
-    errors: any;
+    buildingsState$: any;
 
   ngOnInit() {
-
-    this.errors$ = this.store.select<fromBuildings.AppState[]>('buildings');
-    this.errors = this.errors$;
+    this.buildingsState$ = this.stateService.buildingsState$;
   }
 
   onSubmit(newBuilding: FormGroup) {
-    this.errors = this.errors$;
-    this.store.select<fromBuildings.AppState[]>('buildings');
     this.store.dispatch(new buildingsAction.AddBuilding(newBuilding.value));
   }
 }
