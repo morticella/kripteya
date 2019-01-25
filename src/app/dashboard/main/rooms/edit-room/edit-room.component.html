@@ -1,39 +1,39 @@
 <app-menu></app-menu>
-<div class="container-fluid" *ngIf="(room | async).ids[0] && (building | async).ids[0]">
+<div class="container-fluid" *ngIf="(roomsState$ | async).ids[0]">
     <div class="col-md-12">
         <mat-card >
-            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit Room in {{(building|async)?.entities[(room|async).entities[idRoom].idBuilding].nameBuilding}}</span></div>
+            <div class="purple text-center" ><i class="material-icons md-64">home</i> <span class="titleForm">Edit Room in {{nameBuilding}}</span></div>
 
-              <mat-spinner *ngIf="(room | async).loading"></mat-spinner>
+              <mat-spinner *ngIf="(roomsState$ | async).loading"></mat-spinner>
 
-            <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)" *ngIf="!(room | async).loading">
+            <form [formGroup]="editRoom" (ngSubmit)="onSubmit(editRoom.value)" *ngIf="!(roomsState$ | async).loading">
                   <section>
-                      <mat-radio-group formControlName="gender" [ngModel]="(room|async)?.entities[idRoom].gender">
-                          <mat-radio-button value="true" class="gender" [checked]="(room|async)?.entities[idRoom].gender === true"> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
-                          <mat-radio-button value="false" class="gender" [checked]="(room|async)?.entities[idRoom].gender === false"> <fa-icon [icon]="faVenus"></fa-icon> Female </mat-radio-button>
+                      <mat-radio-group formControlName="gender">
+                          <mat-radio-button value="true" class="gender" [checked]="gender === true"> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
+                          <mat-radio-button value="false" class="gender" [checked]="gender === false"> <fa-icon [icon]="faVenus"></fa-icon> Female </mat-radio-button>
                         </mat-radio-group>
                   </section>
                   <section>
                       <mat-form-field class="container-fluid" >
-                          <input matInput type="text" placeholder="Room Name" name="name" formControlName="name" [ngModel]="(room|async)?.entities[idRoom].name">
-                          <input type="hidden" name="id" formControlName="id" [value]="(room|async).entities[idRoom]._id">
-                          <input type="hidden" name="idBuilding" formControlName="idBuilding" [ngModel]="(room|async).entities[idRoom].idBuilding">
+                          <input matInput type="text" placeholder="Room Name" name="name" formControlName="name" >
+                          <input type="hidden" name="id" formControlName="id">
+                          <input type="hidden" name="idBuilding" formControlName="idBuilding">
                       </mat-form-field>
 
                   </section>
                   <section>
                       <mat-form-field class="container-fluid">
-                          <input type="number" matInput placeholder="Beds" name="beds" formControlName="beds" [ngModel]="(room|async).entities[idRoom].beds">
+                          <input type="number" matInput placeholder="Beds" name="beds" formControlName="beds">
                       </mat-form-field>
                     </section>
                   <section>
                     <mat-form-field class="container-fluid">
-                        <input type="number" matInput placeholder="Rent" name="rent" formControlName="rent" [ngModel]="(room|async).entities[idRoom].rent">
+                        <input type="number" matInput placeholder="Rent" name="rent" formControlName="rent" >
                     </mat-form-field>
                   </section>
                   <section>
                       <mat-form-field class="container-fluid">
-                          <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit" [ngModel]="(room|async).entities[idRoom].deposit">
+                          <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit">
                       </mat-form-field>
                     </section>
                   <section class="text-right">

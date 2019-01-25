@@ -2,13 +2,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+
+import { AppState } from 'src/app/reducers';
+import * as roomsAction from '../store/rooms.actions';
 
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 
-import { AppState } from 'src/app/reducers';
-import * as buildingsAction from '../../buildings/store/building-list.actions';
-import * as roomsAction from '../store/rooms.actions';
+
+import { StateService } from '../../../../service/state.service';
 
 @Component({
   selector: 'app-edit-room',
@@ -18,24 +19,15 @@ import * as roomsAction from '../store/rooms.actions';
 export class EditRoomComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
-    private store: Store<AppState>) { }
+              private store: Store<AppState>,
+              private stateService: StateService) { }
 
-    room: any;
-    emergencyReload$: any;
-    roomsState$: Observable<AppState>;
-    buildingsState$: Observable<AppState>;
-    building: any;
-    rooms: any;
-    name: string;
+    roomsState$: Object;
+    nameBuilding: string;
     gender: boolean;
-    idRoom: string;
-    beds: number;
-    deposit: number;
-    rent: number;
     faVenus = faVenus;
     faMars = faMars;
-    reloadBuildings: Object;
-    reloadRooms: Object;
+    allowedActionControl$: any;
 
     editRoom = new FormGroup({
       name: new FormControl(null, Validators.required),
@@ -43,36 +35,40 @@ export class EditRoomComponent implements OnInit, OnDestroy {
       id: new FormControl( this.route.snapshot.params['idRoom']),
       idBuilding: new FormControl( null, Validators.required),
       beds: new FormControl( null, Validators.required ),
-      deposit: new FormControl( null, Validators.required  ),
       rent: new FormControl( null, Validators.required ),
+      deposit: new FormControl( null, Validators.required  ),
     });
 
   ngOnInit() {
-    this.idRoom = this.route.snapshot.params['idRoom'];
-    this.roomsState$ = this.store.select<AppState>('rooms');
-    this.buildingsState$ = this.store.select<AppState>('buildings');
-    this.room = this.roomsState$;
-    this.building = this.buildingsState$;
 
-    this.emergencyReload$ = this.store.select(appState => appState).subscribe(
-      appState => {
-        this.reloadBuildings = appState.buildings.ids[0];
-        this.reloadRooms = appState.rooms.ids[0];
-      }
+    this.roomsState$ = this.stateService.roomsState$;
+
+    this.allowedActionControl$ = this.stateService.allowedActionControl$.subscribe(
+     appState => {
+       const id = this.route.snapshot.params['idRoom'];
+       if (appState.rooms.ids[0] && appState.buildings.ids[0]) {
+          this.editRoom.get('id').setValue(id);
+          this.editRoom.get('name').setValue(appState.rooms.entities[id].name);
+          this.editRoom.get('gender').setValue(appState.rooms.entities[id].gender);
+          this.gender = appState.rooms.entities[id].gender;
+          this.editRoom.get('beds').setValue(appState.rooms.entities[id].beds);
+          this.editRoom.get('rent').setValue(appState.rooms.entities[id].rent);
+          this.editRoom.get('deposit').setValue(appState.rooms.entities[id].deposit);
+          this.editRoom.get('idBuilding').setValue(appState.rooms.entities[id].idBuilding);
+          this.nameBuilding = appState.buildings.entities[appState.rooms.entities[id].idBuilding].nameBuilding;
+       }
+     }
     );
-    if (!this.reloadRooms) {
-      this.store.dispatch(new roomsAction.LoadingRooms());
-    }
-    if (!this.reloadBuildings) {
-      this.store.dispatch(new buildingsAction.LoadingBuildings());
-    }
+
+    this.stateService.reloadControl();
+
   }
 
   onSubmit(editRoom: FormGroup) {
     this.store.dispatch(new roomsAction.EditRoom(editRoom));
   }
   ngOnDestroy() {
-    this.emergencyReload$.unsubscribe();
+    this.allowedActionControl$.unsubscribe();
   }
 }
 
