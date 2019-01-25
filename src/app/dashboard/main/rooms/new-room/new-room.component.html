@@ -2,7 +2,7 @@
 <div class="container-fluid">
             <div class="col-md-12">
 <mat-card>
-         <div class="purple text-center" >        <i class="material-icons md-64">local_hotel</i> <span class="titleForm">Create a new Room</span></div>
+         <div class="purple text-center" >        <i class="material-icons md-64">local_hotel</i> <span class="titleForm">Create a new Room in {{nameBuilding}}</span></div>
             <form [formGroup]="newRoom" (ngSubmit)="onSubmit(newRoom)">
                 <section class="container-fluid">
 
@@ -37,21 +37,6 @@
                           <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit">
                       </mat-form-field>
                   </section>
-
-                  <!-- <section>
-                      <mat-form-field class="container-fluid">
-                          <input matInput [matDatepicker]="notice" placeholder="Select Notice Date" formControlName="notice">
-                          <mat-datepicker-toggle matSuffix [for]="notice"></mat-datepicker-toggle>
-                          <mat-datepicker #notice></mat-datepicker>
-                      </mat-form-field>
-                  </section>
-                  <section>
-                      <mat-form-field class="container-fluid">
-                          <input matInput [matDatepicker]="booked" placeholder="Select Booked Date" formControlName="booked">
-                          <mat-datepicker-toggle matSuffix [for]="booked"></mat-datepicker-toggle>
-                          <mat-datepicker #booked></mat-datepicker>
-                      </mat-form-field>
-                  </section> -->
                 <section class="text-right">
                     <button mat-raised-button class="text-right" type="submit" color="primary">Insert New Room</button>
                 </section>

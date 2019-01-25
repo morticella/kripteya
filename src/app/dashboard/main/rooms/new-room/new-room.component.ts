@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 
-
-import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-
 import * as fromRooms from '../../../../reducers/index';
 import * as roomsAction from '../store/rooms.actions';
+
+import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
+
+import { StateService } from '../../../../service/state.service';
 
 
 @Component({
@@ -16,15 +16,13 @@ import * as roomsAction from '../store/rooms.actions';
   templateUrl: './new-room.component.html',
   styleUrls: ['./new-room.component.css']
 })
-export class NewRoomComponent implements OnInit {
+export class NewRoomComponent implements OnInit, OnDestroy {
 
-  errorHeadersStatus: Subscription;
-  errorClass: boolean;
-  nameInvalid: string;
   faVenus = faVenus;
   faMars = faMars;
   idBuilding: string;
-  @Input() building: any;
+  nameBuilding: string;
+  allowedActionControl$: any;
 
   newRoom = new FormGroup({
     idBuilding: new FormControl(this.route.snapshot.params['idBuilding'], [Validators.required]),
@@ -33,22 +31,30 @@ export class NewRoomComponent implements OnInit {
     gender: new FormControl( true, Validators.required),
     rent: new FormControl( null, Validators.required),
     deposit: new FormControl( null, Validators.required),
-    notice: new FormControl( null),
-    booked: new FormControl( null),
+
   });
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<fromRooms.AppState>) { }
+    private store: Store<fromRooms.AppState>,
+    private stateService: StateService) { }
 
   ngOnInit() {
     this.idBuilding = this.route.snapshot.params['idBuilding'];
-    this.store.dispatch(new roomsAction.LoadingRooms());
+    this.stateService.reloadControl();
+    this.allowedActionControl$ = this.stateService.allowedActionControl$.subscribe(
+      appState => {
+        if (appState.buildings.ids[0]) {
+          this.nameBuilding = appState.buildings.entities[this.idBuilding].nameBuilding;
+        }
+      }
+    );
   }
 
   onSubmit(newRoom: FormGroup) {
-    this.store.select<fromRooms.AppState[]>('rooms');
     this.store.dispatch(new roomsAction.AddRoom(newRoom.value));
   }
-
+  ngOnDestroy() {
+    this.allowedActionControl$.unsubscribe();
+  }
 }
