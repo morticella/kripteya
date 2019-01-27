@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
 
-import * as buildingsAction from '../../buildings/store/building-list.actions';
-import * as roomsAction from '../../rooms/store/rooms.actions';
+import { Store } from '@ngrx/store';
 import {AppState} from '../../../../reducers/index';
 import * as customersAction from '../store/customers.actions';
 
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
+
+import { StateService } from '../../../../service/state.service';
 
 
 @Component({
@@ -24,15 +24,11 @@ export class NewCustomerComponent implements OnInit, OnDestroy {
   idBuilding: string;
   nameRoom: string;
   nameBuilding: string;
-  reloadBuildings: Object;
-  reloadRooms: Object;
   allowedActionControl$: any;
-  // @Input()
-  // room: any;
 
   newCustomer = new FormGroup({
     idRoom: new FormControl(this.route.snapshot.params['idRoom'], [Validators.required]),
-    idBuilding: new FormControl(null, [Validators.required]),
+    idBuilding: new FormControl(this.route.snapshot.params['idBuilding'], [Validators.required]),
     name: new FormControl(null, Validators.required),
     rent: new FormControl( null, Validators.required),
     deposit: new FormControl( null, Validators.required),
@@ -42,7 +38,8 @@ export class NewCustomerComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    private stateService: StateService) { }
 
   ngOnInit() {
 
@@ -51,38 +48,31 @@ export class NewCustomerComponent implements OnInit, OnDestroy {
     this.idRoom = this.route.snapshot.params['idRoom'];
     this.idBuilding = this.route.snapshot.params['idBuilding'];
 
-    this.allowedActionControl$ = this.store.select(appState => appState).subscribe(
+    this.allowedActionControl$ = this.stateService.allowedActionControl$.subscribe(
       appState => {
-        this.reloadRooms = appState.rooms.ids[0];
-        this.reloadBuildings = appState.buildings.ids[0];
         if (this.route.snapshot.params['idBuilding'] !== undefined) {
-          if (this.reloadRooms) {
+          if (appState.rooms.ids[0]) {
             this.idBuilding = appState.rooms.entities[this.idRoom].idBuilding;
           }
         }
-        if (this.reloadBuildings && this.reloadRooms && this.idBuilding) {
+        if (appState.rooms.ids[0] && appState.buildings.ids[0] && this.idBuilding) {
           this.nameBuilding = appState.buildings.entities[this.idBuilding].nameBuilding;
           this.nameRoom = appState.rooms.entities[this.idRoom].name;
         }
-
+        if (this.nameBuilding && this.nameRoom) {
+          this.newCustomer.get('rent').setValue(appState.rooms.entities[this.idRoom].rent);
+          this.newCustomer.get('deposit').setValue(appState.rooms.entities[this.idRoom].deposit);
+        }
       }
     );
 
-    if (!this.reloadBuildings) {
-      this.store.dispatch(new buildingsAction.LoadingBuildings());
-    }
-
-    if (!this.reloadRooms) {
-      this.store.dispatch(new roomsAction.LoadingRooms());
-    }
+    this.stateService.reloadControl();
 
   }
 
   onSubmit(newCustomer: FormGroup) {
-    // this.store.select<AppState[]>('customers');
     this.store.dispatch(new customersAction.AddCustomer(newCustomer.value));
   }
-
 
   ngOnDestroy() {
     this.allowedActionControl$.unsubscribe();

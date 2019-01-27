@@ -60,7 +60,6 @@ export class EditCustomerComponent implements OnInit, OnDestroy {
     this.stateService.reloadControl();
   }
 
-
   onSubmit(editCustomer: FormGroup) {
     this.store.dispatch(new customersAction.EditCustomer(editCustomer.value));
   }
