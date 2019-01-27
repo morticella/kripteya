@@ -1,54 +1,36 @@
 <app-menu></app-menu>
-<div class="container-fluid">
+<mat-spinner *ngIf="!(customersState$|async).ids[0]"></mat-spinner>
+<div class="container-fluid" *ngIf="(customersState$|async).ids[0]">
   <div class="col-md-12">
 <mat-card>
 <div class="purple text-center" >        <i class="material-icons md-64">person</i> <span class="titleForm">Edit Customer</span></div>
   <form [formGroup]="editCustomer" (ngSubmit)="onSubmit(editCustomer)">
-      <section class="container-fluid">
-
-          <!-- <mat-radio-group formControlName="gender">
-              <mat-radio-button value="true" class="gender" checked> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
-              <mat-radio-button value="false" class="gender"> <fa-icon [icon]="faVenus"></fa-icon> Female </mat-radio-button>
-            </mat-radio-group> -->
-
-          <!-- <mat-form-field class="container-fluid"> -->
-              <!-- <input  type="hidden"  placeholder="idRoom" name="idRoom" formControlName="idRoom" value="idRoom">
-              <input  type="hidden"  placeholder="idBuilding" name="idBuilding" formControlName="idBuilding" [ngModel]="idBuilding"> -->
-
-          <!-- </mat-form-field> -->
-
-      </section>
       <section>
         <mat-form-field class="container-fluid">
-            <input type="text" matInput placeholder="Customer name" name="name" formControlName="name" [ngModel]="(customersState$|async).entities[idCustomer].name">
+            <input type="text" matInput placeholder="Customer name" name="name" formControlName="name">
         </mat-form-field>
       </section>
-        <!-- <section>
-            <mat-form-field class="container-fluid">
-                <input type="number" matInput placeholder="Beds" name="beds" formControlName="beds">
-            </mat-form-field>
-        </section> -->
         <section>
             <mat-form-field class="container-fluid">
-                <input type="number" matInput placeholder="Weekly Rent" name="rent" formControlName="rent" [ngModel]="(customersState$|async).entities[idCustomer].rent">
+                <input type="number" matInput placeholder="Weekly Rent" name="rent" formControlName="rent">
             </mat-form-field>
         </section>
         <section>
             <mat-form-field class="container-fluid">
-                <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit" [ngModel]="(customersState$|async).entities[idCustomer].deposit">
+                <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit">
             </mat-form-field>
         </section>
 
         <section>
             <mat-form-field class="container-fluid">
-                <input matInput [matDatepicker]="notice" placeholder="Select Notice Date" formControlName="notice" [ngModel]="(customersState$|async).entities[idCustomer].notice">
+                <input matInput [matDatepicker]="notice" placeholder="Select Notice Date" formControlName="notice">
                 <mat-datepicker-toggle matSuffix [for]="notice"></mat-datepicker-toggle>
                 <mat-datepicker #notice></mat-datepicker>
             </mat-form-field>
         </section>
         <section>
             <mat-form-field class="container-fluid">
-                <input matInput [matDatepicker]="booked" placeholder="Select Booked Date" formControlName="booked" [ngModel]="(customersState$|async).entities[idCustomer].booked">
+                <input matInput [matDatepicker]="booked" placeholder="Select Booked Date" formControlName="booked">
                 <mat-datepicker-toggle matSuffix [for]="booked"></mat-datepicker-toggle>
                 <mat-datepicker #booked></mat-datepicker>
             </mat-form-field>

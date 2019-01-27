@@ -1,20 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-// import * as fromRooms from '../../rooms/store/rooms.reducers';
-// import * as fromCustomers from '../../buildings/store/building-list.reducer';
-// import * as buildingsAction from '../../buildings/store/building-list.actions';
-import * as roomsAction from '../../rooms/store/rooms.actions';
-
-
-import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-
 import {AppState} from '../../../../reducers/index';
 import * as customersAction from '../store/customers.actions';
-import * as fromCustomers from '../store/customers.reducers';
-import { Observable } from 'rxjs';
+
+import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
+
+import { StateService } from '../../../../service/state.service';
 
 
 @Component({
@@ -22,23 +16,17 @@ import { Observable } from 'rxjs';
   templateUrl: './edit-customer.component.html',
   styleUrls: ['./edit-customer.component.css']
 })
-export class EditCustomerComponent implements OnInit {
+export class EditCustomerComponent implements OnInit, OnDestroy {
 
-    // errorHeadersStatus: Subscription;
-  // errorClass: boolean;
-  // nameInvalid: string;
   faVenus = faVenus;
   faMars = faMars;
   idRoom: string;
   idCustomer: string;
-  reloadCustomers: Object;
-  reloadRooms: Object;
-  customersState$: Observable<fromCustomers.CustomersState>;
-  @Input() room: any;
+  customersState$: any;
+  allowedActionControl$: any;
 
   editCustomer = new FormGroup({
     idCustomer: new FormControl(this.route.snapshot.params['idCustomer'], [Validators.required]),
-    // idCustomer: new FormControl(null, [Validators.required]),
     name: new FormControl(null, Validators.required),
     rent: new FormControl( null, Validators.required),
     deposit: new FormControl( null, Validators.required),
@@ -48,39 +36,37 @@ export class EditCustomerComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    private stateService: StateService) { }
 
   ngOnInit() {
     this.idCustomer = this.route.snapshot.params['idCustomer'];
-    console.log(this.idCustomer);
-    // this.idRoom = this.route.snapshot.params['idRoom'];
-    // this.idCustomer = this.route.snapshot.params['idCustomer'];
-    // here 9 means undefined I don't know how it doesn't work with === undedined or !
-    this.customersState$ = this.store.select<fromCustomers.CustomersState>('customers');
-    this.store.select(appState => appState).subscribe(
+    this.customersState$ = this.stateService.customersState$;
+    this.allowedActionControl$ = this.stateService.allowedActionControl$.subscribe(
       appState => {
-        this.reloadRooms = appState.rooms.ids[0];
-        this.reloadCustomers = appState.customers.ids[0];
-        // this.findIdCustomer();
+        if (appState.customers.ids[0]) {
+          this.editCustomer.get('name').setValue(appState.customers.entities[this.idCustomer].name);
+          this.editCustomer.get('rent').setValue(appState.customers.entities[this.idCustomer].rent);
+          this.editCustomer.get('deposit').setValue(appState.customers.entities[this.idCustomer].deposit);
+          if (appState.customers.entities[this.idCustomer].notice) {
+            this.editCustomer.get('notice').setValue(new Date(appState.customers.entities[this.idCustomer].notice));
+          }
+          if (appState.customers.entities[this.idCustomer].booked) {
+            this.editCustomer.get('booked').setValue(new Date(appState.customers.entities[this.idCustomer].booked));
+          }
+        }
       }
     );
-
-    if (!this.reloadRooms) {
-      this.store.dispatch(new roomsAction.LoadingRooms());
-    }
-    if (!this.reloadCustomers) {
-      this.store.dispatch(new customersAction.LoadingCustomers());
-    }
-
-    // if (this.idCustomer.length === 9) {
-    //   this.findIdCustomer();
-    // }
+    this.stateService.reloadControl();
   }
 
 
   onSubmit(editCustomer: FormGroup) {
-    // this.store.select<AppState[]>('customers');
     this.store.dispatch(new customersAction.EditCustomer(editCustomer.value));
+  }
+
+  ngOnDestroy() {
+    this.allowedActionControl$.unsubscribe();
   }
 
 }
