@@ -1,21 +1,21 @@
 <app-menu></app-menu>
-<div class="container-fluid" *ngIf="(customersState|async).ids[0]">
+<div class="container-fluid" *ngIf="(customersState$|async).ids[0]">
   <div class="col-md-12">
       <div class="col-md-2">
 
       </div>
-          <div class="purple text-center" ><i class="material-icons md-64">person</i> <span class="titleForm" *ngIf="!customersState.loading">Customers</span></div>
-          <mat-spinner *ngIf="(customersState|async).loading"></mat-spinner>
-          <div *ngIf="(customersState | async).error && (customersState | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
+          <div class="purple text-center" ><i class="material-icons md-64">person</i> <span class="titleForm" *ngIf="!customersState$.loading">Customers</span></div>
+          <mat-spinner *ngIf="(customersState$|async).loading"></mat-spinner>
+          <div *ngIf="(customersState$ | async).error && (customersState$ | async).loading === false" class="alert alert-danger alert-dismissible text-center" color="primary">
             <strong>Error!</strong> Please Check your Internet connect or Try to reaload the page, if the problem persist please contact Us
             </div>
-              <ng-container *ngFor="let i = index, let customers of (customersState|async).entities | entities " >
+              <ng-container *ngFor="let i = index, let customers of (customersState$|async).entities | entities " >
               <div *ngIf="idRoom === customers.idRoom || idRoom === undefined">
-                <mat-expansion-panel color="accent" *ngIf="!customersState.loading" >
+                <mat-expansion-panel color="accent" *ngIf="!customersState$.loading" >
                     <mat-expansion-panel-header>
                       <mat-panel-title color="accent" >
                         <h4 class="textWarn"><i class="material-icons">person</i> {{customers.name}} </h4>
-                        <!-- (customersState | async).entities[(customersState | async).ids[i]].nameRoom -->
+                        <!-- (customersState$ | async).entities[(customersState$ | async).ids[i]].nameRoom -->
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div>
@@ -27,19 +27,19 @@
                           <div class="row text-center">
                             <div class="col-md-2"></div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkin/', customers._id]" >Check In</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkin/', customers._id]" [disabled]="checkInControl(customers._id, reportsArray)">Check In</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkout/', customers._id]" >Check Out</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkout/', customers._id]" [disabled]="!checkInControl(customers._id, reportsArray)">Check Out</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', customers._id, idRoom]" > Payment</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', customers._id, idRoom]" [disabled]="!checkInControl(customers._id, reportsArray)"> Payment</button>
                               </div>
                               <div class="col-md-2">
                                   <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-customer/', customers._id]">Edit</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(customers._id)">Delete</button>
+                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(customers._id)" [disabled]="checkInControl(customers._id, reportsArray)" [disabled]="checkInControl(customers._id, reportsArray) && checkOutControl(customers._id, reportsArray)">Delete</button>
                               </div>
                           </div>
                         </section>
