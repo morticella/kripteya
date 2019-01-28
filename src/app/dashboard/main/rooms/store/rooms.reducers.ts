@@ -9,6 +9,8 @@ export interface RoomsState extends EntityState<Rooms> {
   id: string;
   loading: boolean;
   error: boolean;
+  deleteControl: Function;
+  addNewControl: Function;
 }
 
 export const adapter: EntityAdapter<Rooms> =
@@ -17,11 +19,23 @@ export const adapter: EntityAdapter<Rooms> =
 
 export const initialState: RoomsState = adapter.getInitialState({
   entities: {},
+  ids: [],
   editRoom: null,
   id: null,
   Room: null,
   loading: false,
-  error: false
+  error: false,
+  deleteControl: (idRoom: string, stateControl: string) => {
+    if (stateControl) {
+      return stateControl.includes(idRoom);
+    }
+  },
+  addNewControl: (idRoom: string, stateControl: string) =>  {
+    const regex = new RegExp(idRoom, 'gi');
+    if (stateControl) {
+      return (stateControl.match(regex) || []).length;
+    }
+  }
 });
 
 export function RoomsReducers(state: RoomsState = initialState, action): RoomsState {
@@ -149,7 +163,6 @@ case RoomsActionTypes.EditRoomSuccess: {
   const beds = state.entities[id].beds = action.payload.beds;
   const rent = state.entities[id].rent = action.payload.rent;
   const deposit = state.entities[id].deposit = action.payload.deposit;
-  console.log(action.payload.idBuilding);
   return adapter.updateOne(action.payload, {
   ...state,
   name,

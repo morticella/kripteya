@@ -17,6 +17,7 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
   roomsState$: Object;
   idBuilding: string;
   nameBuilding: string;
+  love: Object;
 
   constructor(
     private store: Store<AppState>,
@@ -24,6 +25,7 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
     private stateService: StateService ) {}
 
   ngOnInit() {
+
     this.idBuilding = this.route.snapshot.params['idBuilding'];
 
     this.roomsState$ = this.stateService.roomsState$;
@@ -40,17 +42,7 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
 
       });
       this.stateService.reloadControl();
-  }
-  viewDeleteCustomerControl (idRoom: string) {
-    if (this.stateService.customersStateString) {
-      return this.stateService.customersStateString.includes(idRoom);
-    }
-  }
-  newCustomerControl (idRoom: string) {
-    const regex = new RegExp(idRoom, 'gi');
-    if (this.stateService.customersStateString) {
-      return (this.stateService.customersStateString.match(regex) || []).length;
-    }
+
   }
   onDelete(id: string) {
     this.store.dispatch(new roomsAction.DeleteRoom(id));
@@ -58,4 +50,5 @@ export class ListRoomsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.allowedActionControl$.unsubscribe();
   }
+
 }

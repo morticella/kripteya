@@ -3,14 +3,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import {AppState} from '../../../../reducers/index';
 import * as roomsAction from '../../rooms/store/rooms.actions';
 import * as buildingsAction from '../../buildings/store/building-list.actions';
 import * as reportsAction from '../../reports/store/reports.actions';
 import * as customersAction from '../store/customers.actions';
-import {AppState} from '../../../../reducers/index';
 
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
-// import { LoadingBuildings } from '../../buildings/store/building-list.actions';
+
 
 @Component({
   selector: 'app-checkin',
@@ -33,7 +33,6 @@ export class CheckinComponent implements OnInit, OnDestroy {
   reloadRooms: Object;
   reloadCustomers: Object;
   allowedActionControl$: any;
-  // @Input() room: any;
 
   newCustomer = new FormGroup({
     idCustomer: new FormControl(this.route.snapshot.params['idCustomer'], [Validators.required]),
@@ -55,12 +54,8 @@ export class CheckinComponent implements OnInit, OnDestroy {
     private store: Store<AppState>) { }
 
   ngOnInit() {
-    // this.newCustomer.get('idBuilding').setValue('some value');
     this.store.dispatch(new customersAction.LoadingCustomers());
     this.idCustomer = this.route.snapshot.params['idCustomer'];
-
-    // this.idRoom = this.route.snapshot.params['idRoom'];
-
     this.allowedActionControl$ = this.store.select(appState => appState).subscribe(
       appState => {
         this.reloadRooms = appState.rooms.ids[0];
@@ -76,8 +71,6 @@ export class CheckinComponent implements OnInit, OnDestroy {
             this.nameRoom = appState.rooms.entities[this.idRoom].name;
             this.nameBuilding = appState.buildings.entities[this.idBuilding].nameBuilding;
           }
-
-          console.log('name ', this.nameRoom);
         }
         if (this.idRoom && this.idBuilding && this.namePayment && this.amount && this.deposit) {
           this.newCustomer.get('idRoom').setValue(this.idRoom);
@@ -88,8 +81,6 @@ export class CheckinComponent implements OnInit, OnDestroy {
         }
       }
     );
-
-
     if (!this.reloadCustomers) {
       this.store.dispatch(new buildingsAction.LoadingBuildings());
     }
