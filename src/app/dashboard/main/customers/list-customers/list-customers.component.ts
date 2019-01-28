@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
 
+import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import * as customersAction from '../store/customers.actions';
+
 import { StateService } from '../../../../service/state.service';
 
 @Component({
@@ -49,13 +50,6 @@ export class ListCustomersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.allowedActionControl$.unsubscribe();
-  }
-  // maybe I could use Crossfilter library to improve the research speed
-  checkInControl(id: string, reports) {
-    return reports.find(report => report.idCustomer === id && report.type === 'checkin');
-  }
-  checkOutControl(id: string, reports) {
-    return reports.find(report => report.idCustomer === id && report.type === 'checkout');
   }
 }
 

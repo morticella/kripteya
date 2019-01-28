@@ -27,19 +27,21 @@
                           <div class="row text-center">
                             <div class="col-md-2"></div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkin/', customers._id]" [disabled]="checkInControl(customers._id, reportsArray)">Check In</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkin/', customers._id]" [disabled]="(customersState$|async).checkInControl(customers._id, reportsArray)">Check In</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkout/', customers._id]" [disabled]="!checkInControl(customers._id, reportsArray)">Check Out</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkout/', customers._id]" [disabled]="!(customersState$|async).checkInControl(customers._id, reportsArray)">Check Out</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', customers._id, idRoom]" [disabled]="!checkInControl(customers._id, reportsArray)"> Payment</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-customer/', customers._id, idRoom]" [disabled]="!(customersState$|async).checkInControl(customers._id, reportsArray)"> Payment</button>
                               </div>
                               <div class="col-md-2">
                                   <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-customer/', customers._id]">Edit</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(customers._id)" [disabled]="checkInControl(customers._id, reportsArray)" [disabled]="checkInControl(customers._id, reportsArray) && checkOutControl(customers._id, reportsArray)">Delete</button>
+                                  <button mat-raised-button class="text-center" color="warn" (click)="onDelete(customers._id)"
+                                  [disabled]="(customersState$|async).checkInControl(customers._id, reportsArray) && !(customersState$|async).checkOutControl(customers._id, reportsArray)
+                                  || (customersState$|async).checkInControl(customers._id, reportsArray)">Delete</button>
                               </div>
                           </div>
                         </section>

@@ -1,6 +1,8 @@
-import {CustomersActionTypes} from './customers.actions';
-import {Customers} from '../../../../shared/models/customers.model';
-import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { CustomersActionTypes } from './customers.actions';
+
+import { Customers } from '../../../../shared/models/customers.model';
+import { Report } from 'src/app/shared/models/report.model';
 
 export interface CustomersState extends EntityState<Customers> {
   entities: {};
@@ -9,6 +11,8 @@ export interface CustomersState extends EntityState<Customers> {
   id: string;
   loading: boolean;
   error: boolean;
+  checkInControl: Function;
+  checkOutControl: Function;
 }
 
 export const adapter: EntityAdapter<Customers> =
@@ -21,7 +25,13 @@ export const initialState: CustomersState = adapter.getInitialState({
   id: null,
   Customer: null,
   loading: false,
-  error: false
+  error: false,
+  checkInControl: (id: string, reports: Array<Report>) => {
+    return reports.find(report => report.idCustomer === id && report.type === 'checkin');
+  },
+  checkOutControl: (id: string, reports: Array<Report>) => {
+    return reports.find(report => report.idCustomer === id && report.type === 'checkout');
+  },
 });
 
 export function CustomersReducers(state: CustomersState = initialState, action): CustomersState {
