@@ -34,11 +34,6 @@ export class ListBuildingComponent implements OnInit, OnDestroy {
     this.stateService.reloadControl();
   }
 
-  deleteControl (idBuilding: string) {
-    if (this.stateService.roomsStateString) {
-      return this.stateService.roomsStateString.includes(idBuilding);
-    }
-  }
   onDelete(id: string) {
     this.store.dispatch(new buildingsAction.DeleteBuilding(id));
   }

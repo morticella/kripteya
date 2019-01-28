@@ -9,6 +9,7 @@ export interface BuildingsState extends EntityState<Buildings> {
   id: string;
   loading: boolean;
   error: boolean;
+  deleteControl: Function;
 }
 
 export const adapter: EntityAdapter<Buildings> =
@@ -20,7 +21,12 @@ export const initialState: BuildingsState = adapter.getInitialState({
   editBuilding: null,
   id: null,
   loading: false,
-  error: false
+  error: false,
+  deleteControl: (idBuilding: string, roomsState: string) => {
+    if (roomsState) {
+      return roomsState.includes(idBuilding);
+    }
+  }
 });
 
 export function BuildingsReducers(state: BuildingsState = initialState, action): BuildingsState {

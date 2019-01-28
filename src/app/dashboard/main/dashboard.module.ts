@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard.component';
 import { MatSharedModule } from '../../shared/matShared.module';
 import { AppRoutesModule } from '../../app.routes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NewPaymentComponent } from './payments/new-payment/new-payment.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CustomersComponent,
     PaymentsComponent,
     ReportsComponent,
+    NewPaymentComponent,
   ],
   imports: [
     CommonModule,
