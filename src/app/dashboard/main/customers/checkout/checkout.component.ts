@@ -10,6 +10,7 @@ import * as customersAction from '../store/customers.actions';
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 
 import { StateService } from 'src/app/service/state.service';
+import { Report } from 'src/app/shared/models/report.model';
 
 @Component({
   selector: 'app-checkout',
@@ -25,6 +26,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   namePayment: string;
   idCustomer: string;
   allowedActionControl$: any;
+  reportsArray = [];
 
   newCustomer = new FormGroup({
     idCustomer: new FormControl(this.route.snapshot.params['idCustomer'], [Validators.required]),
@@ -57,17 +59,30 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           this.namePayment = appState.customers.entities[this.idCustomer].name;
           const amount = appState.customers.entities[this.idCustomer].rent;
           const deposit = appState.customers.entities[this.idCustomer].deposit;
+          const reports = Object.values(appState.reports.entities);
+
           if (idRoom && idBuilding) {
             this.nameRoom = appState.rooms.entities[idRoom].name;
             this.nameBuilding = appState.buildings.entities[idBuilding].nameBuilding;
           }
-          if (idRoom && idBuilding && this.namePayment && amount && deposit) {
-            this.newCustomer.get('idRoom').setValue(idRoom);
-            this.newCustomer.get('idBuilding').setValue(idBuilding);
-            this.newCustomer.get('namePayment').setValue(this.namePayment);
-            this.newCustomer.get('amount').setValue(amount * 2);
-            this.newCustomer.get('deposit').setValue(deposit);
+
+          for (const report of reports) {
+            this.reportsArray.push(report);
           }
+
+          this.reportsArray = reports.sort((a: Report, b: Report) => {
+            return +new Date(b.to) - +new Date(a.to);
+          });
+
+          const from = new Date(appState.reports.lastPayment(this.idCustomer, this.reportsArray).to);
+              if (idRoom && idBuilding && this.namePayment && amount && deposit) {
+                this.newCustomer.get('idRoom').setValue(idRoom);
+                this.newCustomer.get('idBuilding').setValue(idBuilding);
+                this.newCustomer.get('namePayment').setValue(this.namePayment);
+                this.newCustomer.get('amount').setValue(amount);
+                this.newCustomer.get('deposit').setValue(deposit);
+                this.newCustomer.get('from').setValue(new Date(from));
+              }
         }
       }
     );
