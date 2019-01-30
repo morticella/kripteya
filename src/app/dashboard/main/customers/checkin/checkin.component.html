@@ -5,21 +5,12 @@
          <div class="purple text-center" >        <i class="material-icons md-64">person</i> <span class="titleForm">New Check In</span></div>
             <form [formGroup]="newCustomer" (ngSubmit)="onSubmit(newCustomer)">
                 <section class="container-fluid">
-
-                    <!-- <mat-radio-group formControlName="gender">
-                        <mat-radio-button value="true" class="gender" checked> <fa-icon [icon]="faMars"></fa-icon> Male </mat-radio-button>
-                        <mat-radio-button value="false" class="gender"> <fa-icon [icon]="faVenus"></fa-icon> Female </mat-radio-button>
-                      </mat-radio-group> -->
-
-                    <!-- <mat-form-field class="container-fluid"> -->
                         <input type="hidden" name="idCustomer" formControlName="idCustomer" value="idCustomer">
                         <input type="hidden" name="idRoom" formControlName="idRoom" value="idRoom">
                         <input type="hidden" name="idBuilding" formControlName="idBuilding" >
                         <input type="hidden" name="type" formControlName="type" value="'checkin'">
                         <input type="hidden" name="now" formControlName="now" value="new Date()">
                         <input type="hidden" name="namePayment" formControlName="namePayment">
-                    <!-- </mat-form-field> -->
-
                 </section>
                 <section>
                   <div class="container-fluid">
@@ -27,8 +18,6 @@
                           {{nameBuilding}} / {{nameRoom}} / {{namePayment}}
                       </h4>
                   </div>
-
-
                 </section>
                 <section>
                     <mat-form-field class="container-fluid">

@@ -1,4 +1,70 @@
 <app-menu></app-menu>
-<p>
-  checkout works!
-</p>
+<div class="container-fluid">
+  <div class="col-md-12">
+      <mat-card>
+         <div class="purple text-center" >        <i class="material-icons md-64">person</i> <span class="titleForm">New Check In</span></div>
+            <form [formGroup]="newCustomer" (ngSubmit)="onSubmit(newCustomer)">
+                <section class="container-fluid">
+                        <input type="hidden" name="idCustomer" formControlName="idCustomer" value="idCustomer">
+                        <input type="hidden" name="idRoom" formControlName="idRoom" value="idRoom">
+                        <input type="hidden" name="idBuilding" formControlName="idBuilding" >
+                        <input type="hidden" name="type" formControlName="type" value="'checkin'">
+                        <input type="hidden" name="now" formControlName="now" value="new Date()">
+                        <input type="hidden" name="namePayment" formControlName="namePayment">
+                </section>
+                <section>
+                  <div class="container-fluid">
+                      <h4>
+                          {{nameBuilding}} / {{nameRoom}} / {{namePayment}}
+                      </h4>
+                  </div>
+                </section>
+                <section>
+                    <mat-form-field class="container-fluid">
+                        <mat-select placeholder="Payment Type" name="paymentType" formControlName="paymentType">
+                          <mat-option [value]="'Cash'">
+                            Cash
+                          </mat-option>
+                          <mat-option [value]="'Other'">
+                            Other Kind
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="number" matInput placeholder="Rent" name="amount" formControlName="amount">
+                      </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="number" matInput placeholder="Deposit" name="deposit" formControlName="deposit">
+                      </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input matInput [matDatepicker]="from" placeholder="Payement from" formControlName="from">
+                          <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                          <mat-datepicker #from></mat-datepicker>
+                      </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input matInput [matDatepicker]="to" placeholder="Payement to" formControlName="to">
+                          <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                          <mat-datepicker #to></mat-datepicker>
+                      </mat-form-field>
+                  </section>
+                  <section>
+                      <mat-form-field class="container-fluid">
+                          <input type="text" matInput placeholder="Additional Info" name="info" formControlName="info">
+                      </mat-form-field>
+                  </section>
+                <section class="text-right">
+                    <button mat-raised-button class="text-right" type="submit" color="primary" [disabled]="!newCustomer.valid">Insert New Customer</button>
+                </section>
+              </form>
+            </mat-card>
+</div></div>
+
+

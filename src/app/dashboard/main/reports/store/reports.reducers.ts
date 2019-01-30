@@ -1,6 +1,7 @@
-import {ReportsActionTypes} from './reports.actions';
-import {Reports} from '../../../../shared/models/reports.model';
-import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
+import { ReportsActionTypes } from './reports.actions';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { Reports } from '../../../../shared/models/reports.model';
+import { Report } from '../../../../shared/models/report.model';
 
 export interface ReportsState extends EntityState<Reports> {
   entities: {};
@@ -9,6 +10,7 @@ export interface ReportsState extends EntityState<Reports> {
   id: string;
   loading: boolean;
   error: boolean;
+  lastPayment: Function;
 }
 
 export const adapter: EntityAdapter<Reports> =
@@ -21,7 +23,11 @@ export const initialState: ReportsState = adapter.getInitialState({
   id: null,
   report: null,
   loading: false,
-  error: false
+  error: false,
+  lastPayment: (id: string, reportsArray: Array<Report>) => {
+    return reportsArray.find(report => report.idCustomer === id && report.type === 'checkin' || report.type === 'rent');
+
+  }
 });
 
 export function ReportsReducers(state: ReportsState = initialState, action): ReportsState {

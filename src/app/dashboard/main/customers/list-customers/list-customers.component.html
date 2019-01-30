@@ -33,7 +33,7 @@
                                   <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/checkout/', customers._id]" [disabled]="!(customersState$|async).checkInControl(customers._id, reportsArray)">Check Out</button>
                               </div>
                               <div class="col-md-2">
-                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-payment/']" [disabled]="!(customersState$|async).checkInControl(customers._id, reportsArray)"> Payment</button>
+                                  <button mat-raised-button class="text-center" type="submit" color="primary" [routerLink]="['/dashboard/new-payment/' , customers._id]" [disabled]="!(customersState$|async).checkInControl(customers._id, reportsArray)"> Payment</button>
                               </div>
                               <div class="col-md-2">
                                   <button mat-raised-button class="text-center" type="submit" color="accent" [routerLink]="['/dashboard/edit-customer/', customers._id]">Edit</button>

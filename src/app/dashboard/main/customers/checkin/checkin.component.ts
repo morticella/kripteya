@@ -23,6 +23,7 @@ export class CheckinComponent implements OnInit, OnDestroy {
   faMars = faMars;
   nameBuilding: string;
   nameRoom: string;
+  namePayment: string;
   idCustomer: string;
   allowedActionControl$: any;
 
@@ -54,17 +55,17 @@ export class CheckinComponent implements OnInit, OnDestroy {
         if (appState.rooms.ids[0] && appState.buildings.ids[0] && appState.customers.ids[0]) {
           const idRoom = appState.customers.entities[this.idCustomer].idRoom;
           const idBuilding = appState.customers.entities[this.idCustomer].idBuilding;
-          const namePayment = appState.customers.entities[this.idCustomer].name;
+          this.namePayment = appState.customers.entities[this.idCustomer].name;
           const amount = appState.customers.entities[this.idCustomer].rent;
           const deposit = appState.customers.entities[this.idCustomer].deposit;
           if (idRoom && idBuilding) {
             this.nameRoom = appState.rooms.entities[idRoom].name;
             this.nameBuilding = appState.buildings.entities[idBuilding].nameBuilding;
           }
-          if (idRoom && idBuilding && namePayment && amount && deposit) {
+          if (idRoom && idBuilding && this.namePayment && amount && deposit) {
             this.newCustomer.get('idRoom').setValue(idRoom);
             this.newCustomer.get('idBuilding').setValue(idBuilding);
-            this.newCustomer.get('namePayment').setValue(namePayment);
+            this.newCustomer.get('namePayment').setValue(this.namePayment);
             this.newCustomer.get('amount').setValue(amount * 2);
             this.newCustomer.get('deposit').setValue(deposit);
           }
